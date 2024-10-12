@@ -1,0 +1,253 @@
+[versions]
+
+# android
+agp = "8.5.2"
+app_compat = "1.7.0"
+android_lifecycle = "2.8.5"
+android_core = "1.13.1"
+android_annotation = "1.8.2"
+
+# compose
+compiler = "1.5.15"
+compose_bom = "2024.09.01"
+activity = "1.9.2"
+view_model = "2.8.5"
+navigation = "2.8.0"
+accompanist = "0.34.0"
+composePlugin = "1.6.11"
+
+# testing
+junit = "5.11.0"
+mokito_core = "5.13.0"
+mokito_kotlin = "5.4.0"
+
+# kotlin
+kotlin = "2.0.20"
+
+# coroutines
+coroutines = "1.8.1"
+
+# serialization
+serialization = "1.7.2"
+
+# jvm
+jvm = "1.8.0"
+
+# room
+room = "2.6.1"
+
+# network
+retrofit = "2.11.0"
+ok_http = "5.0.0-alpha.14"
+
+# koin
+koin = "3.5.6"
+
+# work_manager
+work_manager = "2.9.1"
+
+# ksp
+ksp = "2.0.20-1.0.24"
+
+# coil
+coil = "2.7.0"
+
+# paging
+paging = "3.3.2"
+
+# orbit
+orbit = "9.0.0"
+
+# data_store
+data_store = "1.1.1"
+
+# desugar
+desugar = "2.1.2"
+
+# browser
+browser = "1.8.0"
+
+# SETTINGS
+
+packageName = "com.evo"
+
+[libraries]
+
+# network
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+ok_http = { module = "com.squareup.okhttp3:okhttp", version.ref = "ok_http" }
+
+# koin
+koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin_android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin_compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin_work_manager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+
+# work_manager
+work_manager = { module = "androidx.work:work-runtime-ktx", version.ref = "work_manager" }
+
+# coil
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+# compose
+compose_bom = { module = "androidx.compose:compose-bom", version.ref = "compose_bom" }
+compose_activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+compose_view_model = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "view_model" }
+compose_web_view = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
+compose_persmissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+compose_navigatiom_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
+compose_navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+material3 = { module = "androidx.compose.material3:material3" }
+preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+icons = { module = "androidx.compose.material:material-icons-extended" }
+ui = { module = "androidx.compose.ui:ui" }
+animation = { module = "androidx.compose.animation:animation" }
+
+# room
+room_runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room_kotlin = { module = "androidx.room:room-ktx", version.ref = "room" }
+room_compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# paging
+paging_compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+paging_runtime = { module = "androidx.paging:paging-runtime", version.ref = "paging" }
+
+# orbit
+orbit_android = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
+orbit_compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+orbit_core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
+
+# data_store
+data_store_core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "data_store" }
+data_store_preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "data_store" }
+
+# browser
+browser = { module = "androidx.browser:browser", version.ref = "browser" }
+
+# android
+android_core = { module = "androidx.core:core-ktx", version.ref = "android_core" }
+android_lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android_lifecycle" }
+app_compat = { module = "androidx.appcompat:appcompat", version.ref = "app_compat" }
+annotation = { module = "androidx.annotation:annotation-jvm", version.ref = "android_annotation" }
+
+# coroutines
+kotlin_coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+# serialization
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+# testing
+junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+mokito_core = { module = "org.mockito:mockito-core", version.ref = "mokito_core" }
+mokito_kotlin = { module = "org.mockito.kotlin:mockito-kotlin", version.ref = "mokito_kotlin" }
+mokito_android = { module = "org.mockito:mockito-android", version.ref = "mokito_core" }
+
+#plugins
+
+# desugar
+desugar = { module = "com.android.tools:desugar_jdk_libs", version.ref = "desugar" }
+
+android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+
+kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+
+[plugins]
+
+# android
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+
+# compose
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "composePlugin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+# kotlin
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
+# ksp
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+
+# koin
+koin = [
+    "koin_core",
+    "koin_android",
+    "koin_compose",
+    "koin_work_manager",
+]
+
+# work_manager
+workManager = [
+    "work_manager",
+]
+
+# paging
+paging = [
+    "paging_compose",
+    "paging_runtime",
+]
+
+# android
+android = [
+    "android_core",
+    "android_lifecycle",
+    "app_compat",
+    "annotation",
+]
+
+# junit
+testing = [
+    "junit",
+    "mokito_core",
+    "mokito_kotlin",
+    "mokito_android",
+]
+
+# datastore
+dataStore = [
+    "data_store_core",
+    "data_store_preferences",
+]
+
+# room
+room = [
+    "room_runtime",
+    "room_kotlin",
+    "serialization",
+    "kotlin_coroutines",
+]
+
+# network
+network = [
+    "retrofit",
+    "ok_http",
+    "serialization",
+    "kotlin_coroutines",
+]
+
+# orbit
+orbit = [
+    "orbit_android",
+    "orbit_compose",
+    "orbit_core",
+]
+
+#PACKS
+
+
+ui = [
+    "compose_activity",
+    "compose_view_model",
+    "compose_web_view",
+    "compose_persmissions",
+    "compose_navigatiom_animation",
+    "compose_navigation",
+    "material3",
+    "preview",
+    "icons",
+    "ui",
+    "animation",
+    "coil",
+    "browser",
+]

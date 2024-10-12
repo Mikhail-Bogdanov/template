@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:name="com.evo.team.App"
+        android:icon="@mipmap/ic_launcher"
+        android:label="Template"
+        android:largeHeap="true"
+        android:hardwareAccelerated="true"
+        android:roundIcon="@mipmap/ic_launcher_round">
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
+
+    </application>
+
+</manifest>
