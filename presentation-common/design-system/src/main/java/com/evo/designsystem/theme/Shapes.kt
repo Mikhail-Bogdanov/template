@@ -1,4 +1,4 @@
-package com.evo.designsystem.shapes
+package com.evo.designsystem.theme
 
 import androidx.compose.foundation.shape.CornerBasedShape
 import androidx.compose.foundation.shape.RoundedCornerShape

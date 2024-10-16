@@ -2,10 +2,6 @@ package com.evo.designsystem.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.evo.designsystem.colors.Colors
-import com.evo.designsystem.colors.LocalColors
-import com.evo.designsystem.shapes.Shapes
-import com.evo.designsystem.textstyles.TextStyles
 
 
 @Composable

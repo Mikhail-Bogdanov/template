@@ -6,6 +6,7 @@ import com.evo.customplugins.extensions.configureCompose
 import com.evo.customplugins.extensions.configureComposeDependencies
 import com.evo.customplugins.extensions.configureKoinDependencies
 import com.evo.customplugins.extensions.libs
+import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
@@ -29,6 +30,7 @@ class DesignSystem : Plugin<Project> {
         dependencies {
             configureComposeDependencies(libs)
             configureKoinDependencies(libs)
+            moduleImplementation(":presentation-common:presentation-extensions")
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.evo.designsystem.textstyles
+package com.evo.designsystem.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.sp
@@ -7,35 +7,35 @@ import androidx.compose.ui.unit.sp
 object TextStyles {
 
     /**
-     *  огромный
+     *  giant
      */
     val display: TextStyle = TextStyle(
         fontSize = 24.sp
     )
 
     /**
-     *  большой
+     *  big
      */
     val title: TextStyle = TextStyle(
         fontSize = 20.sp
     )
 
     /**
-     *  средний
+     *  medium
      */
     val body: TextStyle = TextStyle(
         fontSize = 16.sp
     )
 
     /**
-     *  самый маленький
+     *  small
      */
     val line: TextStyle = TextStyle(
         fontSize = 12.sp
     )
 
     /**
-     *  для всех кнопок
+     *  for standard button
      */
     val button: TextStyle = TextStyle(
         fontSize = 16.sp

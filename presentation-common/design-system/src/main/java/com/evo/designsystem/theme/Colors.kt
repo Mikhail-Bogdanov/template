@@ -1,9 +1,8 @@
-package com.evo.designsystem.colors
+package com.evo.designsystem.theme
 
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.evo.designsystem.theme.ThemeType
 
 
 internal fun Colors(themeType: ThemeType): Colors = when (themeType) {
@@ -19,28 +18,41 @@ abstract class Colors {
     abstract val onBackground: Color
 
     abstract val primary: Color
+    abstract val errorPrimary: Color
+    abstract val disabledPrimary: Color
     abstract val onPrimary: Color
+    abstract val disabledOnPrimary: Color
 
     abstract val secondary: Color
+    abstract val errorSecondary: Color
+    abstract val disabledSecondary: Color
     abstract val onSecondary: Color
+    abstract val disabledOnSecondary: Color
 
     abstract val tertiary: Color
     abstract val onTertiary: Color
-    abstract val error: Color
 
+    abstract val error: Color
     abstract val onError: Color
 
 }
 
 data object DarkColors : Colors() {
 
+
     override val background: Color = Color(0xFF000000)
     override val onBackground: Color = Color(0xFFFFFFFF)
 
     override val primary: Color = Color(0xFF000000)
+    override val errorPrimary: Color = Color(0xFFFFFFFF)
+    override val disabledPrimary: Color = Color(0xFF000000)
+    override val disabledOnPrimary: Color = Color(0xFFFFFFFF)
     override val onPrimary: Color = Color(0xFFFFFFFF)
 
     override val secondary: Color = Color(0xFF000000)
+    override val errorSecondary: Color = Color(0xFFFFFFFF)
+    override val disabledSecondary: Color = Color(0xFF000000)
+    override val disabledOnSecondary: Color = Color(0xFFFFFFFF)
     override val onSecondary: Color = Color(0xFFFFFFFF)
 
     override val tertiary: Color = Color(0xFF000000)
@@ -57,9 +69,15 @@ data object LightColors : Colors() {
     override val onBackground: Color = Color(0xFFFFFFFF)
 
     override val primary: Color = Color(0xFF000000)
+    override val errorPrimary: Color = Color(0xFFFFFFFF)
+    override val disabledPrimary: Color = Color(0xFF000000)
+    override val disabledOnPrimary: Color = Color(0xFFFFFFFF)
     override val onPrimary: Color = Color(0xFFFFFFFF)
 
     override val secondary: Color = Color(0xFF000000)
+    override val errorSecondary: Color = Color(0xFFFFFFFF)
+    override val disabledSecondary: Color = Color(0xFF000000)
+    override val disabledOnSecondary: Color = Color(0xFFFFFFFF)
     override val onSecondary: Color = Color(0xFFFFFFFF)
 
     override val tertiary: Color = Color(0xFF000000)
@@ -69,3 +87,7 @@ data object LightColors : Colors() {
     override val onError: Color = Color(0xFFFFFFFF)
 
 }
+
+val EmptyColor = Color.Transparent
+
+fun Color.alphaDecreased(alphaValue: Float = 0.75f) = copy(alpha = alphaValue)
