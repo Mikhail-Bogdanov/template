@@ -7,6 +7,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import com.evo.designsystem.theme.DesignSystem
+import androidx.compose.material3.Text as MaterialText
 
 @Composable
 fun DesignSystem.Text(
@@ -18,7 +19,7 @@ fun DesignSystem.Text(
     overflow: TextOverflow = TextOverflow.Clip,
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
-) = androidx.compose.material3.Text(
+) = MaterialText(
     modifier = modifier,
     text = text,
     color = color,

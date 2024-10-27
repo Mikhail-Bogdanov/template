@@ -1,6 +1,7 @@
 package com.evo.designsystem.atoms
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ButtonColors
 import androidx.compose.runtime.Composable
@@ -8,25 +9,56 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import com.evo.designsystem.theme.DesignSystem
-import com.evo.extensions.Lambda
+import com.evo.extensions.ClickInfo
+import androidx.compose.material3.Button as MaterialButton
 
 @Composable
 fun DesignSystem.Button(
     modifier: Modifier = Modifier,
-    onClick: Lambda,
-    content: @Composable RowScope.() -> Unit,
-    enabled: Boolean = true,
+    text: String,
     shape: Shape = shapes.medium,
     colors: ButtonColors = buttonPrimaryColors(),
     border: BorderStroke? = null,
-) = androidx.compose.material3.Button(
+    clickInfo: ClickInfo,
+) = MaterialButton(
     modifier = modifier,
-    onClick = onClick,
-    content = content,
-    enabled = enabled,
+    onClick = clickInfo.onClick,
+    content = { Text(text = text, color = colors.contentColor, style = textStyles.button) },
+    enabled = clickInfo.enabled,
     shape = shape,
     colors = colors,
     border = border,
+)
+
+@Composable
+fun DesignSystem.Button(
+    modifier: Modifier = Modifier,
+    shape: Shape = shapes.medium,
+    colors: ButtonColors = buttonPrimaryColors(),
+    border: BorderStroke? = null,
+    clickInfo: ClickInfo,
+    content: @Composable RowScope.() -> Unit,
+) = MaterialButton(
+    modifier = modifier,
+    onClick = clickInfo.onClick,
+    content = content,
+    enabled = clickInfo.enabled,
+    shape = shape,
+    colors = colors,
+    border = border,
+)
+
+@Composable
+fun DesignSystem.ButtonInline(
+    modifier: Modifier = Modifier,
+    text: String,
+    colors: ButtonColors = buttonPrimaryColors(),
+    clickInfo: ClickInfo,
+) = Text(
+    modifier = modifier
+        .clickable(onClick = clickInfo.onClick, enabled = clickInfo.enabled),
+    text = text,
+    color = colors.contentColor,
 )
 
 @Composable
@@ -55,3 +87,15 @@ fun buttonSecondaryColors(
     disabledContainerColor = disabledContainerColor,
 )
 
+@Composable
+fun buttonCustomColors(
+    contentColor: Color,
+    containerColor: Color,
+    disabledContentColor: Color,
+    disabledContainerColor: Color,
+) = ButtonColors(
+    contentColor = contentColor,
+    containerColor = containerColor,
+    disabledContentColor = disabledContentColor,
+    disabledContainerColor = disabledContainerColor,
+)

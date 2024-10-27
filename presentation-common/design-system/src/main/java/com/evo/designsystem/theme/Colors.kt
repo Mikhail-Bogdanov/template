@@ -18,12 +18,14 @@ abstract class Colors {
     abstract val onBackground: Color
 
     abstract val primary: Color
+    abstract val alternativePrimary: Color
     abstract val errorPrimary: Color
     abstract val disabledPrimary: Color
     abstract val onPrimary: Color
     abstract val disabledOnPrimary: Color
 
     abstract val secondary: Color
+    abstract val alternativeSecondary: Color
     abstract val errorSecondary: Color
     abstract val disabledSecondary: Color
     abstract val onSecondary: Color
@@ -44,12 +46,14 @@ data object DarkColors : Colors() {
     override val onBackground: Color = Color(0xFFFFFFFF)
 
     override val primary: Color = Color(0xFF000000)
+    override val alternativePrimary: Color = Color(0xFF000000)
     override val errorPrimary: Color = Color(0xFFFFFFFF)
     override val disabledPrimary: Color = Color(0xFF000000)
     override val disabledOnPrimary: Color = Color(0xFFFFFFFF)
     override val onPrimary: Color = Color(0xFFFFFFFF)
 
     override val secondary: Color = Color(0xFF000000)
+    override val alternativeSecondary: Color = Color(0xFF000000)
     override val errorSecondary: Color = Color(0xFFFFFFFF)
     override val disabledSecondary: Color = Color(0xFF000000)
     override val disabledOnSecondary: Color = Color(0xFFFFFFFF)
@@ -69,12 +73,14 @@ data object LightColors : Colors() {
     override val onBackground: Color = Color(0xFFFFFFFF)
 
     override val primary: Color = Color(0xFF000000)
+    override val alternativePrimary: Color = Color(0xFF000000)
     override val errorPrimary: Color = Color(0xFFFFFFFF)
     override val disabledPrimary: Color = Color(0xFF000000)
     override val disabledOnPrimary: Color = Color(0xFFFFFFFF)
     override val onPrimary: Color = Color(0xFFFFFFFF)
 
     override val secondary: Color = Color(0xFF000000)
+    override val alternativeSecondary: Color = Color(0xFF000000)
     override val errorSecondary: Color = Color(0xFFFFFFFF)
     override val disabledSecondary: Color = Color(0xFF000000)
     override val disabledOnSecondary: Color = Color(0xFFFFFFFF)
