@@ -47,10 +47,6 @@ gradlePlugin {
             id = "navigation"
             implementationClass = "com.evo.customplugins.plugins.presentation.Navigation"
         }
-        register("presentation-utils") {
-            id = "presentation-utils"
-            implementationClass = "com.evo.customplugins.plugins.presentation.PresentationUtils"
-        }
 
         // DATA
         register("data-core") {

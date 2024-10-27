@@ -50,7 +50,6 @@ include(":data:common:data-extensions")
 include(":data:common:data-utils")
 
 include(":presentation-common:presentation-core")
-include(":presentation-common:presentation-utils")
 include(":presentation-common:presentation-extensions")
 include(":presentation-common:design-system")
 include(":presentation-common:navigation")

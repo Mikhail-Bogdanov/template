@@ -27,7 +27,6 @@ class PresentationCore : Plugin<Project> {
             moduleApi(":presentation-common:presentation-extensions")
             moduleApi(":presentation-common:navigation")
             moduleApi(":presentation-common:design-system")
-            moduleApi(":presentation-common:presentation-utils")
         }
     }
 }

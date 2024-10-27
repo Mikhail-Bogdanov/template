@@ -8,7 +8,6 @@ dependencies {
     implementation(projects.presentationCommon.presentationCore)
     implementation(projects.presentationCommon.presentationExtensions)
     implementation(projects.presentationCommon.navigation)
-    implementation(projects.presentationCommon.presentationUtils)
     implementation(projects.presentationCommon.designSystem)
 
     implementation(projects.data.network.api)
