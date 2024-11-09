@@ -27,6 +27,8 @@ include(":app")
 
 include(":app-entrypoint")
 
+include("resources")
+
 include(":data:database:api")
 include(":data:database:impl")
 
