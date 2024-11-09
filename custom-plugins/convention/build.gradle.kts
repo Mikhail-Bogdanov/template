@@ -29,6 +29,10 @@ gradlePlugin {
             id = "evo-library"
             implementationClass = "com.evo.customplugins.plugins.android.Library"
         }
+        register("resources") {
+            id = "resources"
+            implementationClass = "com.evo.customplugins.plugins.android.Resources"
+        }
 
         // PRESENTATION
         register("presentation-core") {
