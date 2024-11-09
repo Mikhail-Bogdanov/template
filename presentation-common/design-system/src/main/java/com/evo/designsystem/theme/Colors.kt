@@ -1,6 +1,5 @@
 package com.evo.designsystem.theme
 
-import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
@@ -10,7 +9,7 @@ internal fun Colors(themeType: ThemeType): Colors = when (themeType) {
     ThemeType.DARK -> DarkColors
 }
 
-val LocalColors: ProvidableCompositionLocal<Colors> = staticCompositionLocalOf { LightColors }
+val LocalColors = staticCompositionLocalOf<Colors> { LightColors }
 
 abstract class Colors {
 

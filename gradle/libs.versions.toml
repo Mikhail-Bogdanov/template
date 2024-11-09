@@ -12,7 +12,6 @@ compiler = "1.5.15"
 compose_bom = "2024.09.01"
 activity = "1.9.2"
 view_model = "2.8.5"
-navigation = "2.8.0"
 accompanist = "0.34.0"
 composePlugin = "1.6.11"
 
@@ -95,8 +94,6 @@ compose_activity = { module = "androidx.activity:activity-compose", version.ref 
 compose_view_model = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "view_model" }
 compose_web_view = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
 compose_persmissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
-compose_navigatiom_animation = { module = "com.google.accompanist:accompanist-navigation-animation", version.ref = "accompanist" }
-compose_navigation = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
 material3 = { module = "androidx.compose.material3:material3" }
 preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 icons = { module = "androidx.compose.material:material-icons-extended" }
@@ -241,8 +238,6 @@ ui = [
     "compose_view_model",
     "compose_web_view",
     "compose_persmissions",
-    "compose_navigatiom_animation",
-    "compose_navigation",
     "material3",
     "preview",
     "icons",
