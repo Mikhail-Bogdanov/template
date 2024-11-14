@@ -27,7 +27,7 @@ include(":app")
 
 include(":app-entrypoint")
 
-include("resources")
+include(":resources")
 
 include(":data:database:api")
 include(":data:database:impl")
@@ -54,4 +54,5 @@ include(":data:common:data-utils")
 include(":presentation-common:presentation-core")
 include(":presentation-common:presentation-extensions")
 include(":presentation-common:design-system")
-include(":presentation-common:navigation")
+include(":presentation-common:navigation:api")
+include(":presentation-common:navigation:impl")

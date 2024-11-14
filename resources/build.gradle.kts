@@ -1,3 +1,5 @@
 plugins {
-    id("resources")
+    id("evo-compose")
 }
+
+android.namespace = "com.evo.resources"

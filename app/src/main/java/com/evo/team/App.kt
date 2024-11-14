@@ -1,6 +1,7 @@
 package com.evo.team
 
 import android.app.Application
+import com.evo.navigation.impl.di.NavigationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -10,7 +11,7 @@ class App : Application() {
         startKoin {
             androidContext(this@App.applicationContext)
             modules(
-
+                NavigationModule(),
             )
         }
     }
