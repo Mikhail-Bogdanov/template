@@ -1,7 +1,5 @@
 package com.evo.navigation.api
 
-import com.evo.navigation.Screen
-
 interface BackstackHandler {
     fun put(screen: Screen)
 

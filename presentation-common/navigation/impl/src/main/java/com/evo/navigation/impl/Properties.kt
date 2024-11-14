@@ -1,4 +1,4 @@
-package com.evo.navigation
+package com.evo.navigation.impl
 
 import com.evo.navigation.api.NavPropertiesHandler
 import com.evo.navigation.api.PopPropertiesHandler
