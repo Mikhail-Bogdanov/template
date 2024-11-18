@@ -11,7 +11,7 @@ import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-class Database : AndroidModulePlugin("database") {
+class Database : AndroidModulePlugin("database.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":data:common:data-core")
         moduleImplementation(":data:database:api")
@@ -23,7 +23,7 @@ class Database : AndroidModulePlugin("database") {
     }
 }
 
-class Datastore : AndroidModulePlugin("datastore") {
+class Datastore : AndroidModulePlugin("datastore.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":data:common:data-core")
         moduleImplementation(":data:datastore:api")
@@ -53,7 +53,7 @@ class LocalStorage : AndroidModulePlugin("localStorage") {
     }
 }
 
-class Network : AndroidModulePlugin("network") {
+class Network : AndroidModulePlugin("network.impl") {
 
     override fun LibraryExtension.configureAdditionalExtensions() {
         configureBuildConfig()
@@ -67,7 +67,7 @@ class Network : AndroidModulePlugin("network") {
     }
 }
 
-class Theme : AndroidModulePlugin("theme") {
+class Theme : AndroidModulePlugin("theme.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":data:local-storage:api")
         moduleImplementation(":data:theme:api")
@@ -75,7 +75,7 @@ class Theme : AndroidModulePlugin("theme") {
     }
 }
 
-class UserData : AndroidModulePlugin("userData") {
+class UserData : AndroidModulePlugin("userData.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":data:local-storage:api")
         moduleImplementation(":data:user-data:api")
