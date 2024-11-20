@@ -46,13 +46,6 @@ class DataCore : AndroidModulePlugin("dataCore") {
     }
 }
 
-class LocalStorage : AndroidModulePlugin("localStorage") {
-    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:database:api")
-        moduleImplementation(":data:datastore:api")
-    }
-}
-
 class Network : AndroidModulePlugin("network.impl") {
 
     override fun LibraryExtension.configureAdditionalExtensions() {
@@ -69,7 +62,7 @@ class Network : AndroidModulePlugin("network.impl") {
 
 class Theme : AndroidModulePlugin("theme.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:local-storage:api")
+        moduleImplementation(":data:datastore:api")
         moduleImplementation(":data:theme:api")
         implementation(libs.kotlin.coroutines)
     }
@@ -77,7 +70,8 @@ class Theme : AndroidModulePlugin("theme.impl") {
 
 class UserData : AndroidModulePlugin("userData.impl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:local-storage:api")
+        moduleImplementation(":data:datastore:api")
+        moduleImplementation(":data:database:api")
         moduleImplementation(":data:user-data:api")
     }
 }

@@ -35,9 +35,6 @@ include(":data:database:impl")
 include(":data:datastore:api")
 include(":data:datastore:impl")
 
-include(":data:local-storage:api")
-include(":data:local-storage:impl")
-
 include(":data:theme:impl")
 include(":data:theme:api")
 

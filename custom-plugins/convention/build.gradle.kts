@@ -75,10 +75,6 @@ gradlePlugin {
             id = "data-utils"
             implementationClass = "com.evo.customplugins.plugins.DataUtils"
         }
-        register("local-storage") {
-            id = "local-storage"
-            implementationClass = "com.evo.customplugins.plugins.LocalStorage"
-        }
         register("database") {
             id = "database"
             implementationClass = "com.evo.customplugins.plugins.Database"
