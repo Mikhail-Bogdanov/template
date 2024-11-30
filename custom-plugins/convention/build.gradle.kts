@@ -63,10 +63,6 @@ gradlePlugin {
         }
 
         // DATA
-        register("data-core") {
-            id = "data-core"
-            implementationClass = "com.evo.customplugins.plugins.DataCore"
-        }
         register("data-extensions") {
             id = "data-extensions"
             implementationClass = "com.evo.customplugins.plugins.DataExtensions"
@@ -87,9 +83,9 @@ gradlePlugin {
             id = "user-data"
             implementationClass = "com.evo.customplugins.plugins.UserData"
         }
-        register("theme") {
-            id = "theme"
-            implementationClass = "com.evo.customplugins.plugins.Theme"
+        register("app-data") {
+            id = "app-data"
+            implementationClass = "com.evo.customplugins.plugins.AppData"
         }
         register("network") {
             id = "network"
