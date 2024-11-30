@@ -35,8 +35,8 @@ include(":data:database:impl")
 include(":data:datastore:api")
 include(":data:datastore:impl")
 
-include(":data:theme:impl")
-include(":data:theme:api")
+include(":data:app-data:impl")
+include(":data:app-data:api")
 
 include(":data:user-data:impl")
 include(":data:user-data:api")
@@ -44,7 +44,6 @@ include(":data:user-data:api")
 include(":data:network:impl")
 include(":data:network:api")
 
-include(":data:common:data-core")
 include(":data:common:data-extensions")
 include(":data:common:data-utils")
 

@@ -17,7 +17,9 @@ class AndroidFeature : ComposeModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":presentation-common:presentation-core")
         moduleImplementation(":data:user-data:api")
+        moduleImplementation(":data:app-data:api")
         moduleImplementation(":data:network:api")
+        moduleImplementation(":resources")
 
         configureOrbitDependencies(libs)
     }
@@ -44,7 +46,7 @@ class Application : Plugin<Project> {
 class AppEntrypoint : ComposeModulePlugin("appEntrypoint") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":presentation-common:presentation-core")
-        moduleImplementation(":data:theme:api")
+        moduleImplementation(":data:app-data:api")
 
         configureOrbitDependencies(libs)
 
