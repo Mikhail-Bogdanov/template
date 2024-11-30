@@ -4,6 +4,7 @@ import android.app.Application
 import com.evo.database.impl.di.DatabaseModule
 import com.evo.datastore.impl.di.DatastoreModule
 import com.evo.navigation.impl.di.NavigationModule
+import com.evo.network.impl.di.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
@@ -16,6 +17,7 @@ class App : Application() {
                 NavigationModule(),
                 DatabaseModule(),
                 DatastoreModule(),
+                NetworkModule(),
             )
         }
     }

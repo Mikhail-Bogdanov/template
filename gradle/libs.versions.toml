@@ -24,10 +24,10 @@ mokito_kotlin = "5.4.0"
 kotlin = "2.0.20"
 
 # coroutines
-coroutines = "1.8.1"
+coroutines = "1.9.0"
 
 # serialization
-serialization = "1.7.2"
+serialization = "1.7.3"
 
 # jvm
 jvm = "1.8.0"
@@ -75,6 +75,7 @@ packageName = "com.evo"
 # network
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 ok_http = { module = "com.squareup.okhttp3:okhttp", version.ref = "ok_http" }
+retrofit_kotlinx_serialization = { module = "com.squareup.retrofit2:converter-kotlinx-serialization", version.ref = "retrofit" }
 
 # koin
 koin_core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
@@ -221,6 +222,7 @@ network = [
     "ok_http",
     "serialization",
     "kotlin_coroutines",
+    "retrofit_kotlinx_serialization",
 ]
 
 # orbit
