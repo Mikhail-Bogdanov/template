@@ -53,4 +53,5 @@ include(":presentation-common:design-system")
 include(":presentation-common:navigation:api")
 include(":presentation-common:navigation:impl")
 
-include(":feature:main-page")
+include(":feature:main-page:api")
+include(":feature:main-page:impl")

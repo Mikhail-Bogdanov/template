@@ -31,4 +31,8 @@ abstract class KotlinModulePlugin : Plugin<Project> {
     open fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-class KotlinModulePluginImpl : KotlinModulePlugin()
+class KotlinModulePluginImpl : KotlinModulePlugin() {
+    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
+        implementation(libs.kotlin.coroutines)
+    }
+}

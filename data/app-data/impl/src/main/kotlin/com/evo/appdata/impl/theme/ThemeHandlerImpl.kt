@@ -16,7 +16,7 @@ class ThemeHandlerImpl(
         defaultValue = EvoTheme.DEFAULT.name,
     )
 
-    override suspend fun getTheme(): Flow<EvoTheme> {
+    override fun getTheme(): Flow<EvoTheme> {
         return themeDatastoreHandler.get(key).map { stringName ->
             EvoTheme.valueOf(stringName)
         }

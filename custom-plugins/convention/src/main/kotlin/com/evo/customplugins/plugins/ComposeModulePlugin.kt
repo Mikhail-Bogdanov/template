@@ -4,7 +4,10 @@ import com.android.build.gradle.LibraryExtension
 import com.evo.customplugins.extensions.configureCompose
 import com.evo.customplugins.extensions.configureComposeDependencies
 import com.evo.customplugins.extensions.libs
+import com.evo.customplugins.extensions.moduleImplementation
+import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
@@ -28,4 +31,8 @@ abstract class ComposeModulePlugin(
     }
 }
 
-class ComposeModulePluginImpl : ComposeModulePlugin()
+class ComposeModulePluginImpl : ComposeModulePlugin() {
+    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
+        moduleImplementation(":presentation-common:presentation-core")
+    }
+}

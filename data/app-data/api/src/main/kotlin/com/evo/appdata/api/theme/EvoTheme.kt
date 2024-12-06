@@ -4,7 +4,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ThemeHandler {
 
-    suspend fun getTheme(): Flow<EvoTheme>
+    fun getTheme(): Flow<EvoTheme>
 
     suspend fun setDarkTheme()
 

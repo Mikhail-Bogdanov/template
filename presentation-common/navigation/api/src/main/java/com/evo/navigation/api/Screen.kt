@@ -2,15 +2,19 @@ package com.evo.navigation.api
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import org.koin.compose.koinInject
 
 @Immutable
-abstract class Screen {
+interface Screen {
 
     @Composable
-    abstract fun Content(navigator: EvoNavigationHandler)
+    fun Content(navigator: EvoNavigationHandler)
 }
 
 interface EvoRoot {
     @Composable
     fun Content(initialScreen: Screen)
 }
+
+@Composable
+fun EvoRoot(initialScreen: Screen) = koinInject<EvoRoot>().Content(initialScreen)

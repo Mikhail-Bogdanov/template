@@ -7,10 +7,10 @@ import com.evo.appdata.api.theme.EvoTheme
 
 @Composable
 fun MainAppTheme(
-    themeType: EvoTheme,
+    theme: EvoTheme,
     content: @Composable () -> Unit
 ) = CompositionLocalProvider(
-    LocalColors provides Colors(themeType),
+    LocalColors provides Colors(theme),
     content = content
 )
 
