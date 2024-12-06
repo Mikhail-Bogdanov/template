@@ -1,9 +1,9 @@
 package com.evo.navigation.impl.di
 
-import com.evo.navigation.api.BackstackHandler
+import com.evo.navigation.impl.backstack.BackstackHandler
 import com.evo.navigation.api.EvoNavigationHandler
 import com.evo.navigation.api.EvoRoot
-import com.evo.navigation.impl.Backstack
+import com.evo.navigation.impl.backstack.Backstack
 import com.evo.navigation.impl.EvoNavigator
 import com.evo.navigation.impl.EvoRootImpl
 import org.koin.core.module.dsl.singleOf

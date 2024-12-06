@@ -5,7 +5,6 @@ import com.evo.customplugins.extensions.configureApplicationExtension
 import com.evo.customplugins.extensions.configureKoinDependencies
 import com.evo.customplugins.extensions.configureOrbitDependencies
 import com.evo.customplugins.extensions.libs
-import com.evo.customplugins.extensions.moduleApi
 import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin
@@ -52,6 +51,6 @@ class AppEntrypoint : ComposeModulePlugin("appEntrypoint") {
         configureOrbitDependencies(libs)
 
         // ALL FEATURES HERE
-        moduleApi(":feature:main-page")
+        moduleImplementation(":feature:main-page:api")
     }
 }

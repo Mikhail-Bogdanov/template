@@ -28,4 +28,6 @@ dependencies {
 
     implementation(projects.data.common.dataExtensions)
     implementation(projects.data.common.dataUtils)
+
+    implementation(projects.feature.mainPage.impl)
 }

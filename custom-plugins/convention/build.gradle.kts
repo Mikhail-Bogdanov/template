@@ -21,10 +21,6 @@ gradlePlugin {
             id = "evo-compose"
             implementationClass = "com.evo.customplugins.plugins.ComposeModulePluginImpl"
         }
-        register("evo-library") {
-            id = "evo-library"
-            implementationClass = "com.evo.customplugins.plugins.AndroidModulePluginImpl"
-        }
 
         // ANDROID
         register("evo-application") {

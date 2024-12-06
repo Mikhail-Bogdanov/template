@@ -34,5 +34,3 @@ abstract class AndroidModulePlugin(private val moduleNamespace: String? = null) 
 
     open fun LibraryExtension.configureAdditionalExtensions() {}
 }
-
-class AndroidModulePluginImpl : AndroidModulePlugin()

@@ -12,7 +12,7 @@ class EvoDatastoreHandlerImpl<V>(
     private val evoDataStore: DataStore<Preferences>,
 ) : EvoDatastoreHandler<V> {
 
-    override suspend fun get(key: EvoDatastoreKey<V>): Flow<V> {
+    override fun get(key: EvoDatastoreKey<V>): Flow<V> {
         return evoDataStore.data.map { prefs ->
             prefs[key.asPreferencesKey()] ?: key.defaultValue
         }

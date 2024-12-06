@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.evo.navigation.api.BackstackHandler
 import com.evo.navigation.api.EvoNavigationHandler
 import com.evo.navigation.api.EvoRoot
 import com.evo.navigation.api.NavPropertiesHandler
@@ -16,6 +15,8 @@ import com.evo.navigation.impl.NavPropertiesBuilder.NavigationPropertiesType.Rep
 import com.evo.navigation.impl.NavPropertiesBuilder.NavigationPropertiesType.ReplaceAll
 import com.evo.navigation.impl.PopPropertiesBuilder.PopPropertiesType.Pop
 import com.evo.navigation.impl.PopPropertiesBuilder.PopPropertiesType.PopAll
+import com.evo.navigation.impl.backstack.Backstack
+import com.evo.navigation.impl.backstack.BackstackHandler
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
 
@@ -46,15 +47,15 @@ class EvoNavigator(
 
 }
 
-class EvoRootImpl : EvoRoot {
+internal class EvoRootImpl : EvoRoot {
     @Composable
     override fun Content(initialScreen: Screen) {
-        EvoRoot(initialScreen)
+        EvoRootImpl(initialScreen)
     }
 }
 
 @Composable
-fun EvoRoot(initialScreen: Screen) {
+private fun EvoRootImpl(initialScreen: Screen) {
     val backstack = koinInject<Backstack> {
         parametersOf(initialScreen)
     }

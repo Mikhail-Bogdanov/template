@@ -1,4 +1,6 @@
-package com.evo.navigation.api
+package com.evo.navigation.impl.backstack
+
+import com.evo.navigation.api.Screen
 
 interface BackstackHandler {
     fun put(screen: Screen)

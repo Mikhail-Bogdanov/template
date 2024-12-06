@@ -1,5 +1,3 @@
 plugins {
-    id("evo-library")
+    id("evo-api")
 }
-
-android.namespace = "com.evo.appData.api"
