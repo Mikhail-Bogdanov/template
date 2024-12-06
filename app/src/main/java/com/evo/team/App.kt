@@ -1,6 +1,7 @@
 package com.evo.team
 
 import android.app.Application
+import com.evo.appdata.impl.di.AppDataModule
 import com.evo.database.impl.di.DatabaseModule
 import com.evo.datastore.impl.di.DatastoreModule
 import com.evo.navigation.impl.di.NavigationModule
@@ -18,6 +19,7 @@ class App : Application() {
                 DatabaseModule(),
                 DatastoreModule(),
                 NetworkModule(),
+                AppDataModule(),
             )
         }
     }
