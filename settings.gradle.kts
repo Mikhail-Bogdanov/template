@@ -52,3 +52,5 @@ include(":presentation-common:presentation-extensions")
 include(":presentation-common:design-system")
 include(":presentation-common:navigation:api")
 include(":presentation-common:navigation:impl")
+
+include(":feature:main-page")
