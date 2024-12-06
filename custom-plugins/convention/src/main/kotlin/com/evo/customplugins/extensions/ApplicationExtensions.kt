@@ -31,6 +31,7 @@ fun ApplicationExtension.configureApplicationExtension() {
         targetCompatibility = Config.JavaVersion
     }
     androidResources {
+        @Suppress("UnstableApiUsage")
         generateLocaleConfig = true
     }
 }

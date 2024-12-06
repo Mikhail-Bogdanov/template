@@ -11,7 +11,9 @@ import org.koin.dsl.module
 object DatastoreModule {
     private val module = module {
         single { androidContext().datastore }
-        factory { EvoDatastoreHandlerImpl<Any>(get()) } bind EvoDatastoreHandler::class
+        factory {
+            EvoDatastoreHandlerImpl<Any>(evoDataStore = get())
+        } bind EvoDatastoreHandler::class
     }
 
     private const val DATASTORE_NAME = "evo_datastore"

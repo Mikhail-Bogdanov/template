@@ -2,11 +2,12 @@ package com.evo.designsystem.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import com.evo.appdata.api.theme.EvoTheme
 
 
-internal fun Colors(themeType: ThemeType): Colors = when (themeType) {
-    ThemeType.LIGHT -> LightColors
-    ThemeType.DARK -> DarkColors
+internal fun Colors(themeType: EvoTheme): Colors = when (themeType) {
+    EvoTheme.LIGHT -> LightColors
+    EvoTheme.DARK -> DarkColors
 }
 
 val LocalColors = staticCompositionLocalOf<Colors> { LightColors }

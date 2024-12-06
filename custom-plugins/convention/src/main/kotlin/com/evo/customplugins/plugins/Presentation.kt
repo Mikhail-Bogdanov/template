@@ -17,6 +17,7 @@ class NavigationApi : ComposeModulePlugin("navigationApi")
 class DesignSystem : ComposeModulePlugin("designSystem") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":presentation-common:presentation-extensions")
+        moduleImplementation(":data:app-data:api")
     }
 }
 
