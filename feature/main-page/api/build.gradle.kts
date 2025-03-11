@@ -2,4 +2,4 @@ plugins {
     id("evo-compose")
 }
 
-android.namespace = "com.evo.mainPage.api"
+android.namespace = "com.evo.mainpage.api"

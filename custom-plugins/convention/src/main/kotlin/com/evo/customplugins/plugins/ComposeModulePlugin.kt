@@ -33,6 +33,8 @@ abstract class ComposeModulePlugin(
 
 class ComposeModulePluginImpl : ComposeModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-core")
+        moduleImplementation(":presentation-common:presentation-extensions")
+        moduleImplementation(":presentation-common:navigation:api")
+        moduleImplementation(":presentation-common:design-system")
     }
 }

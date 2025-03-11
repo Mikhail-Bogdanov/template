@@ -15,7 +15,9 @@ import org.gradle.kotlin.dsl.dependencies
 
 class AndroidFeature : ComposeModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-core")
+        moduleImplementation(":presentation-common:presentation-extensions")
+        moduleImplementation(":presentation-common:navigation:api")
+        moduleImplementation(":presentation-common:design-system")
         moduleImplementation(":data:user-data:api")
         moduleImplementation(":data:app-data:api")
         moduleImplementation(":data:network:api")
@@ -45,12 +47,11 @@ class Application : Plugin<Project> {
 
 class AppEntrypoint : ComposeModulePlugin("appEntrypoint") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-core")
+        moduleImplementation(":presentation-common:presentation-extensions")
+        moduleImplementation(":presentation-common:navigation:api")
+        moduleImplementation(":presentation-common:design-system")
         moduleImplementation(":data:app-data:api")
 
         configureOrbitDependencies(libs)
-
-        // ALL FEATURES HERE
-        moduleImplementation(":feature:main-page:api")
     }
 }

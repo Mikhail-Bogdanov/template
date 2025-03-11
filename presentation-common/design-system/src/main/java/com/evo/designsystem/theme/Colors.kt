@@ -2,7 +2,7 @@ package com.evo.designsystem.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
-import com.evo.appdata.api.theme.EvoTheme
+import com.evo.appdata.theme.EvoTheme
 
 
 internal fun Colors(themeType: EvoTheme): Colors = when (themeType) {

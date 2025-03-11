@@ -1,6 +1,6 @@
 package com.evo.customplugins
 
-import org.gradle.api.JavaVersion.VERSION_17
+import org.gradle.api.JavaVersion.VERSION_21
 
 internal object Config {
 
@@ -17,7 +17,7 @@ internal object Config {
     const val VersionCode = MajorCode * 10000 + MinorCode * 100 + PatchCode
     const val VersionName = "$MajorCode.$MinorCode.$PatchCode"
 
-    val JavaVersion = VERSION_17
+    val JavaVersion = VERSION_21
 
     val TestRunner = "androidx.test.runner.AndroidJUnitRunner"
 }

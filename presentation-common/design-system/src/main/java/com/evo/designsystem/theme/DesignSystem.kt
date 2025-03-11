@@ -2,7 +2,7 @@ package com.evo.designsystem.theme
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import com.evo.appdata.api.theme.EvoTheme
+import com.evo.appdata.theme.EvoTheme
 
 
 @Composable

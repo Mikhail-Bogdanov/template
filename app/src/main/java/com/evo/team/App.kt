@@ -1,12 +1,12 @@
 package com.evo.team
 
 import android.app.Application
-import com.evo.appdata.impl.di.AppDataModule
-import com.evo.database.impl.di.DatabaseModule
-import com.evo.datastore.impl.di.DatastoreModule
+import com.evo.appdata.di.AppDataModule
+import com.evo.database.di.DatabaseModule
+import com.evo.datastore.di.DatastoreModule
 import com.evo.mainpage.di.MainPageModule
-import com.evo.navigation.impl.di.NavigationModule
-import com.evo.network.impl.di.NetworkModule
+import com.evo.navigation.di.NavigationModule
+import com.evo.network.di.NetworkModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
