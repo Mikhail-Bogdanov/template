@@ -2,7 +2,7 @@ plugins {
     id("feature")
 }
 
-android.namespace = "com.evo.mainPage.impl"
+android.namespace = "com.evo.mainpage.impl"
 
 dependencies {
     implementation(projects.feature.mainPage.api)

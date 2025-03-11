@@ -37,10 +37,6 @@ gradlePlugin {
         }
 
         // PRESENTATION
-        register("presentation-core") {
-            id = "presentation-core"
-            implementationClass = "com.evo.customplugins.plugins.PresentationCore"
-        }
         register("design-system") {
             id = "design-system"
             implementationClass = "com.evo.customplugins.plugins.DesignSystem"
