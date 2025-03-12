@@ -14,8 +14,9 @@ dependencies {
 enum class ProjectModule(val moduleName: String) {
     AppEntryPoint("app-entrypoint"),
     Data("data"),
+    Domain("domain"),
     Feature("feature"),
-    PresentationCommon("presentation-common"),
+    Presentation("presentation"),
     Resources("resources"),
     ;
 }

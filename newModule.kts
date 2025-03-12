@@ -5,7 +5,7 @@ import kotlin.io.path.createDirectories
 import kotlin.io.path.pathString
 import kotlin.io.path.Path as KPath
 
-val MODULE_NAME = "settings-screen" // exaple: main-page
+val MODULE_NAME = "add-food" // exaple: [word]-[word]
 
 //////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -71,7 +71,8 @@ makeFile(implPath, KPath("ui"), "$SCREEN_NAME.kt") {
         }
     """
 }
-makeFile(implPath, KPath("di"), "${SCREEN_NAME}Module.kt") {
+val screenModule = "${SCREEN_NAME}Module"
+makeFile(implPath, KPath("di"), "$screenModule.kt") {
     """
         package com.evo.$namespace.di
 
@@ -90,6 +91,23 @@ makeFile(implPath, KPath("di"), "${SCREEN_NAME}Module.kt") {
         }
     """
 }
+
+val appModulePath = KPath(File("app").absolutePath)
+val appFullModulePath = createFullModulePath(appModulePath, "team")
+val appFile = KPath(appFullModulePath.absolutePath, "App.kt").createFile()
+val modulesDelimiter = "/* [MODULES] */"
+val importsDelimiter = "/* [IMPORT] */"
+
+val importText = "import com.evo.${namespace}.di.$screenModule"
+val moduleText = "\t\t$screenModule(),"
+
+val appNewText = appFile
+    .readText()
+    .replace(modulesDelimiter, "$modulesDelimiter\n$moduleText")
+    .replace(importsDelimiter, "$importsDelimiter\n$importText")
+
+appFile.writeText(appNewText)
+
 
 fun String.lowercaseFirst() = this.replaceFirstChar { it.lowercase() }
 fun String.uppercaseFirst() = this.replaceFirstChar { it.uppercase() }

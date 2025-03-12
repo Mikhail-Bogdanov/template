@@ -21,6 +21,10 @@ gradlePlugin {
             id = "evo-compose"
             implementationClass = "com.evo.customplugins.plugins.ComposeModulePluginImpl"
         }
+        register("domain") {
+            id = "domain"
+            implementationClass = "com.evo.customplugins.plugins.Domain"
+        }
 
         // ANDROID
         register("evo-application") {
@@ -41,9 +45,9 @@ gradlePlugin {
             id = "design-system"
             implementationClass = "com.evo.customplugins.plugins.DesignSystem"
         }
-        register("presentation-extensions") {
-            id = "presentation-extensions"
-            implementationClass = "com.evo.customplugins.plugins.PresentationExtensions"
+        register("presentation-common") {
+            id = "presentation-common"
+            implementationClass = "com.evo.customplugins.plugins.PresentationCommon"
         }
         register("navigation") {
             id = "navigation"
@@ -55,29 +59,13 @@ gradlePlugin {
         }
 
         // DATA
-        register("data-extensions") {
-            id = "data-extensions"
-            implementationClass = "com.evo.customplugins.plugins.DataExtensions"
-        }
-        register("data-utils") {
-            id = "data-utils"
-            implementationClass = "com.evo.customplugins.plugins.DataUtils"
-        }
         register("database") {
             id = "database"
             implementationClass = "com.evo.customplugins.plugins.Database"
         }
-        register("datastore") {
-            id = "datastore"
-            implementationClass = "com.evo.customplugins.plugins.Datastore"
-        }
-        register("user-data") {
-            id = "user-data"
-            implementationClass = "com.evo.customplugins.plugins.UserData"
-        }
-        register("app-data") {
-            id = "app-data"
-            implementationClass = "com.evo.customplugins.plugins.AppData"
+        register("storage") {
+            id = "storage"
+            implementationClass = "com.evo.customplugins.plugins.Storage"
         }
         register("network") {
             id = "network"

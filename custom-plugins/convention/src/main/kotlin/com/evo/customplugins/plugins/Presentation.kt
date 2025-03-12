@@ -7,7 +7,7 @@ import org.gradle.kotlin.dsl.DependencyHandlerScope
 
 class Navigation : ComposeModulePlugin("navigation") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:navigation:api")
+        moduleImplementation(":presentation:navigation:api")
     }
 }
 
@@ -15,12 +15,12 @@ class NavigationApi : ComposeModulePlugin("navigationApi")
 
 class DesignSystem : ComposeModulePlugin("designSystem") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-extensions")
-        moduleImplementation(":data:app-data:api")
+        moduleImplementation(":presentation:common")
+        moduleImplementation(":data:storage:api")
     }
 }
 
-class PresentationExtensions : ComposeModulePlugin("presentationExtensions") {
+class PresentationCommon : ComposeModulePlugin("presentationCommon") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         configureOrbitDependencies(libs)
     }

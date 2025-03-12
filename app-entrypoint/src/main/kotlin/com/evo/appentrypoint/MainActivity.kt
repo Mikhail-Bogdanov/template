@@ -7,11 +7,11 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import com.evo.appdata.theme.EvoTheme
-import com.evo.appdata.theme.ThemeHandler
 import com.evo.designsystem.theme.MainAppTheme
 import com.evo.mainpage.ui.mainPage
 import com.evo.navigation.EvoRoot
+import com.evo.storage.theme.EvoTheme
+import com.evo.storage.theme.ThemeHandler
 import org.koin.compose.koinInject
 
 class MainActivity : ComponentActivity() {

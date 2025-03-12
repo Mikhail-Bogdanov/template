@@ -5,16 +5,12 @@ import com.evo.customplugins.extensions.configureBuildConfig
 import com.evo.customplugins.extensions.configureDatastoreDependencies
 import com.evo.customplugins.extensions.configureNetworkDependencies
 import com.evo.customplugins.extensions.configureRoomDependencies
-import com.evo.customplugins.extensions.implementation
 import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-class Database : AndroidModulePlugin("database.impl") {
+class Database : AndroidModulePlugin("database") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:common:data-extensions")
-        moduleImplementation(":data:common:data-utils")
-        moduleImplementation(":data:database:api")
         configureRoomDependencies(libs)
     }
 
@@ -23,11 +19,9 @@ class Database : AndroidModulePlugin("database.impl") {
     }
 }
 
-class Datastore : AndroidModulePlugin("datastore.impl") {
+class Storage : AndroidModulePlugin("storageImpl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:common:data-utils")
-        moduleImplementation(":data:common:data-extensions")
-        moduleImplementation(":data:datastore:api")
+        moduleImplementation(":data:storage:api")
         configureDatastoreDependencies(libs)
     }
 
@@ -36,38 +30,14 @@ class Datastore : AndroidModulePlugin("datastore.impl") {
     }
 }
 
-class DataUtils : AndroidModulePlugin("dataUtils")
-
-class DataExtensions : AndroidModulePlugin("dataExtensions")
-
-class Network : AndroidModulePlugin("network.impl") {
+class Network : AndroidModulePlugin("networkImpl") {
 
     override fun LibraryExtension.configureAdditionalExtensions() {
         configureBuildConfig()
     }
 
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:common:data-utils")
-        moduleImplementation(":data:common:data-extensions")
         moduleImplementation(":data:network:api")
-        moduleImplementation(":data:user-data:api")
         configureNetworkDependencies(libs)
-    }
-}
-
-class AppData : AndroidModulePlugin("appData.impl") {
-    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:datastore:api")
-        moduleImplementation(":data:database:api")
-        moduleImplementation(":data:app-data:api")
-        implementation(libs.kotlin.coroutines)
-    }
-}
-
-class UserData : AndroidModulePlugin("userData.impl") {
-    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":data:datastore:api")
-        moduleImplementation(":data:database:api")
-        moduleImplementation(":data:user-data:api")
     }
 }
