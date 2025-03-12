@@ -3,6 +3,7 @@ package com.evo.customplugins.plugins
 import com.evo.customplugins.Config
 import com.evo.customplugins.extensions.implementation
 import com.evo.customplugins.extensions.libs
+import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -32,6 +33,13 @@ abstract class KotlinModulePlugin : Plugin<Project> {
 }
 
 class KotlinModulePluginImpl : KotlinModulePlugin() {
+    override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
+        implementation(libs.kotlin.coroutines)
+        moduleImplementation(":domain")
+    }
+}
+
+class Domain : KotlinModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         implementation(libs.kotlin.coroutines)
     }

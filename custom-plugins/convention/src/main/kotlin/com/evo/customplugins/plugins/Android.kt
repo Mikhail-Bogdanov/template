@@ -15,12 +15,9 @@ import org.gradle.kotlin.dsl.dependencies
 
 class AndroidFeature : ComposeModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-extensions")
-        moduleImplementation(":presentation-common:navigation:api")
-        moduleImplementation(":presentation-common:design-system")
-        moduleImplementation(":data:user-data:api")
-        moduleImplementation(":data:app-data:api")
-        moduleImplementation(":data:network:api")
+        moduleImplementation(":presentation:common")
+        moduleImplementation(":presentation:navigation:api")
+        moduleImplementation(":presentation:design-system")
         moduleImplementation(":resources")
 
         configureOrbitDependencies(libs)
@@ -41,16 +38,17 @@ class Application : Plugin<Project> {
 
         dependencies {
             configureKoinDependencies(libs)
+            moduleImplementation(":domain")
         }
     }
 }
 
 class AppEntrypoint : ComposeModulePlugin("appEntrypoint") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation-common:presentation-extensions")
-        moduleImplementation(":presentation-common:navigation:api")
-        moduleImplementation(":presentation-common:design-system")
-        moduleImplementation(":data:app-data:api")
+        moduleImplementation(":presentation:common")
+        moduleImplementation(":presentation:navigation:api")
+        moduleImplementation(":presentation:design-system")
+        moduleImplementation(":data:storage:api")
 
         configureOrbitDependencies(libs)
     }

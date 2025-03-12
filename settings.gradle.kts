@@ -27,8 +27,9 @@ enum class ProjectModule(val moduleName: String) {
     App("app"),
     AppEntryPoint("app-entrypoint"),
     Data("data"),
+    Domain("domain"),
     Feature("feature"),
-    PresentationCommon("presentation-common"),
+    Presentation("presentation"),
     Resources("resources"),
     ;
 }

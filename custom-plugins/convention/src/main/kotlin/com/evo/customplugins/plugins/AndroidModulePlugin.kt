@@ -4,6 +4,7 @@ import com.android.build.gradle.LibraryExtension
 import com.evo.customplugins.extensions.configureAndroidFeatureModule
 import com.evo.customplugins.extensions.configureKoinDependencies
 import com.evo.customplugins.extensions.libs
+import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -25,6 +26,7 @@ abstract class AndroidModulePlugin(private val moduleNamespace: String? = null) 
         }
 
         dependencies {
+            moduleImplementation(":domain")
             configureKoinDependencies(libs)
             configureAdditionalDependencies(libs)
         }
