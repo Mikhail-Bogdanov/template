@@ -16,7 +16,7 @@ fun DesignSystem.BottomBar(
     modifier: Modifier = Modifier,
     containerColor: Color = colors.primary,
     contentColor: Color = colors.onPrimary,
-    contentPadding: PaddingValues = PaddingValues(4.dp),
+    contentPadding: PaddingValues = PaddingValues(padding.DSPx1),
     actions: List<Icon>,
 ) = BottomAppBar(
     modifier = modifier,
@@ -24,7 +24,7 @@ fun DesignSystem.BottomBar(
     contentColor = contentColor,
     content = {
         Row(
-            horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.End),
+            horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
             actions.forEach { Icon(icon = it) }

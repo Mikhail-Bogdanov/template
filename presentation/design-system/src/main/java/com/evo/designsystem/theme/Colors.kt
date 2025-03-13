@@ -34,8 +34,13 @@ abstract class Colors {
     abstract val tertiary: Color
     abstract val onTertiary: Color
 
+    abstract val link: Color
+
     abstract val error: Color
     abstract val onError: Color
+
+    abstract val success: Color
+    abstract val onSuccess: Color
 
 }
 
@@ -62,8 +67,13 @@ data object DarkColors : Colors() {
     override val tertiary: Color = Color(0xFF000000)
     override val onTertiary: Color = Color(0xFFFFFFFF)
 
+    override val link: Color = Color(0xFF000000)
+
     override val error: Color = Color(0xFF000000)
     override val onError: Color = Color(0xFFFFFFFF)
+
+    override val success: Color = Color(0xFF000000)
+    override val onSuccess: Color = Color(0xFF000000)
 
 }
 
@@ -89,8 +99,13 @@ data object LightColors : Colors() {
     override val tertiary: Color = Color(0xFF000000)
     override val onTertiary: Color = Color(0xFFFFFFFF)
 
+    override val link: Color = Color(0xFF000000)
+
     override val error: Color = Color(0xFF000000)
     override val onError: Color = Color(0xFFFFFFFF)
+
+    override val success: Color = Color(0xFF000000)
+    override val onSuccess: Color = Color(0xFF000000)
 
 }
 

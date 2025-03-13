@@ -6,39 +6,23 @@ import androidx.compose.ui.unit.sp
 
 object TextStyles {
 
-    /**
-     *  giant
-     */
-    val display: TextStyle = TextStyle(
+    val headline = TextStyle(
         fontSize = 24.sp
     )
 
-    /**
-     *  big
-     */
-    val title: TextStyle = TextStyle(
+    val title = TextStyle(
         fontSize = 20.sp
     )
 
-    /**
-     *  medium
-     */
-    val body: TextStyle = TextStyle(
+    val body = TextStyle(
         fontSize = 16.sp
     )
 
-    /**
-     *  small
-     */
-    val line: TextStyle = TextStyle(
+    val description = TextStyle(
         fontSize = 12.sp
     )
 
-    /**
-     *  for standard button
-     */
-    val button: TextStyle = TextStyle(
+    val button = TextStyle(
         fontSize = 16.sp
     )
-
 }

@@ -16,9 +16,10 @@ fun DesignSystem.Text(
     color: Color = colors.primary,
     style: TextStyle = textStyles.body,
     textAlign: TextAlign? = null,
-    overflow: TextOverflow = TextOverflow.Clip,
+    overflow: TextOverflow = TextOverflow.Ellipsis,
     maxLines: Int = Int.MAX_VALUE,
     minLines: Int = 1,
+    softWrap: Boolean = true,
 ) = MaterialText(
     modifier = modifier,
     text = text,
@@ -26,6 +27,7 @@ fun DesignSystem.Text(
     style = style,
     textAlign = textAlign,
     overflow = overflow,
-    maxLines = maxLines,
+    maxLines = if (softWrap) maxLines else 1,
     minLines = minLines,
+    softWrap = softWrap,
 )

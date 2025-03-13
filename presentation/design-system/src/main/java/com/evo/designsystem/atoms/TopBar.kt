@@ -31,7 +31,7 @@ fun DesignSystem.TopBar(
     actions = {
         actions?.let {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(2.dp, Alignment.End),
+                horizontalArrangement = Arrangement.spacedBy(padding.DSPx1, Alignment.End),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 actions.forEach { Icon(icon = it) }

@@ -1,4 +1,8 @@
 package com.evo.domain
 
-class DomainSimpleEntity {
-}
+@JvmInline
+value class EvoId(val value: Long)
+
+data class DomainSimpleEntity(
+    val evoId: EvoId,
+)
