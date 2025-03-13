@@ -22,4 +22,6 @@ object DesignSystem {
     val textStyles: TextStyles = TextStyles
 
     val shapes: Shapes = Shapes
+
+    val padding: Padding = Padding
 }

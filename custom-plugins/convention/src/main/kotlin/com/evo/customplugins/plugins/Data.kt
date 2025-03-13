@@ -9,8 +9,9 @@ import com.evo.customplugins.extensions.moduleImplementation
 import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 
-class Database : AndroidModulePlugin("database") {
+class Database : AndroidModulePlugin("databaseImpl") {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
+        moduleImplementation(":data:database:api")
         configureRoomDependencies(libs)
     }
 

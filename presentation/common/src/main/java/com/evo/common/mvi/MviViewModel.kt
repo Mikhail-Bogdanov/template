@@ -1,10 +1,10 @@
-package com.evo.common.mviViewModel
+package com.evo.common.mvi
 
 import androidx.lifecycle.ViewModel
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 
-abstract class MviViewModel<STATE : Any, SIDE_EFFECT : Any, EVENT : Any>(
+abstract class MviViewModel<STATE : MviState, SIDE_EFFECT : MviSideEffect, EVENT : MviEvent>(
     initialState: STATE
 ) : ViewModel(), ContainerHost<STATE, SIDE_EFFECT> {
 
@@ -14,3 +14,9 @@ abstract class MviViewModel<STATE : Any, SIDE_EFFECT : Any, EVENT : Any>(
 
     abstract fun dispatch(event: EVENT)
 }
+
+sealed interface MviSideEffect
+
+sealed interface MviEvent
+
+interface MviState

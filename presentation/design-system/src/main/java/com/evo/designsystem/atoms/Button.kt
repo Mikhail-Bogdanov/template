@@ -17,7 +17,7 @@ fun DesignSystem.Button(
     modifier: Modifier = Modifier,
     text: String,
     shape: Shape = shapes.medium,
-    colors: ButtonColors = buttonPrimaryColors(),
+    colors: ButtonColors = primaryButtonColors(),
     border: BorderStroke? = null,
     clickInfo: ClickInfo,
 ) = MaterialButton(
@@ -34,7 +34,7 @@ fun DesignSystem.Button(
 fun DesignSystem.Button(
     modifier: Modifier = Modifier,
     shape: Shape = shapes.medium,
-    colors: ButtonColors = buttonPrimaryColors(),
+    colors: ButtonColors = primaryButtonColors(),
     border: BorderStroke? = null,
     clickInfo: ClickInfo,
     content: @Composable RowScope.() -> Unit,
@@ -52,7 +52,7 @@ fun DesignSystem.Button(
 fun DesignSystem.ButtonInline(
     modifier: Modifier = Modifier,
     text: String,
-    colors: ButtonColors = buttonPrimaryColors(),
+    colors: ButtonColors = primaryButtonColors(),
     clickInfo: ClickInfo,
 ) = Text(
     modifier = modifier
@@ -62,7 +62,7 @@ fun DesignSystem.ButtonInline(
 )
 
 @Composable
-fun buttonPrimaryColors(
+fun primaryButtonColors(
     contentColor: Color = DesignSystem.colors.onPrimary,
     containerColor: Color = DesignSystem.colors.primary,
     disabledContentColor: Color = DesignSystem.colors.disabledOnPrimary,
@@ -75,7 +75,7 @@ fun buttonPrimaryColors(
 )
 
 @Composable
-fun buttonSecondaryColors(
+fun secondaryButtonColors(
     contentColor: Color = DesignSystem.colors.onSecondary,
     containerColor: Color = DesignSystem.colors.secondary,
     disabledContentColor: Color = DesignSystem.colors.disabledOnSecondary,
@@ -88,7 +88,7 @@ fun buttonSecondaryColors(
 )
 
 @Composable
-fun buttonCustomColors(
+fun customButtonColors(
     contentColor: Color,
     containerColor: Color,
     disabledContentColor: Color,

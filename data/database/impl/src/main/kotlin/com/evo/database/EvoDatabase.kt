@@ -11,6 +11,4 @@ import com.evo.database.util.DatabaseUtils.DATABASE_VERSION
     ],
     version = DATABASE_VERSION,
 )
-abstract class EvoDatabase : RoomDatabase() {
-
-}
+internal abstract class EvoDatabase : RoomDatabase()
