@@ -1,0 +1,3 @@
+#!/bin/bash
+
+"C:\Program Files\kotlinc\bin\kotlinc.bat" -script "scripts\hooks\commit-msg.kts" $1
