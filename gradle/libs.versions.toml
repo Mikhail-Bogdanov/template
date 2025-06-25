@@ -1,0 +1,187 @@
+[versions]
+
+# android
+agp = "8.10.0"
+android-lifecycle = "2.9.1"
+android-core = "1.16.0"
+android-annotation = "1.9.1"
+
+# compose
+compiler = "1.5.15"
+compose-bom = "2025.06.00"
+activity = "1.10.1"
+view-model = "2.9.1"
+accompanist = "0.34.0"
+compose-plugin = "1.6.11"
+
+# kotlin
+kotlin = "2.1.21"
+immutable-collections = "0.3.8"
+
+# coroutines
+coroutines = "1.10.2"
+
+# serialization
+serialization-json = "1.8.1"
+serialization-plugin = "2.1.20"
+
+# room
+room = "2.7.1"
+
+# network
+ktor = "2.3.8"
+
+# di
+koin = "3.5.6"
+
+# work-manager
+work-manager = "2.10.1"
+
+# ksp
+ksp = "2.1.21-2.0.2"
+
+# coil
+coil = "2.7.0"
+
+# data-store
+data-store = "1.1.7"
+
+# browser
+browser = "1.8.0"
+
+# maps
+osmdroid = "6.1.14"
+osmdroid-bonuspack = "6.9.0"
+
+# jts
+jts = "1.20.0"
+
+[libraries]
+
+# kotlin
+immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
+
+# network
+ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+ktor-client-okhttp = { module = "io.ktor:ktor-client-okhttp", version.ref = "ktor" }
+ktor-client-negotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+
+# koin
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+koin-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
+koin-work-manager = { module = "io.insert-koin:koin-androidx-workmanager", version.ref = "koin" }
+
+# work-manager
+work-manager = { module = "androidx.work:work-runtime-ktx", version.ref = "work-manager" }
+
+# coil
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+
+# compose
+ui = { module = "androidx.compose.ui:ui" }
+material3 = { module = "androidx.compose.material3:material3" }
+compose-activity = { module = "androidx.activity:activity-compose", version.ref = "activity" }
+compose-bom = { module = "androidx.compose:compose-bom", version.ref = "compose-bom" }
+compose-view-model = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "view-model" }
+compose-web-view = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
+compose-persmissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
+preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+animation = { module = "androidx.compose.animation:animation" }
+
+# room
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+room-kotlin = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+
+# data-store
+data-store = { module = "androidx.datastore:datastore-preferences", version.ref = "data-store" }
+
+# android
+annotation = { module = "androidx.annotation:annotation-jvm", version.ref = "android-annotation" }
+android-lifecycle = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "android-lifecycle" }
+android-core = { module = "androidx.core:core-ktx", version.ref = "android-core" }
+android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "agp" }
+
+# browser
+browser = { module = "androidx.browser:browser", version.ref = "browser" }
+
+# coroutines
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+
+# serialization
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
+
+# maps
+osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
+osmdroid-bonuspack = { module = "com.github.MKergall:osmbonuspack", version.ref = "osmdroid-bonuspack" }
+
+# jts
+jts = { module = "org.locationtech.jts:jts-core", version.ref = "jts" }
+
+[plugins]
+
+# android
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+
+# compose
+jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+# kotlin
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "serialization-plugin" }
+
+# ksp
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+
+# koin
+koin = [
+    "koin-core",
+    "koin-android",
+    "koin-compose",
+    "koin-work-manager",
+]
+
+# android
+android = [
+    "android-core",
+    "android-lifecycle",
+    "annotation",
+]
+
+# room
+room = [
+    "room-runtime",
+    "room-kotlin",
+]
+
+# network
+network = [
+    "ktor-client-core",
+    "ktor-client-okhttp",
+    "ktor-client-negotiation",
+    "ktor-serialization",
+]
+
+#PACKS
+
+
+ui = [
+    "compose-activity",
+    "compose-view-model",
+    "compose-web-view",
+    "compose-persmissions",
+    "material3",
+    "preview",
+    "ui",
+    "animation",
+    "coil",
+    "browser",
+]
