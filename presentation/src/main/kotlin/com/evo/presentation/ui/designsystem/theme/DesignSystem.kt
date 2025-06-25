@@ -1,7 +1,6 @@
 package com.evo.presentation.ui.designsystem.theme
 
 import android.content.Context
-import android.os.LocaleList
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -14,16 +13,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.evo.resources.system.R
+import com.evo.presentation.R
 import com.evo.storage.*
 import org.koin.compose.koinInject
+import java.util.Locale
 
 @Composable
 fun MainAppTheme(content: @Composable BoxScope.() -> Unit) {
     val localeHandler = koinInject<LocaleHandler>()
     val themeHandler = koinInject<ThemeHandler>()
 
-    val locale by localeHandler.localeFlow.collectAsStateWithLifecycle(EvoLocale.DEFAULT)
+    val locale by localeHandler.localeFlow.collectAsStateWithLifecycle(EvoLocale.Default)
     val theme by themeHandler.themeFlow.collectAsStateWithLifecycle(EvoTheme.DEFAULT)
 
     val newContext = LocalContext.current.withLocale(locale)
@@ -49,11 +49,11 @@ fun MainAppTheme(content: @Composable BoxScope.() -> Unit) {
 
 private fun Context.withLocale(locale: EvoLocale): Context {
     val config = resources.configuration
-    config.setLocales(LocaleList.forLanguageTags(locale.languageTag))
+    config.setLocale(Locale.forLanguageTag(locale.languageTag))
     return createConfigurationContext(config)
 }
 
-val LocalLocale = staticCompositionLocalOf { EvoLocale.DEFAULT }
+val LocalLocale = staticCompositionLocalOf<EvoLocale> { error("No locale provided") }
 val LocalTheme = staticCompositionLocalOf { EvoTheme.DEFAULT }
 
 object DesignSystem {

@@ -10,17 +10,18 @@ interface LocaleHandler {
 
 }
 
-enum class EvoLocale(val languageTag: String?) {
-    DEFAULT(null),
-    RUSSIAN("ru"),
-    ENGLISH("en"),
-    ;
+sealed class EvoLocale(val languageTag: String) {
+
+    data object Russian : EvoLocale("ru")
+    data object English : EvoLocale("en")
 
     companion object {
-        fun getByLanguageTag(languageTag: String?) = when (languageTag) {
-            ENGLISH.languageTag -> ENGLISH
-            RUSSIAN.languageTag -> RUSSIAN
-            else -> DEFAULT
+
+        val Default = Russian
+
+        fun retrieveByTag(tag: String?) = when {
+            tag == null || tag.contains(Russian.languageTag, true) -> Russian
+            else -> English
         }
     }
 }
