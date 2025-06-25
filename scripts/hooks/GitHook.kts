@@ -1,8 +1,6 @@
 import java.io.File
 import java.util.Properties
 
-kotlin.system.exitProcess(0)
-
 println("STARTING GIT HOOK")
 
 try {
@@ -13,8 +11,6 @@ try {
     } else {
         PreCommit()
     }
-
-    throw Exception("TEST HOOK")
 
 } catch (e: Exception) {
     println(e.localizedMessage)
@@ -100,7 +96,7 @@ internal class CommitMessage(messageFilePath: String) {
     private val originalMessage = messageFile.readText().trim()
 
     init {
-        println(originalMessage)
+        println(originalMessage) // todo come up with smth
     }
 
     fun setMessage(newMessage: String) {
