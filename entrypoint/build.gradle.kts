@@ -10,7 +10,6 @@ dependencies {
 //    implementAllModules(projectPath.resolve("feature").path)
     implementation(projects.presentation)
     implementation(projects.data.storage.api)
-    implementation(projects.resources)
 }
 
 //fun DependencyHandlerScope.implementAllModules(path: String) {

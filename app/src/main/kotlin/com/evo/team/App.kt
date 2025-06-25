@@ -4,7 +4,7 @@ package com.evo.team
 import android.app.Application
 import com.evo.database.di.DatabaseModule
 import com.evo.domain.di.DomainModule
-import com.evo.entrypoint.AppEntryPointModule
+import com.evo.entrypoint.EntryPointModule
 import com.evo.initialscreen.InitialScreenModule
 import com.evo.network.di.NetworkModule
 import com.evo.storage.di.StorageModule
@@ -25,7 +25,7 @@ class App : Application() {
     private fun KoinApplication.initializeAllModules() = modules(
         /* [MODULES] */
         InitialScreenModule.module,
-        AppEntryPointModule(),
+        EntryPointModule(),
         DatabaseModule(),
         StorageModule(),
         NetworkModule(),

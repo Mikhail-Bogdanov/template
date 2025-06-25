@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.theme.*
-import com.evo.resourcessystem.ResourcesSystem
+import com.evo.presentation.ui.resourcessystem.ResourcesSystem
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -35,11 +35,7 @@ fun DesignSystem.SearchTopBar(
             InputField(
                 state = searchState,
                 trailingIcon = DSIcon(
-                    vector = if (isFocused) {
-                        ResourcesSystem.Icon.clear()
-                    } else {
-                        ResourcesSystem.Icon.search()
-                    },
+                    vector = TODO("Add search top bar"),
                     colors = DesignSystem.onlyIconColors(),
                     clickInfo = if (isFocused) {
                         ClickInfo {
