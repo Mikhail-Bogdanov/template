@@ -10,12 +10,12 @@ fun Modifier.clip(shape: DesignSystem.Shapes) = clip(shape.shape)
 
 fun Modifier.background(
     color: Color,
-    shape: DesignSystem.Shapes = DesignSystem.Shapes.Element.None,
+    shape: DesignSystem.Shapes = DesignSystem.Shapes.None,
 ) = background(color, shape.shape)
 
 fun Modifier.border(
     border: BorderStroke,
-    shape: DesignSystem.Shapes = DesignSystem.Shapes.Element.None,
+    shape: DesignSystem.Shapes = DesignSystem.Shapes.None,
 ) = border(border = border, shape = shape.shape)
 
 inline fun AnnotatedString.Builder.asTitle(block: AnnotatedString.Builder.() -> Unit) {

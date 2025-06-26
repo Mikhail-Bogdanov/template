@@ -15,7 +15,8 @@ import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes
 import com.evo.presentation.ui.ifNotNull
 import androidx.compose.material3.Icon as MaterialIcon
 
-enum class IconSize(val dp: Dp) { Big(48.dp), Medium(36.dp), Small(24.dp),
+enum class IconSize(val dp: Dp) {
+    Big(48.dp), Medium(36.dp), Small(24.dp),
 }
 
 @Composable
@@ -79,7 +80,7 @@ fun DesignSystem.Icon(
 data class DSIcon(
     val vector: ImageVector,
     val text: String? = null,
-    val shape: Shapes.Element = Shapes.Element.Medium,
+    val shape: Shapes = Shapes.Medium,
     val colors: IconColors? = null,
     val clickInfo: ClickInfo? = null,
 )

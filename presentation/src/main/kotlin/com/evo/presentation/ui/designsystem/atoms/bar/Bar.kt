@@ -5,9 +5,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import com.evo.presentation.ui.designsystem.atoms.*
-import com.evo.presentation.ui.designsystem.theme.*
+import com.evo.presentation.ui.designsystem.theme.DesignSystem
+import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes.ExtraLarge.asTopBar
+import com.evo.presentation.ui.designsystem.theme.background
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -17,7 +21,7 @@ fun DesignSystem.TopBar(
     title: String? = null,
     containerColor: Color,
     titleColor: Color? = null,
-    shape: DesignSystem.Shapes.Bar.Top = DesignSystem.Shapes.Bar.Top.Big,
+    shape: Shape = DesignSystem.Shapes.Big.asTopBar(),
     navigationIcon: DSIcon? = null,
     actions: ImmutableList<DSIcon>? = null,
 ) = CenterAlignedTopAppBar(
@@ -47,7 +51,7 @@ fun DesignSystem.TopBar(
 fun DesignSystem.BottomBar(
     modifier: Modifier = Modifier,
     containerColor: Color,
-    shape: DesignSystem.Shapes.Bar.Bottom,
+    shape: Shape,
     contentPadding: PaddingValues = PaddingValues(DesignSystem.Paddings.DSPx1),
     actions: ImmutableList<DSIcon>,
 ) = Row(

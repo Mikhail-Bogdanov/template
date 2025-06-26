@@ -21,7 +21,7 @@ import androidx.compose.material3.Button as MaterialButton
 fun DesignSystem.Button(
     modifier: Modifier = Modifier,
     text: CharSequence,
-    shape: Shapes.Element = Shapes.Element.Medium,
+    shape: Shapes = Shapes.Medium,
     colors: ButtonColors = primaryButtonColors(),
     border: BorderStroke? = null,
     softWrap: Boolean = false,
@@ -55,7 +55,7 @@ fun DesignSystem.Button(
 @Composable
 fun DesignSystem.Button(
     modifier: Modifier = Modifier,
-    shape: Shapes.Element = Shapes.Element.Small,
+    shape: Shapes = Shapes.Small,
     colors: ButtonColors = primaryButtonColors(),
     border: BorderStroke? = null,
     clickInfo: ClickInfo,

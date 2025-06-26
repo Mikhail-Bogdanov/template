@@ -1,14 +1,17 @@
 package com.evo.presentation.ui.designsystem.atoms
 
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.InlineTextContent
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
+import org.koin.core.component.KoinComponent
 import androidx.compose.material3.Text as MaterialText
 
 @Composable
@@ -58,3 +61,18 @@ fun DesignSystem.Text(
     minLines = minLines,
     softWrap = softWrap,
 )
+
+object EvoInlineContent : KoinComponent {
+
+    const val SPACE_ID = "SPACE_ID"
+
+    fun space(width: Dp = DesignSystem.Paddings.DSPx1) = SPACE_ID to InlineTextContent(
+        Placeholder(
+            width = width.value.sp,
+            height = 1.sp,
+            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+        )
+    ) {
+        Spacer(modifier = Modifier.size(width, 1.dp))
+    }
+}

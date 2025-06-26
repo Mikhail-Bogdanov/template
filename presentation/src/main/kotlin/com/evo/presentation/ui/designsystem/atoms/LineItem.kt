@@ -19,7 +19,7 @@ fun DesignSystem.LineItem(
     title: CharSequence,
     clickInfo: ClickInfo? = null,
     titleMaxLines: Int = 1,
-    shape: DesignSystem.Shapes.Element = DesignSystem.Shapes.Element.Medium,
+    shape: DesignSystem.Shapes = DesignSystem.Shapes.Medium,
     isError: Boolean = false,
     textAlign: TextAlign = TextAlign.Start,
     colors: LineItemColors = primaryLineItemColors(),

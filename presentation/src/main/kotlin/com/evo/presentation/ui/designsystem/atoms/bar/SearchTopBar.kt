@@ -8,11 +8,14 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.platform.LocalFocusManager
 import com.evo.presentation.ui.designsystem.atoms.*
-import com.evo.presentation.ui.designsystem.theme.*
-import com.evo.presentation.ui.resourcessystem.ResourcesSystem
+import com.evo.presentation.ui.designsystem.theme.ClickInfo
+import com.evo.presentation.ui.designsystem.theme.DesignSystem
+import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes.ExtraLarge.asTopBar
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,7 +24,7 @@ fun DesignSystem.SearchTopBar(
     modifier: Modifier = Modifier,
     searchState: InputFieldState<String>,
     containerColor: Color,
-    shape: DesignSystem.Shapes.Bar.Top = DesignSystem.Shapes.Bar.Top.Big,
+    shape: Shape = DesignSystem.Shapes.Big.asTopBar(),
     navigationIcon: DSIcon? = null,
     actions: ImmutableList<DSIcon>? = null,
 ) {

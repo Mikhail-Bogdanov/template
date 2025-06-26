@@ -24,7 +24,7 @@ fun DesignSystem.Dialog(state: DialogState) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Colors.background.dialog, DesignSystem.Shapes.Element.Small)
+                    .background(Colors.background.dialog, DesignSystem.Shapes.Small)
                     .padding(DesignSystem.Paddings.DSPx4),
                 verticalArrangement = Arrangement.spacedBy(DesignSystem.Paddings.DSPx5),
                 horizontalAlignment = Alignment.CenterHorizontally,

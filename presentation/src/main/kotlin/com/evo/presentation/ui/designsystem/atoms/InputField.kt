@@ -83,7 +83,7 @@ fun <T : Any> DesignSystem.InputField(
     isError: Boolean = false,
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
-    shape: DesignSystem.Shapes.Element = DesignSystem.Shapes.Element.Medium,
+    shape: DesignSystem.Shapes = DesignSystem.Shapes.Medium,
     colors: InputFieldColors = primaryInputFieldColors(),
     interactionSource: MutableInteractionSource? = null,
 ) {

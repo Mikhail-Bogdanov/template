@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.atoms.bar.BottomBar
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
+import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes.ExtraLarge.asTopBar
 import com.evo.presentation.ui.designsystem.theme.MainAppTheme
 import com.evo.screen.*
 import kotlinx.collections.immutable.persistentListOf
@@ -28,7 +29,7 @@ import kotlin.coroutines.suspendCoroutine
 class MainActivity : ComponentActivity(), KoinComponent {
 
     private val viewModel by viewModel<EntryPointViewModel> {
-        val initialScreen by inject<EvoScreen>(named(Screens.MAIN_PAGE))
+        val initialScreen by inject<EvoScreen>(named(Screens.LogIn))
         parametersOf(initialScreen)
     }
 
@@ -64,7 +65,7 @@ class MainActivity : ComponentActivity(), KoinComponent {
                             .padding(DesignSystem.Paddings.DSPx3),
                         containerColor = DesignSystem.Colors.container.primary,
                         contentPadding = PaddingValues(DesignSystem.Paddings.DSPx2),
-                        shape = DesignSystem.Shapes.Bar.Bottom.Floating.Big,
+                        shape = DesignSystem.Shapes.Big.asTopBar(),
                         actions = persistentListOf(
 
                         ),

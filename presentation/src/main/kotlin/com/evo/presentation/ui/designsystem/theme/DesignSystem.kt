@@ -13,7 +13,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.evo.presentation.R
+import com.evo.resources.LocalLocale
+import com.evo.resources.R
 import com.evo.storage.*
 import org.koin.compose.koinInject
 import java.util.Locale
@@ -53,7 +54,6 @@ private fun Context.withLocale(locale: EvoLocale): Context {
     return createConfigurationContext(config)
 }
 
-val LocalLocale = staticCompositionLocalOf<EvoLocale> { error("No locale provided") }
 val LocalTheme = staticCompositionLocalOf { EvoTheme.DEFAULT }
 
 object DesignSystem {
@@ -64,63 +64,28 @@ object DesignSystem {
     @Immutable
     sealed class Shapes(val shape: RoundedCornerShape) {
 
-        @Immutable
-        sealed class Element(size: Dp) : Shapes(RoundedCornerShape(size)) {
+        data object None : Shapes(RoundedCornerShape(0.dp))
+        data object ExtraSmall : Shapes(RoundedCornerShape(4.dp))
+        data object Small : Shapes(RoundedCornerShape(8.dp))
+        data object Medium : Shapes(RoundedCornerShape(12.dp))
+        data object Big : Shapes(RoundedCornerShape(16.dp))
+        data object Large : Shapes(RoundedCornerShape(20.dp))
+        data object ExtraLarge : Shapes(RoundedCornerShape(24.dp))
+        data object Full : Shapes(RoundedCornerShape(100.dp))
 
-            data object None : Element(0.dp)
-            data object ExtraSmall : Element(4.dp)
-            data object Small : Element(8.dp)
-            data object Medium : Element(12.dp)
-            data object Big : Element(16.dp)
-            data object Large : Element(20.dp)
-            data object ExtraLarge : Element(24.dp)
-            data object Full : Element(100.dp)
+        fun Shapes.asTopBar(floating: Boolean = false): RoundedCornerShape = RoundedCornerShape(
+            topStart = shape.topStart.takeIf { floating } ?: CornerSize(0),
+            topEnd = shape.topEnd.takeIf { floating } ?: CornerSize(0),
+            bottomEnd = shape.bottomEnd,
+            bottomStart = shape.bottomStart,
+        )
 
-        }
-
-        @Immutable
-        sealed class Bar(shape: RoundedCornerShape) : Shapes(shape) {
-
-            @Immutable
-            sealed class Top(size: Dp) : Bar(
-                RoundedCornerShape(
-                    topStart = CornerSize(0),
-                    topEnd = CornerSize(0),
-                    bottomEnd = CornerSize(size),
-                    bottomStart = CornerSize(size),
-                )
-            ) {
-
-                data object None : Top(0.dp)
-                data object Small : Top(8.dp)
-                data object Big : Top(16.dp)
-            }
-
-            @Immutable
-            sealed class Bottom(shape: RoundedCornerShape) : Bar(shape) {
-
-                sealed class Floating(size: Dp) : Bottom(RoundedCornerShape(size)) {
-
-                    data object None : Floating(0.dp)
-                    data object Small : Floating(8.dp)
-                    data object Big : Floating(16.dp)
-                }
-
-                sealed class Static(size: Dp) : Bottom(
-                    RoundedCornerShape(
-                        topStart = CornerSize(size),
-                        topEnd = CornerSize(size),
-                        bottomEnd = CornerSize(0),
-                        bottomStart = CornerSize(0),
-                    )
-                ) {
-
-                    data object None : Static(0.dp)
-                    data object Small : Static(8.dp)
-                    data object Big : Static(16.dp)
-                }
-            }
-        }
+        fun Shapes.asBottomBar(floating: Boolean = false): RoundedCornerShape = RoundedCornerShape(
+            topStart = shape.topStart,
+            topEnd = shape.topEnd,
+            bottomEnd = shape.bottomEnd.takeIf { floating } ?: CornerSize(0),
+            bottomStart = shape.bottomStart.takeIf { floating } ?: CornerSize(0),
+        )
 
         companion object {
 
@@ -144,8 +109,6 @@ object DesignSystem {
 
         private val DesignSystemPadding = Dp(4f)
 
-        // xD
-        val DSPx0 = DesignSystemPadding * 0f
         val DSPx0_5 = DesignSystemPadding * 0.5f
         val DSPx1 = DesignSystemPadding * 1f
         val DSPx1_5 = DesignSystemPadding * 1.5f
