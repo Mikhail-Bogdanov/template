@@ -1,4 +1,0 @@
-#!/bin/bash
-
-
-"C:\Program Files\kotlinc\bin\kotlinc.bat" -script "scripts\hooks\GitHook.kts" $1

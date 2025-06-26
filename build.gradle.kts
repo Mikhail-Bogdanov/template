@@ -8,30 +8,16 @@ plugins {
     alias(libs.plugins.ksp) apply false
 }
 
-tasks.register<Copy>("installGitHooks") {
-    group = "setup"
-    description = "Copies git hook scripts into .git/hooks"
-
-    val hooksSrc = file("scripts/hooks/bat")
+copy {
+    val hooksSrc = file("project/scripts/hooks/bat")
     val hooksDest = file(".git/hooks")
 
     from(hooksSrc)
     into(hooksDest)
 
-    doLast {
-        println("Hooks Copied!")
-        hooksDest.listFiles()?.forEach { file ->
-            if (file.isFile) {
-                file.setExecutable(true)
-            }
-        }
+    hooksDest.listFiles()?.forEach { file ->
+        if (file.isFile) { file.setExecutable(true) }
     }
-}
 
-gradle.projectsEvaluated {
-    subprojects.forEach { proj ->
-        proj.tasks.matching { it.name.contains("build", ignoreCase = true) }.configureEach {
-            dependsOn(rootProject.tasks.named("installGitHooks"))
-        }
-    }
+    println("Hooks Copied!")
 }

@@ -43,13 +43,13 @@ internal fun ApplicationExtension.configureApplicationExtension() {
 }
 
 internal enum class Code(val filePath: String) {
-    MAJOR(Path("version", "major.txt").pathString) {
+    MAJOR(Path("project", "version", "major.txt").pathString) {
         override val file = File(filePath)
     },
-    MINOR(Path("version", "minor.txt").pathString) {
+    MINOR(Path("project", "version", "minor.txt").pathString) {
         override val file = File(filePath)
     },
-    PATCH(Path("version", "patch.txt").pathString) {
+    PATCH(Path("project", "version", "patch.txt").pathString) {
         override val file = File(filePath)
     },
     ;
