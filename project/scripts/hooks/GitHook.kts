@@ -43,6 +43,7 @@ internal class PreCommit {
     }
 
     private fun increaseCode(code: Code) {
+        val oldCode = code.current
         val newCode = code.current + 1
         code.set(newCode)
 
@@ -60,6 +61,8 @@ internal class PreCommit {
                 "${code.name}!"
             }
         } + "\n" + "Bumped to $newCode"
+
+        GitHelper.ExtraMessage.setExtraMessageText("[${code.name}]\nBumped from $oldCode to $newCode")
 
         println(message)
 
@@ -111,10 +114,12 @@ internal class CommitMessage(messageFilePath: String) {
     private val originalMessage = messageFile.readText().trim()
 
     init {
-        println(originalMessage) // todo come up with smth
+        val extraMessageText = GitHelper.ExtraMessage.getExtraMessageText()
+        val finalMessage = extraMessageText + GitHelper.ExtraMessage.prepareOrigMessage(originalMessage)
+        setMessage(finalMessage)
     }
 
-    fun setMessage(newMessage: String) {
+    private fun setMessage(newMessage: String) {
         messageFile.writeText(newMessage)
     }
 }
@@ -156,4 +161,39 @@ internal object GitHelper {
 
     data class Changes(val added: Int, val deleted: Int)
 
+    object ExtraMessage {
+
+        private val tempExtraMessageFile = File(
+            Path("project", "version", "commit_message.txt").pathString
+        )
+
+        fun getExtraMessageText(): String {
+            return if (tempExtraMessageFile.exists()) {
+                val text = tempExtraMessageFile.readText().trim() + "\n\n"
+                tempExtraMessageFile.delete()
+                text
+            } else {
+                ""
+            }
+        }
+
+        fun setExtraMessageText(message: String) {
+            if (tempExtraMessageFile.exists().not()) {
+                tempExtraMessageFile.createNewFile()
+            }
+            tempExtraMessageFile.writeText(message.trim())
+        }
+
+        fun prepareOrigMessage(message: String) = message
+            .replace("added", "add")
+            .replace("Added", "Add")
+            .replace("created", "create")
+            .replace("Created", "Create")
+            .replace("updated", "update")
+            .replace("Updated", "Update")
+            .replace("refactored", "refactor")
+            .replace("Refactored", "Refactor")
+            .replace("finished", "finish")
+            .replace("Finished", "Finish")
+    }
 }
