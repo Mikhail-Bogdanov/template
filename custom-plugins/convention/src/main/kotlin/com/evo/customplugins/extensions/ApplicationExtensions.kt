@@ -2,12 +2,22 @@ package com.evo.customplugins.extensions
 
 import com.android.build.api.dsl.ApplicationExtension
 import com.evo.customplugins.Config
+import java.io.File
+import kotlin.io.path.Path
+import kotlin.io.path.pathString
 
-fun ApplicationExtension.configureApplicationExtension() {
+internal fun ApplicationExtension.configureApplicationExtension() {
     namespace = Config.NAMESPACE_WITH_POINT + "app"
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {
+        val major = Code.MAJOR.current
+        val minor = Code.MINOR.current
+        val patch = Code.PATCH.current
+
+        versionCode = major * 10000 + minor * 100 + patch
+        versionName = "$major.$minor.$patch"
+
         minSdk = Config.MIN_SDK
         targetSdk = Config.TARGET_SDK
 
@@ -30,4 +40,20 @@ fun ApplicationExtension.configureApplicationExtension() {
             proguardFiles("proguard-rules.pro")
         }
     }
+}
+
+internal enum class Code(val filePath: String) {
+    MAJOR(Path("version", "major.txt").pathString) {
+        override val file = File(filePath)
+    },
+    MINOR(Path("version", "minor.txt").pathString) {
+        override val file = File(filePath)
+    },
+    PATCH(Path("version", "patch.txt").pathString) {
+        override val file = File(filePath)
+    },
+    ;
+
+    abstract val file: File
+    val current get() = file.readText().trim().toInt()
 }
