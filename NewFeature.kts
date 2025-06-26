@@ -1,8 +1,28 @@
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.io.path.createDirectories
-import kotlin.io.path.pathString
+import kotlin.Boolean
+import kotlin.IllegalArgumentException
+import kotlin.String
+import kotlin.apply
+import kotlin.collections.joinToString
+import kotlin.io.path.*
+import kotlin.io.println
+import kotlin.io.readText
+import kotlin.io.readln
+import kotlin.io.writeText
+import kotlin.require
+import kotlin.takeIf
+import kotlin.text.Regex
+import kotlin.text.lowercase
+import kotlin.text.matches
+import kotlin.text.replace
+import kotlin.text.replaceFirstChar
+import kotlin.text.toIntOrNull
+import kotlin.text.toMutableList
+import kotlin.text.trimIndent
+import kotlin.text.uppercase
+import kotlin.text.uppercaseChar
 
 println("Choose feature to create:")
 println("1: UI Feature")
@@ -17,8 +37,6 @@ println("Enter module name (only a..z and - allowed)")
 val moduleName = readln().validateModuleName()
 
 println("Creating feature...")
-
-println("Initializing variables")
 
 val screenName = moduleName.toScreenName()
 val modulePath = KPath("feature", moduleName).pathString
@@ -58,7 +76,7 @@ fun createApiModule() {
 }
 
 fun updateAppModule() {
-    val appModulePath = KPath(File("app").absolutePath)
+    val appModulePath = File("app").toPath()
     val appFullModulePath = createFullModulePath(appModulePath, "team")
     val appFile = KPath(appFullModulePath.pathString, "App.kt").createFile()
     val modulesDelimiter = "/* [MODULES] */"
@@ -98,12 +116,11 @@ fun createDiModule(addScreen: Boolean) {
         """
             package com.evo.$namespace
     
-            ${if (addScreen) "import com.evo.$namespace.$screenName" else ""}
             import com.evo.screen.Screens
             import org.koin.core.qualifier.named
             import org.koin.dsl.module
 
-            object InitialScreenModule {
+            object $screenModule {
 
                 val module = module {
                     $screenText
@@ -158,7 +175,7 @@ private fun createImplScreen() {
 }
 
 private fun createApiScreen() {
-    val screenModulePath = KPath(File("screen").absolutePath)
+    val screenModulePath = File("screen").toPath()
     val screenFullModulePath = createFullModulePath(screenModulePath, "screen")
     val screensFile = KPath(screenFullModulePath.pathString, "Screens.kt").createFile()
 

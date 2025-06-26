@@ -9,7 +9,7 @@ plugins {
 }
 
 copy {
-    val hooksSrc = file("project/scripts/hooks/bat")
+    val hooksSrc = file("project/hooks/bat")
     val hooksDest = file(".git/hooks")
 
     from(hooksSrc)
