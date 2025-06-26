@@ -93,7 +93,7 @@ internal class PreCommit {
             val current get() = file.readText().trim().toInt()
 
             fun set(newCode: Int) {
-                file.writeText(newCode.toString())
+                file.writeText(newCode.toString().trim())
             }
 
             fun clear() = set(0)
