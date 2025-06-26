@@ -1,4 +1,4 @@
-package com.evo.initialscreen.ui
+package com.evo.settings
 
 import com.evo.screen.BaseScreenModel
 
