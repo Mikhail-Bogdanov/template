@@ -3,24 +3,23 @@ package com.evo.screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import org.koin.core.component.KoinComponent
-import org.koin.core.parameter.parametersOf
-import kotlin.reflect.KClass
+import org.koin.core.component.inject
 
 @Immutable
-abstract class Screen<ARGS : Any, SM : BaseScreenModel<*>>(
-    args: ARGS,
-    smClass: KClass<SM>,
-) : KoinComponent {
+abstract class Screen<SM : BaseScreenModel<*>> : KoinComponent {
 
-    protected val sm: SM = this.getKoin().get(smClass) { parametersOf(args) }
-    protected val state = sm.state
+    protected abstract val screenModel: SM
 
-    context(EvoNavigator, EvoEventHandler)
+    private val eventHandler: EvoEventHandler by inject()
+    protected val navigator: EvoNavigator by inject()
+
     @Composable
     abstract fun Content()
+
+    protected fun send(event: EvoEvent) = eventHandler.event(event)
 
 }
 
 data object NoArgs
 
-typealias EvoScreen = Screen<*, *>
+typealias EvoScreen = Screen<*>

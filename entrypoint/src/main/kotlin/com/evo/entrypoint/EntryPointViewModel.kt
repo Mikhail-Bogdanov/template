@@ -6,6 +6,9 @@ import com.evo.screen.*
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
+import org.koin.core.qualifier.named
 
 internal class EntryPointViewModel(
     initialScreen: EvoScreen,
@@ -20,13 +23,30 @@ internal class EntryPointViewModel(
         events.trySend(event)
     }
 
-    override fun navigate(screen: EvoScreen) {
-        backstack.add(screen)
+    override fun <ARGS : Any> navigate(screen: Screens, args: ARGS) {
+        val screenImpl by inject<EvoScreen>(qualifier = named(screen)) {
+            parametersOf(args)
+        }
+        backstack.add(screenImpl)
     }
 
-    override fun replace(screen: EvoScreen) {
+    override fun navigate(screen: Screens) {
+        val screenImpl by inject<EvoScreen>(qualifier = named(screen))
+        backstack.add(screenImpl)
+    }
+
+    override fun <ARGS : Any> replace(screen: Screens, args: ARGS) {
+        val screenImpl by inject<EvoScreen>(qualifier = named(screen)) {
+            parametersOf(args)
+        }
         backstack.dropLast(1)
-        backstack.add(screen)
+        backstack.add(screenImpl)
+    }
+
+    override fun replace(screen: Screens) {
+        val screenImpl by inject<EvoScreen>(qualifier = named(screen))
+        backstack.dropLast(1)
+        backstack.add(screenImpl)
     }
 
     override fun pop() {
