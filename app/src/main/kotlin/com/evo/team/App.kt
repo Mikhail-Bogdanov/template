@@ -1,6 +1,8 @@
 package com.evo.team
 
 /* [IMPORT] */
+import com.evo.signup.SignUpModule
+import com.evo.login.LogInModule
 import com.evo.settings.SettingsModule
 import android.app.Application
 import com.evo.database.di.DatabaseModule
@@ -24,6 +26,8 @@ class App : Application() {
 
     private fun KoinApplication.initializeAllModules() = modules(
         /* [MODULES] */
+		SignUpModule.module,
+		LogInModule.module,
 		SettingsModule.module,
         EntryPointModule(),
         DatabaseModule(),
