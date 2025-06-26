@@ -50,11 +50,14 @@ internal class PreCommit {
         val message = when (code) {
             Code.MAJOR -> {
                 Code.MINOR.clear()
+                GitHelper.add(Code.MINOR.filePath).waitFor()
                 Code.PATCH.clear()
+                GitHelper.add(Code.PATCH.filePath).waitFor()
                 "New ${code.name} release!"
             }
             Code.MINOR -> {
                 Code.PATCH.clear()
+                GitHelper.add(Code.PATCH.filePath).waitFor()
                 "${code.name} version release!"
             }
             Code.PATCH -> {
