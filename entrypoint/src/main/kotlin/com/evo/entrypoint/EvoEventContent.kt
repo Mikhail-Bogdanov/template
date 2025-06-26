@@ -8,12 +8,12 @@ import com.evo.domain.extensions.Lambda
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.theme.ClickInfo
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
-import com.evo.presentation.ui.resourcessystem.ResourcesSystem
+import com.evo.resources.StringResources
 
 @Composable
 internal fun DialogState.DeleteConfirmationDialog(onConfirm: Lambda, onDeny: Lambda) {
     DesignSystem.Text(
-        text = ResourcesSystem.Strings.AreYouSureWantToDelete.value,
+        text = StringResources.AreYouSureWantToDelete.value,
         style = DesignSystem.TextStyles.title,
     )
     Row(
@@ -25,14 +25,14 @@ internal fun DialogState.DeleteConfirmationDialog(onConfirm: Lambda, onDeny: Lam
         verticalAlignment = Alignment.CenterVertically,
     ) {
         DesignSystem.ButtonInline(
-            text = ResourcesSystem.Strings.Cancel.value,
+            text = StringResources.Cancel.value,
             clickInfo = ClickInfo {
                 onDeny()
                 dismissDialog()
             },
         )
         DesignSystem.Button(
-            text = ResourcesSystem.Strings.Confirm.value,
+            text = StringResources.Confirm.value,
             clickInfo = ClickInfo {
                 onConfirm()
                 dismissDialog()

@@ -40,7 +40,7 @@ abstract class BaseModule(private val implementDomain: Boolean = true) : Plugin<
     open fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-abstract class AndroidModulePlugin(private val moduleNamespace: String? = null) : BaseModule() {
+abstract class AndroidModulePlugin : BaseModule() {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply(libs.plugins.android.library.get().pluginId)
@@ -48,7 +48,7 @@ abstract class AndroidModulePlugin(private val moduleNamespace: String? = null) 
         pluginManager.apply(libs.plugins.kotlin.android.get().pluginId)
 
         extensions.configure<LibraryExtension> {
-            configureAndroidFeatureModule(moduleNamespace)
+            configureAndroidFeatureModule()
         }
 
         dependencies {
@@ -62,10 +62,7 @@ abstract class AndroidModulePlugin(private val moduleNamespace: String? = null) 
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-abstract class ComposeModulePlugin(
-    moduleNamespace: String? = null,
-    private val implementScreen: Boolean = true,
-) : AndroidModulePlugin(moduleNamespace) {
+abstract class ComposeModulePlugin : AndroidModulePlugin() {
 
     override fun apply(target: Project) = with(target) {
         super.apply(target)
@@ -79,14 +76,14 @@ abstract class ComposeModulePlugin(
         dependencies {
             implementation(libs.bundles.ui)
             implementation(platform(libs.compose.bom))
-            if (implementScreen) {
-                moduleImplementation(":screen")
-            }
         }
     }
 }
 
-class CleanKotlinModule : BaseModule() {
+class ComposeModule : ComposeModulePlugin()
+class AndroidModule : AndroidModulePlugin()
+
+class KotlinModule : BaseModule() {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply("java")
@@ -94,10 +91,6 @@ class CleanKotlinModule : BaseModule() {
         super.apply(target)
     }
 }
-
-class CleanComposeModule : ComposeModulePlugin()
-class ScreenModule : ComposeModulePlugin(implementScreen = false)
-class CleanAndroidModule : AndroidModulePlugin()
 
 class Domain : BaseModule(false) {
 

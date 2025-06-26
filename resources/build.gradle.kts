@@ -2,9 +2,8 @@ plugins {
     id("evo-compose")
 }
 
-android.namespace = "com.evo.presentation"
+android.namespace = "com.evo.resources"
 
 dependencies {
     implementation(projects.data.storage.api)
-    implementation(projects.resources)
 }

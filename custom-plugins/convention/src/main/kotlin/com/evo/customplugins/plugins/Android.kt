@@ -10,6 +10,7 @@ class AndroidFeature : ComposeModulePlugin() {
 
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":presentation")
+        moduleImplementation(":resources")
         moduleImplementation(":data:storage:api")
         moduleImplementation(":data:database:api")
         moduleImplementation(":data:network:api")

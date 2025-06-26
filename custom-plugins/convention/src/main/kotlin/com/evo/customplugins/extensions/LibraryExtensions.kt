@@ -3,11 +3,7 @@ package com.evo.customplugins.extensions
 import com.android.build.gradle.LibraryExtension
 import com.evo.customplugins.Config
 
-internal fun LibraryExtension.configureAndroidFeatureModule(
-    moduleNamespace: String? = null
-) {
-    namespace = moduleNamespace?.let { Config.NAMESPACE_WITH_POINT + it } ?: namespace
-
+internal fun LibraryExtension.configureAndroidFeatureModule() {
     compileSdk = Config.COMPILE_SDK
 
     defaultConfig {

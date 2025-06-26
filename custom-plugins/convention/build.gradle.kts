@@ -15,15 +15,15 @@ gradlePlugin {
         // REGULAR
         register("evo-kotlin") {
             id = "evo-kotlin"
-            implementationClass = "com.evo.customplugins.plugins.CleanKotlinModule"
+            implementationClass = "com.evo.customplugins.plugins.KotlinModule"
         }
         register("evo-android") {
             id = "evo-android"
-            implementationClass = "com.evo.customplugins.plugins.CleanAndroidModule"
+            implementationClass = "com.evo.customplugins.plugins.AndroidModule"
         }
         register("evo-compose") {
             id = "evo-compose"
-            implementationClass = "com.evo.customplugins.plugins.CleanComposeModule"
+            implementationClass = "com.evo.customplugins.plugins.ComposeModule"
         }
         register("domain") {
             id = "domain"
@@ -38,12 +38,6 @@ gradlePlugin {
         register("feature") {
             id = "feature"
             implementationClass = "com.evo.customplugins.plugins.AndroidFeature"
-        }
-
-        // PRESENTATION
-        register("screen") {
-            id = "screen"
-            implementationClass = "com.evo.customplugins.plugins.ScreenModule"
         }
     }
 }
