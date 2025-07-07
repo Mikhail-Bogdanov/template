@@ -1,10 +1,13 @@
 package com.evo.entrypoint
 
-import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.ui.util.fastForEachIndexed
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.evo.screen.*
+import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
@@ -14,8 +17,18 @@ internal class EntryPointViewModel(
     initialScreen: EvoScreen,
 ) : ViewModel(), EvoNavigator, EvoEventHandler, KoinComponent {
 
-    private val backstack = mutableStateListOf(initialScreen)
-    val current get() = backstack.last()
+    private val backstackFlow = flow {
+        emit(persistentListOf(initialScreen))
+    }.onEach { screens ->
+        screens.fastForEachIndexed { index, screen ->
+            val isActive = index == screens.lastIndex - 1 || index == screens.lastIndex
+            screen.emitIsActive(isActive)
+        }
+    }.stateIn(viewModelScope, SharingStarted.Lazily, persistentListOf(initialScreen))
+
+    internal val lastScreenFlow = backstackFlow.map { it.lastOrNull() }
+        .stateIn(viewModelScope, SharingStarted.Eagerly, initialScreen)
+    private val last get() = lastScreenFlow.value
 
     val events = Channel<EvoEvent>(EVO_EVENTS_CHANNEL_CAPACITY, BufferOverflow.DROP_OLDEST)
 
@@ -24,37 +37,71 @@ internal class EntryPointViewModel(
     }
 
     override fun <ARGS : Any> navigate(screen: Screens, args: ARGS) {
-        val screenImpl by inject<EvoScreen>(qualifier = named(screen)) {
-            parametersOf(args)
-        }
-        backstack.add(screenImpl)
+        val screenImpl = retrieveScreen(screen, args)
+
+        screenImpl.onEnter()
+        pushScreen(screenImpl)
     }
 
     override fun navigate(screen: Screens) {
-        val screenImpl by inject<EvoScreen>(qualifier = named(screen))
-        backstack.add(screenImpl)
+        val screenImpl = retrieveScreen(screen)
+
+        screenImpl.onEnter()
+        pushScreen(screenImpl)
     }
 
     override fun <ARGS : Any> replace(screen: Screens, args: ARGS) {
-        val screenImpl by inject<EvoScreen>(qualifier = named(screen)) {
-            parametersOf(args)
-        }
-        backstack.dropLast(1)
-        backstack.add(screenImpl)
+        last?.onExit()
+        val screenImpl = retrieveScreen(screen, args)
+        screenImpl.onEnter()
+
+        popScreen()
+        pushScreen(screenImpl)
     }
 
     override fun replace(screen: Screens) {
-        val screenImpl by inject<EvoScreen>(qualifier = named(screen))
-        backstack.dropLast(1)
-        backstack.add(screenImpl)
+        last?.onExit()
+        val screenImpl = retrieveScreen(screen)
+        screenImpl.onEnter()
+
+        popScreen()
+        pushScreen(screenImpl)
     }
 
     override fun pop() {
-        if (backstack.size > 1) {
-            backstack.dropLast(1)
+        if (backstackFlow.value.size > 1) {
+            last?.onExit()
+            popScreen()
+            last?.onReturn()
         } else {
             event(EvoEvent.Exit)
         }
+    }
+
+    private fun <ARGS : Any> retrieveScreen(screen: Screens, args: ARGS): EvoScreen {
+        return backstackFlow.value.find {
+            it.navigationMark == screen && it.navigationMark.isSingleton
+        }?.also {
+            backstackFlow.value.remove(it)
+        } ?: inject<EvoScreen>(qualifier = named(screen)) {
+            parametersOf(args)
+        }.value
+    }
+
+    private fun retrieveScreen(screen: Screens): EvoScreen {
+        return backstackFlow.value.find {
+            it.navigationMark == screen && it.navigationMark.isSingleton
+        }?.also {
+            backstackFlow.value.remove(it)
+        } ?: inject<EvoScreen>(qualifier = named(screen)).value
+    }
+
+    private fun pushScreen(screen: EvoScreen) {
+        backstackFlow.update { it.add(screen) }
+    }
+
+    private fun popScreen() {
+        backstackFlow.update { it.removeAt(it.lastIndex) }
     }
 
     companion object {

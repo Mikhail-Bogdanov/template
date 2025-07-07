@@ -7,9 +7,12 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.rememberTextMeasurer
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.atoms.bar.BottomBar
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
@@ -21,8 +24,11 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
 import org.koin.core.parameter.parametersOf
 import org.koin.core.qualifier.named
+import org.koin.dsl.module
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
@@ -38,7 +44,26 @@ class MainActivity : ComponentActivity(), KoinComponent {
         enableEdgeToEdge()
 
         setContent {
+            val textMeasurer = rememberTextMeasurer()
+
+            DisposableEffect(Unit) {
+                val module = module {
+                    factory<EvoEventHandler> {
+                        viewModel
+                    }
+                    factory<EvoNavigator> {
+                        viewModel
+                    }
+                    factory { textMeasurer }
+                }
+                loadKoinModules(module)
+                onDispose {
+                    unloadKoinModules(module)
+                }
+            }
+
             with(viewModel) {
+                val screen = lastScreenFlow.collectAsStateWithLifecycle().value ?: return@setContent
                 val dialogState = rememberDialogState()
 
                 LaunchedEffect(this) {
@@ -48,13 +73,13 @@ class MainActivity : ComponentActivity(), KoinComponent {
                 }
 
                 BackHandler(
-                    enabled = dialogState.isVisible.not()
+                    enabled = dialogState.isVisible.not(),
                 ) {
                     pop()
                 }
 
                 MainAppTheme {
-                    current.Content()
+                    screen.Content()
 
                     DesignSystem.Dialog(dialogState)
 

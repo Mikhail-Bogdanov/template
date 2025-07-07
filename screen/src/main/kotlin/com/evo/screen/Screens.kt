@@ -1,10 +1,10 @@
 package com.evo.screen
 
-enum class Screens {
+enum class Screens(val isSingleton: Boolean = false) {
     /* [SCREENS] */
 	SignUp,
 	LogIn,
-	Settings,
+	Settings(true),
 
 
 }

@@ -7,11 +7,14 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @Immutable
-abstract class BaseScreenModel<STATE> {
+abstract class BaseScreenModel<STATE> : ScreenLifecycle {
 
     abstract val state: STATE
 
     protected fun updateState(action: STATE.() -> Unit) = state.apply(action)
+
+    // активен сразу при создании, потому что в большинстве кейсов экран создается и сразу показывается
+    internal var isScreenActive = true
 
     val scope: CoroutineScope = CoroutineScope(Dispatchers.Main.immediate)
 
@@ -19,4 +22,17 @@ abstract class BaseScreenModel<STATE> {
         context: CoroutineContext = EmptyCoroutineContext,
         action: SuspendLambda,
     ) = scope.launch(context = context, block = action)
+
+    protected fun whileActive(block: SuspendLambda) {
+        launch {
+            while (isActive && isScreenActive) {
+                block()
+            }
+        }
+    }
+
+    internal fun clear() {
+        scope.cancel("Screen model is cleared")
+    }
+
 }

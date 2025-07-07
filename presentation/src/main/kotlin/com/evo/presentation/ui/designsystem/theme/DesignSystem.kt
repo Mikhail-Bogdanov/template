@@ -35,7 +35,7 @@ fun MainAppTheme(content: @Composable BoxScope.() -> Unit) {
         LocalColors provides DSColors(isDarkTheme),
         LocalLocale provides locale,
         LocalTheme provides theme,
-        LocalContext provides newContext
+        LocalContext provides newContext,
     ) {
         Box(
             modifier = Modifier
