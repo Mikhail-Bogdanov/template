@@ -188,15 +188,12 @@ internal object GitHelper {
         }
 
         fun prepareOrigMessage(message: String) = message
+            .lowercase()
             .replace("added", "add")
-            .replace("Added", "Add")
             .replace("created", "create")
-            .replace("Created", "Create")
             .replace("updated", "update")
-            .replace("Updated", "Update")
             .replace("refactored", "refactor")
-            .replace("Refactored", "Refactor")
             .replace("finished", "finish")
-            .replace("Finished", "Finish")
+            .replace("made", "make")
     }
 }
