@@ -23,10 +23,15 @@ abstract class BaseScreenModel<STATE> : ScreenLifecycle {
         action: SuspendLambda,
     ) = scope.launch(context = context, block = action)
 
-    protected fun whileActive(block: SuspendLambda) {
+    protected fun every(delay: Long = 5_000, block: SuspendLambda) {
         launch {
-            while (isActive && isScreenActive) {
-                block()
+            while (isActive) {
+                if (isScreenActive) {
+                    block()
+                    delay(delay)
+                } else {
+                    delay(100)
+                }
             }
         }
     }
@@ -34,5 +39,4 @@ abstract class BaseScreenModel<STATE> : ScreenLifecycle {
     internal fun clear() {
         scope.cancel("Screen model is cleared")
     }
-
 }

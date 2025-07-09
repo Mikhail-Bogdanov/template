@@ -50,10 +50,7 @@ abstract class Screen<SM : BaseScreenModel<*>>(
     final override fun onCreate() = screenModel.onCreate()
     final override fun onResume() = screenModel.onResume()
     final override fun onPause() = screenModel.onPause()
-    final override fun onDestroy() {
-        screenModel.onDestroy()
-        screenModel.clear()
-    }
+    final override fun onDestroy() = screenModel.onDestroy()
 }
 
 data object NoArgs
