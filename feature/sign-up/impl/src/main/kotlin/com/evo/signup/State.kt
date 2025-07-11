@@ -1,5 +1,5 @@
 package com.evo.signup
 
-class State {
-
-}
+class State(
+    args: SignUpArgs,
+)

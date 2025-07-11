@@ -3,11 +3,13 @@ package com.evo.database.di
 import androidx.room.Room
 import com.evo.database.datasource.EvoDatabase
 import com.evo.database.datasource.util.DatabaseUtils.DATABASE_NAME
+import com.evo.di.EvoModule
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.module
+import org.koin.core.module.Module
 
-object DatabaseModule {
-    private val module = module {
+class DatabaseModule : EvoModule {
+
+    override fun Module.initialize() {
         single {
             Room.databaseBuilder(
                 androidContext(),
@@ -16,6 +18,4 @@ object DatabaseModule {
             ).build()
         }
     }
-
-    operator fun invoke() = module
 }

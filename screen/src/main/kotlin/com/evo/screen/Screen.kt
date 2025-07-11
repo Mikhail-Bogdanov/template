@@ -2,6 +2,7 @@ package com.evo.screen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
+import com.evo.di.EvoScopeModuleOwner
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.BufferOverflow
@@ -13,7 +14,7 @@ import org.koin.core.component.inject
 @Immutable
 abstract class Screen<SM : BaseScreenModel<*>>(
     val navigationMark: Screens,
-) : KoinComponent, ScreenLifecycle {
+) : KoinComponent, ScreenLifecycleOwner, EvoScopeModuleOwner() {
 
     protected abstract val screenModel: SM
 
@@ -43,6 +44,7 @@ abstract class Screen<SM : BaseScreenModel<*>>(
     final override fun onReturn() = screenModel.onReturn()
     final override fun onExit() {
         screenModel.onExit()
+        unloadScopeModule()
         screenModel.clear()
     }
     final override fun onEnter() = screenModel.onEnter()
@@ -52,7 +54,5 @@ abstract class Screen<SM : BaseScreenModel<*>>(
     final override fun onPause() = screenModel.onPause()
     final override fun onDestroy() = screenModel.onDestroy()
 }
-
-data object NoArgs
 
 typealias EvoScreen = Screen<*>

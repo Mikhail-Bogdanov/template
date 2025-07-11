@@ -1,34 +1,22 @@
 import java.io.File
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.Boolean
-import kotlin.IllegalArgumentException
-import kotlin.String
-import kotlin.apply
-import kotlin.collections.joinToString
-import kotlin.io.path.*
-import kotlin.io.println
-import kotlin.io.readText
-import kotlin.io.readln
-import kotlin.io.writeText
-import kotlin.require
-import kotlin.takeIf
-import kotlin.text.Regex
-import kotlin.text.lowercase
-import kotlin.text.matches
-import kotlin.text.replace
-import kotlin.text.replaceFirstChar
-import kotlin.text.toIntOrNull
-import kotlin.text.toMutableList
-import kotlin.text.trimIndent
-import kotlin.text.uppercase
-import kotlin.text.uppercaseChar
+import kotlin.io.path.createDirectories
+import kotlin.io.path.pathString
 
 println("Choose feature to create:")
 println("1: UI Feature")
 println("2: Data Feature")
 
 val featureType = readln().toIntOrNull() ?: throw IllegalArgumentException("Invalid input")
+
+if (featureType == 1) {
+    println("Does screen have arguments?")
+    println("1: Yes")
+    println("2: No")
+}
+
+val hasArgs = readln().toIntOrNull() == 1
 
 if (featureType !in 1..2) throw IllegalArgumentException("Invalid option")
 
@@ -42,21 +30,24 @@ val screenName = moduleName.toScreenName()
 val modulePath = KPath("feature", moduleName).pathString
 val namespace = screenName.lowercase()
 val screenModule = "${screenName}Module"
+val screenArgs = "${screenName}Args".takeIf { hasArgs }
 
 val moduleImplDir = KPath(modulePath, "impl").mkdirs()
 val implPath = createFullModulePath(moduleImplDir, namespace)
 
-createApiModule()
+
 
 
 when (featureType) {
     1 -> {
+        createApiModule()
         createImplScreen()
         createApiScreen()
         createDiModule(addScreen = true)
     }
 
     2 -> {
+        createApiModule()
         createDiModule(addScreen = false)
     }
 }
@@ -70,26 +61,36 @@ println("Feature created!")
 fun createApiModule() {
     val moduleApiDir = KPath(modulePath, "api").mkdirs()
     val apiPath = createFullModulePath(moduleApiDir, namespace)
-    makeFile(moduleApiDir, "build.gradle.kts") { "plugins {\n\tid(\"evo-kotlin\")\n}" }
-    makeFile(apiPath, "SampleFile.kt") { "package com.evo.$namespace" }
+    makeFile(moduleApiDir, "build.gradle.kts") { "plugins {\n\tid(\"evo-api\")\n}" }
+    val fileName = screenArgs ?: "Sample"
+
+    makeFile(apiPath, "$fileName.kt") {
+        """
+                package com.evo.$namespace
+
+                data class $fileName(
+                    val sampleData: Int,
+                )
+            """.trimIndent()
+    }
     println("Api module created!")
 }
 
 fun updateAppModule() {
-    val appModulePath = File("app").toPath()
-    val appFullModulePath = createFullModulePath(appModulePath, "team")
-    val appFile = KPath(appFullModulePath.pathString, "App.kt").createFile()
+    val diModulePath = File("di${File.separator}impl").toPath()
+    val diFullModulePath = createFullModulePath(diModulePath, "di")
+    val diFile = KPath(diFullModulePath.pathString, "ModulesInitializer.kt").createFile()
     val modulesDelimiter = "/* [MODULES] */"
     val importsDelimiter = "/* [IMPORT] */"
 
     val importText = "import com.evo.${namespace}.$screenModule"
-    val moduleText = "\t\t$screenModule.module,"
+    val moduleText = "\t\t\t$screenModule(),"
 
-    val appNewText = appFile.readText().replace(modulesDelimiter, "$modulesDelimiter\n$moduleText")
+    val diNewText = diFile.readText().replace(modulesDelimiter, "$modulesDelimiter\n$moduleText")
         .replace(importsDelimiter, "$importsDelimiter\n$importText")
 
-    appFile.writeText(appNewText)
-    println("DI module added to App module!")
+    diFile.writeText(diNewText)
+    println("DI module added!")
 }
 
 fun createDiModule(addScreen: Boolean) {
@@ -116,13 +117,14 @@ fun createDiModule(addScreen: Boolean) {
         """
             package com.evo.$namespace
     
+            import com.evo.di.EvoModule
             import com.evo.screen.Screens
             import org.koin.core.qualifier.named
             import org.koin.dsl.module
 
-            object $screenModule {
-
-                val module = module {
+            class $screenModule : EvoModule {
+            
+                override fun Module.initialize() {
                     $screenText
                 }
             }
@@ -137,10 +139,17 @@ private fun createImplScreen() {
             package com.evo.$namespace
 
             import androidx.compose.runtime.Composable
-            import com.evo.screen.NoArgs
-            import com.evo.screen.Screen
+            import com.evo.screen.*
+            import org.koin.core.component.inject
+            import org.koin.core.parameter.parametersOf
 
-            internal class $screenName : Screen<NoArgs, ScreenModel>(NoArgs, ScreenModel::class) {
+            internal class $screenName(
+                  ${screenArgs?.let { "args: $it," } ?: ""}
+            ) : Screen<ScreenModel>(Screens.$screenName) {
+            
+                override val screenModel: ScreenModel by inject {
+                    ${screenArgs?.let { "parametersOf(args)" } ?: ""}
+                }
 
                 @Composable
                 override fun Content() {
@@ -155,9 +164,11 @@ private fun createImplScreen() {
 
             import com.evo.screen.BaseScreenModel
 
-            class ScreenModel : BaseScreenModel<State>() {
+            class ScreenModel(
+                ${screenArgs?.let { "args: $it," } ?: ""}
+            ): BaseScreenModel<State>() {
             
-                override val state = State()
+                override val state = State(${screenArgs?.let { "args" } ?: ""})
             
             }
         """.trimIndent()
@@ -166,7 +177,9 @@ private fun createImplScreen() {
         """
             package com.evo.$namespace
 
-            class State {
+            class State(
+                ${screenArgs?.let { "args: $it," } ?: ""}
+            ) {
             
             }
         """.trimIndent()

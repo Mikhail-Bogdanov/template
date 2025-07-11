@@ -1,6 +1,6 @@
 package com.evo.screen
 
-interface AppLifecycle {
+interface AppLifecycleOwner {
 
     fun onCreate() {}
 
@@ -12,7 +12,7 @@ interface AppLifecycle {
 
 }
 
-interface ScreenLifecycle : AppLifecycle {
+interface ScreenLifecycleOwner : AppLifecycleOwner {
 
     fun onEnter() {}
 

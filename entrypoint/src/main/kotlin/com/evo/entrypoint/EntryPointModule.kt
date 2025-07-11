@@ -1,18 +1,17 @@
 package com.evo.entrypoint
 
+import com.evo.di.EvoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModelOf
-import org.koin.dsl.module
+import org.koin.core.module.Module
 
-object EntryPointModule {
+class EntryPointModule : EvoModule {
 
-    private val module = module {
+    override fun Module.initialize() {
         viewModelOf(::EntryPointViewModel)
 
         single {
             androidContext().resources.configuration
         }
     }
-
-    operator fun invoke() = module
 }

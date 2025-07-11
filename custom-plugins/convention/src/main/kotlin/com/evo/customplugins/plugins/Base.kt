@@ -10,7 +10,7 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.kotlin.dsl.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-abstract class BaseModule(private val implementDomain: Boolean = true) : Plugin<Project> {
+abstract class BaseModulePlugin : Plugin<Project> {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply(libs.plugins.kotlin.serialization.get().pluginId)
@@ -31,16 +31,13 @@ abstract class BaseModule(private val implementDomain: Boolean = true) : Plugin<
             implementation(libs.serialization)
             implementation(kotlin("reflect"))
             configureAdditionalDependencies(libs)
-            if (implementDomain) {
-                moduleImplementation(":domain")
-            }
         }
     }
 
     open fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-abstract class AndroidModulePlugin : BaseModule() {
+open class AndroidModule : BaseModulePlugin() {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply(libs.plugins.android.library.get().pluginId)
@@ -55,6 +52,8 @@ abstract class AndroidModulePlugin : BaseModule() {
             implementation(libs.bundles.android)
             implementation(libs.bundles.koin)
             configureAdditionalDependencies(libs)
+            moduleImplementation(":di:api")
+            moduleImplementation(":domain")
         }
         super.apply(target)
     }
@@ -62,7 +61,7 @@ abstract class AndroidModulePlugin : BaseModule() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-abstract class ComposeModulePlugin : AndroidModulePlugin() {
+open class ComposeModule : AndroidModule() {
 
     override fun apply(target: Project) = with(target) {
         super.apply(target)
@@ -80,19 +79,17 @@ abstract class ComposeModulePlugin : AndroidModulePlugin() {
     }
 }
 
-class ComposeModule : ComposeModulePlugin()
-class AndroidModule : AndroidModulePlugin()
-
-class KotlinModule : BaseModule() {
+class ApiModule : BaseModule() {
 
     override fun apply(target: Project) = with(target) {
-        pluginManager.apply("java")
-        pluginManager.apply(libs.plugins.kotlin.jvm.get().pluginId)
         super.apply(target)
+        dependencies {
+            moduleImplementation(":domain")
+        }
     }
 }
 
-class Domain : BaseModule(false) {
+open class BaseModule : BaseModulePlugin() {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply("java")

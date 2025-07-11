@@ -1,3 +1,3 @@
 plugins {
-    id("domain")
+    id("evo-base")
 }

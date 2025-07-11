@@ -13,9 +13,9 @@ dependencies {
 gradlePlugin {
     plugins {
         // REGULAR
-        register("evo-kotlin") {
-            id = "evo-kotlin"
-            implementationClass = "com.evo.customplugins.plugins.KotlinModule"
+        register("evo-api") {
+            id = "evo-api"
+            implementationClass = "com.evo.customplugins.plugins.ApiModule"
         }
         register("evo-android") {
             id = "evo-android"
@@ -25,9 +25,9 @@ gradlePlugin {
             id = "evo-compose"
             implementationClass = "com.evo.customplugins.plugins.ComposeModule"
         }
-        register("domain") {
-            id = "domain"
-            implementationClass = "com.evo.customplugins.plugins.Domain"
+        register("evo-base") {
+            id = "evo-base"
+            implementationClass = "com.evo.customplugins.plugins.BaseModule"
         }
 
         // ANDROID

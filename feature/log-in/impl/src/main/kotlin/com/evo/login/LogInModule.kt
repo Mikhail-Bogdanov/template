@@ -1,16 +1,15 @@
 package com.evo.login
 
+import com.evo.di.EvoModule
 import com.evo.screen.Screens
+import org.koin.core.module.Module
 import org.koin.core.qualifier.named
-import org.koin.dsl.module
 
-object LogInModule {
+class LogInModule : EvoModule {
 
-    val module = module {
-        
+	override fun Module.initialize() {
 		factory(named(Screens.LogIn)) {
-    		LogIn()
+			LogIn()
 		}
-
-    }
+	}
 }

@@ -6,7 +6,7 @@ import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 
-class AndroidFeature : ComposeModulePlugin() {
+class AndroidFeature : ComposeModule() {
 
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
         moduleImplementation(":presentation")
@@ -19,7 +19,7 @@ class AndroidFeature : ComposeModulePlugin() {
     }
 }
 
-class Application : BaseModule() {
+class Application : BaseModulePlugin() {
 
     override fun apply(target: Project) = with(target) {
         pluginManager.apply(libs.plugins.android.application.get().pluginId)
@@ -32,6 +32,8 @@ class Application : BaseModule() {
 
         dependencies {
             implementation(libs.bundles.koin)
+            moduleImplementation(":domain")
+            moduleImplementation(":di:impl")
         }
         super.apply(target)
     }

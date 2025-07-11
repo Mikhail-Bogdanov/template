@@ -32,7 +32,7 @@ enum class ProjectModule(val moduleName: String) {
     Feature("feature"),
     Presentation("presentation"),
     Screen("screen"),
-    Resources("resources"),
+    Resources("resources"), Di("di"),
     ;
 }
 

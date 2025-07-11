@@ -7,7 +7,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 @Immutable
-abstract class BaseScreenModel<STATE> : ScreenLifecycle {
+abstract class BaseScreenModel<STATE> : ScreenLifecycleOwner {
 
     abstract val state: STATE
 

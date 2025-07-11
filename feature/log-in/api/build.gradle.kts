@@ -1,3 +1,3 @@
 plugins {
-	id("evo-kotlin")
+    id("evo-api")
 }
