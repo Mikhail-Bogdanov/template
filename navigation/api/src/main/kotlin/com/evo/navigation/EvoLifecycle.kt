@@ -1,4 +1,4 @@
-package com.evo.screen
+package com.evo.navigation
 
 interface AppLifecycleOwner {
 

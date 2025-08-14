@@ -14,7 +14,7 @@ class AndroidFeature : ComposeModule() {
         moduleImplementation(":data:storage:api")
         moduleImplementation(":data:database:api")
         moduleImplementation(":data:network:api")
-        moduleImplementation(":screen")
+        moduleImplementation(":navigation:api")
         implementation(libs.ktor.client.core)
     }
 }

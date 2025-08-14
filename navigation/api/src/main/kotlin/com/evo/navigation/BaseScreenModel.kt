@@ -1,25 +1,23 @@
-package com.evo.screen
+package com.evo.navigation
 
 import androidx.compose.runtime.Immutable
 import com.evo.domain.extensions.SuspendLambda
 import kotlinx.coroutines.*
+import org.koin.core.component.KoinComponent
 import kotlin.coroutines.CoroutineContext
-import kotlin.coroutines.EmptyCoroutineContext
 
 @Immutable
-abstract class BaseScreenModel<STATE> : ScreenLifecycleOwner {
-
+abstract class BaseScreenModel<STATE> : KoinComponent {
     abstract val state: STATE
 
     protected fun updateState(action: STATE.() -> Unit) = state.apply(action)
 
-    // активен сразу при создании, потому что в большинстве кейсов экран создается и сразу показывается
-    internal var isScreenActive = true
-
     val scope: CoroutineScope = CoroutineScope(Dispatchers.Main.immediate)
 
+    internal var isScreenActive = true
+
     protected fun launch(
-        context: CoroutineContext = EmptyCoroutineContext,
+        context: CoroutineContext = Dispatchers.IO,
         action: SuspendLambda,
     ) = scope.launch(context = context, block = action)
 
@@ -37,6 +35,6 @@ abstract class BaseScreenModel<STATE> : ScreenLifecycleOwner {
     }
 
     internal fun clear() {
-        scope.cancel("Screen model is cleared")
+        scope.cancel("BaseScreen model is cleared")
     }
 }

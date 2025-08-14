@@ -31,8 +31,10 @@ enum class ProjectModule(val moduleName: String) {
     Domain("domain"),
     Feature("feature"),
     Presentation("presentation"),
-    Screen("screen"),
-    Resources("resources"), Di("di"),
+    Navigation("navigation"),
+    Resources("resources"),
+    Coroutine("coroutine"),
+    Di("di"),
     ;
 }
 
