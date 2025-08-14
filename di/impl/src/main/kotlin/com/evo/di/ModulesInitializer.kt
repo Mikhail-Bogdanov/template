@@ -15,7 +15,7 @@ import com.evo.login.LoginModule
 import com.evo.database.di.DatabaseModule
 import com.evo.entrypoint.EntryPointModule
 import com.evo.navigation.NavigationModule
-import com.evo.network.di.NetworkModule
+import com.evo.network.NetworkModule
 import com.evo.storage.di.StorageModule
 import org.koin.core.KoinApplication
 import org.koin.dsl.module

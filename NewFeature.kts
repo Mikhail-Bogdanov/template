@@ -174,7 +174,7 @@ private fun createImplScreen() {
             ) : $screenName<ScreenModel>() {
             
                 override val screenModel: ScreenModel by inject {
-                    ${screenArgs?.let { "parametersOf(args)" } ?: ""}
+                    parametersOf(${screenArgs?.let { "args" } ?: ""})
                 }
 
                 @Composable

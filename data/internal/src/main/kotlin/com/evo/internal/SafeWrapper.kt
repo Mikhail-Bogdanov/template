@@ -8,7 +8,7 @@ abstract class SafeWrapper {
         return try {
             block()
         } catch (e: Exception) {
-            log(e.localizedMessage)
+            loge(e.localizedMessage)
             null
         }
     }
@@ -17,7 +17,7 @@ abstract class SafeWrapper {
         return try {
             block()
         } catch (e: Exception) {
-            log(e.localizedMessage)
+            loge(e.localizedMessage)
             emptyList()
         }
     }
@@ -26,13 +26,19 @@ abstract class SafeWrapper {
         try {
             block()
         } catch (e: Exception) {
-            log(e.localizedMessage)
+            loge(e.localizedMessage)
         }
     }
 
-    protected fun <Child : Any> Child.log(message: Any?) {
+    protected fun <Child : Any> Child.loge(message: Any?) {
         val childClass = this::class
         val className = childClass.simpleName ?: "Anonymous class"
         Log.d("[EXCEPTION] Class: $className", "Message: $message")
+    }
+
+    protected fun <Child : Any> Child.logi(message: Any?) {
+        val childClass = this::class
+        val className = childClass.simpleName ?: "Anonymous class"
+        Log.d("[INFO] Class: $className", "Message: $message")
     }
 }
