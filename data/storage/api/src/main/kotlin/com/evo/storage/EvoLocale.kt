@@ -2,6 +2,7 @@ package com.evo.storage
 
 import kotlinx.coroutines.flow.Flow
 
+// TODO move to locale module
 interface LocaleHandler {
 
     val localeFlow: Flow<EvoLocale>

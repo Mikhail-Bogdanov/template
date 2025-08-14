@@ -3,16 +3,17 @@ package com.evo.storage
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
+// TODO move to theme module
 class ThemeHandlerImpl(
-    private val themeDatastoreHandler: StorageHandler<String>,
+    private val themeDatastoreHandler: EvoStorage,
 ) : ThemeHandler {
 
-    private val key = StorageKey.StringKey(
+    private val key = EvoStorageSpec.StringSpec(
         name = "ThemeKey",
         defaultValue = EvoTheme.DEFAULT.name,
     )
 
-    override val themeFlow = themeDatastoreHandler.get(key).map { stringName ->
+    override val themeFlow = themeDatastoreHandler.observe(key).map { stringName ->
         EvoTheme.valueOf(stringName)
     }.distinctUntilChanged()
 
