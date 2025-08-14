@@ -1,9 +1,11 @@
 package com.evo.settings
 
-import com.evo.screen.BaseScreenModel
+import com.evo.navigation.BaseScreenModel
 
-class ScreenModel : BaseScreenModel<State>() {
+class ScreenModel(
+    args: SettingsArgs,
+): BaseScreenModel<State>() {
 
-    override val state = State()
+    override val state = State(args)
 
 }

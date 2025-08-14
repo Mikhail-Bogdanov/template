@@ -1,16 +1,25 @@
 package com.evo.settings
 
 import androidx.compose.runtime.Composable
-import com.evo.screen.Screen
-import com.evo.screen.Screens
+import com.evo.presentation.ui.designsystem.atoms.*
+import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
-internal class Settings : Screen<ScreenModel>(Screens.Settings) {
+internal class SettingsImpl(
+      args: SettingsArgs,
+) : Settings<ScreenModel>() {
 
-    override val screenModel: ScreenModel by inject()
+    override val screenModel: ScreenModel by inject {
+        parametersOf(args)
+    }
 
     @Composable
     override fun Content() {
-
+        DesignSystem.ScreenScaffold(
+            
+        ) {
+            
+        }
     }
 }

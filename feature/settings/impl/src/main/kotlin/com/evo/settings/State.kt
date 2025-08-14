@@ -1,5 +1,7 @@
 package com.evo.settings
 
-class State {
+class State(
+    args: SettingsArgs,
+) {
 
 }
