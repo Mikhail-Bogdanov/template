@@ -42,7 +42,6 @@ when (featureType) {
     1 -> {
         createApiModule()
         createImplScreen()
-        createApiScreen()
         createDiModule(addScreen = true)
     }
 
@@ -52,7 +51,7 @@ when (featureType) {
     }
 }
 
-updateAppModule()
+updateDiModule()
 
 println("Feature created!")
 
@@ -61,22 +60,51 @@ println("Feature created!")
 fun createApiModule() {
     val moduleApiDir = KPath(modulePath, "api").mkdirs()
     val apiPath = createFullModulePath(moduleApiDir, namespace)
-    makeFile(moduleApiDir, "build.gradle.kts") { "plugins {\n\tid(\"evo-api\")\n}" }
-    val fileName = screenArgs ?: "Sample"
+    makeFile(moduleApiDir, "build.gradle.kts") {
+        """
+            plugins {
+                id("evo-compose")
+            }
+            
+            android.namespace = "com.evo.$namespace"
+            
+            dependencies {
+                implementation(projects.navigation.api)
+            }
+        """.trimIndent()
+    }
+    val args = screenArgs?.let {
+        """
+            data class $it(
+                val sampleData: Int,
+            )
+        """.trimIndent()
+    } ?: ""
 
-    makeFile(apiPath, "$fileName.kt") {
+    makeFile(apiPath, "$screenName.kt") {
         """
                 package com.evo.$namespace
+                
+                import com.evo.navigation.BaseScreen
+                import com.evo.navigation.BaseScreenModel
 
-                data class $fileName(
+                abstract class $screenName<SM : BaseScreenModel<*>> : BaseScreen<SM, ${screenArgs ?: "Any"}>()
+                
+                ${
+                    screenArgs?.let {
+                        """
+                data class $it(
                     val sampleData: Int,
                 )
+                        """
+                    } ?: ""
+                }
             """.trimIndent()
     }
     println("Api module created!")
 }
 
-fun updateAppModule() {
+fun updateDiModule() {
     val diModulePath = File("di${File.separator}impl").toPath()
     val diFullModulePath = createFullModulePath(diModulePath, "di")
     val diFile = KPath(diFullModulePath.pathString, "ModulesInitializer.kt").createFile()
@@ -100,27 +128,24 @@ fun createDiModule(addScreen: Boolean) {
                 id("feature")
             }
             
-            android.namespace = "com.evo.$namespace.impl"
+            android.namespace = "com.evo.$namespace"
             
             dependencies {
                 implementation(projects.feature.${screenName.lowercaseFirst()}.api)
             }
         """.trimIndent()
     }
-    val screenText = """
-            ${"\t\t"}factory(named(Screens.$screenName)) {
-                ${"\t\t"}$screenName()
-            ${"\t\t"}}
-        """.takeIf { addScreen } ?: ""
+    val screenText =
+        "factoryOf(::${screenName}Impl) bind $screenName::class".takeIf { addScreen } ?: ""
 
     makeFile(implPath, "$screenModule.kt") {
         """
             package com.evo.$namespace
     
             import com.evo.di.EvoModule
-            import com.evo.screen.Screens
-            import org.koin.core.qualifier.named
-            import org.koin.dsl.module
+            import org.koin.core.module.Module
+            import org.koin.core.module.dsl.factoryOf
+            import org.koin.dsl.bind
 
             class $screenModule : EvoModule {
             
@@ -139,13 +164,14 @@ private fun createImplScreen() {
             package com.evo.$namespace
 
             import androidx.compose.runtime.Composable
-            import com.evo.screen.*
+            import com.evo.presentation.ui.designsystem.atoms.*
+            import com.evo.presentation.ui.designsystem.theme.*
             import org.koin.core.component.inject
             import org.koin.core.parameter.parametersOf
 
-            internal class $screenName(
+            internal class ${screenName}Impl(
                   ${screenArgs?.let { "args: $it," } ?: ""}
-            ) : Screen<ScreenModel>(Screens.$screenName) {
+            ) : $screenName<ScreenModel>() {
             
                 override val screenModel: ScreenModel by inject {
                     ${screenArgs?.let { "parametersOf(args)" } ?: ""}
@@ -153,7 +179,11 @@ private fun createImplScreen() {
 
                 @Composable
                 override fun Content() {
-                    
+                    DesignSystem.ScreenScaffold(
+                        
+                    ) {
+                        
+                    }
                 }
             }
         """.trimIndent()
@@ -162,7 +192,7 @@ private fun createImplScreen() {
         """
             package com.evo.$namespace
 
-            import com.evo.screen.BaseScreenModel
+            import com.evo.navigation.BaseScreenModel
 
             class ScreenModel(
                 ${screenArgs?.let { "args: $it," } ?: ""}
@@ -185,22 +215,6 @@ private fun createImplScreen() {
         """.trimIndent()
     }
     println("Screen created!")
-}
-
-private fun createApiScreen() {
-    val screenModulePath = File("screen").toPath()
-    val screenFullModulePath = createFullModulePath(screenModulePath, "screen")
-    val screensFile = KPath(screenFullModulePath.pathString, "Screens.kt").createFile()
-
-    val screensDelimiter = "/* [SCREENS] */"
-
-    val screensNewText = screensFile.readText().replace(
-        oldValue = screensDelimiter,
-        newValue = "$screensDelimiter\n\t$screenName,",
-    )
-    screensFile.writeText(screensNewText)
-
-    println("Api for screen added to screens enum!")
 }
 
 ////////////////////////////// UTILS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
