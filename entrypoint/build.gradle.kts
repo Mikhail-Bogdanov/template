@@ -6,6 +6,6 @@ android.namespace = "com.evo.entrypoint"
 
 dependencies {
     implementation(projects.presentation)
-    implementation(projects.screen)
+    implementation(projects.navigation.api)
     implementation(projects.resources)
 }

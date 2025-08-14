@@ -6,6 +6,7 @@ android.namespace = "com.evo.di.impl"
 
 dependencies {
     implementation(projects.entrypoint)
+    implementation(projects.navigation.impl)
     implementation(projects.di.api)
     implementModules("data", "feature")
 }

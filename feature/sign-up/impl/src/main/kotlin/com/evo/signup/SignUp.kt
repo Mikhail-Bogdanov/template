@@ -1,16 +1,25 @@
 package com.evo.signup
 
 import androidx.compose.runtime.Composable
-import com.evo.screen.Screen
-import com.evo.screen.Screens
+import com.evo.presentation.ui.designsystem.atoms.*
+import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
+import org.koin.core.parameter.parametersOf
 
-internal class SignUp : Screen<ScreenModel>(Screens.SignUp) {
+internal class SignUpImpl(
+      args: SignUpArgs,
+) : SignUp<ScreenModel>() {
 
-    override val screenModel: ScreenModel by inject()
+    override val screenModel: ScreenModel by inject {
+        parametersOf(args)
+    }
 
     @Composable
     override fun Content() {
-
+        DesignSystem.ScreenScaffold(
+            
+        ) {
+            
+        }
     }
 }

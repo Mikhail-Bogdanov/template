@@ -28,14 +28,14 @@ internal fun DialogState.DeleteConfirmationDialog(onConfirm: Lambda, onDeny: Lam
             text = StringResources.Cancel.value,
             clickInfo = ClickInfo {
                 onDeny()
-                dismissDialog()
+                closeDialog()
             },
         )
         DesignSystem.Button(
             text = StringResources.Confirm.value,
             clickInfo = ClickInfo {
                 onConfirm()
-                dismissDialog()
+                closeDialog()
             },
         )
     }

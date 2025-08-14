@@ -1,15 +1,13 @@
 package com.evo.settings
 
 import com.evo.di.EvoModule
-import com.evo.screen.Screens
 import org.koin.core.module.Module
-import org.koin.core.qualifier.named
+import org.koin.core.module.dsl.factoryOf
+import org.koin.dsl.bind
 
 class SettingsModule : EvoModule {
 
     override fun Module.initialize() {
-        factory(named(Screens.Settings)) {
-            Settings()
-        }
+        factoryOf(::SettingsImpl) bind Settings::class
     }
 }

@@ -1,21 +1,21 @@
 package com.evo.storage
 
 import android.content.res.Configuration
-import androidx.appcompat.app.AppCompatDelegate
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 
+// TODO move to locale module
 class LocaleHandlerImpl(
-    private val localeDatastoreHandler: StorageHandler<String>,
+    private val localeDatastoreHandler: EvoStorage,
     private val configuration: Configuration,
 ) : LocaleHandler {
 
-    private val key = StorageKey.StringKey(
+    private val key = EvoStorageSpec.StringSpec(
         name = "LocaleKey",
         defaultValue = getCurrentAppLocale(),
     )
 
-    override val localeFlow = localeDatastoreHandler.get(key).map { stringName ->
+    override val localeFlow = localeDatastoreHandler.observe(key).map { stringName ->
         EvoLocale.retrieveByTag(stringName)
     }.distinctUntilChanged()
 

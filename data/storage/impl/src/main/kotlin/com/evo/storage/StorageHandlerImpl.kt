@@ -1,38 +1,41 @@
 package com.evo.storage
 
 import androidx.datastore.core.DataStore
-import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.*
 import com.evo.internal.SafeWrapper
 import kotlinx.coroutines.flow.*
 
-class StorageHandlerImpl<V>(
+class StorageHandlerImpl(
     private val evoDataStore: DataStore<Preferences>,
-) : StorageHandler<V>, SafeWrapper() {
+) : EvoStorage, SafeWrapper() {
 
-    override suspend fun getAsync(key: StorageKey<V>): V {
-        return wrapResultNullable {
-            evoDataStore.data.map { prefs ->
-                prefs[key.asPreferencesKey()] ?: key.defaultValue
-            }.first()
-        } ?: key.defaultValue
-    }
+    override suspend fun <V> getAsync(key: EvoStorageSpec<V>) = wrapResultNullable {
+        evoDataStore.data.map { prefs ->
+            prefs[key.asPreferencesKey()] ?: key.defaultValue
+        }.first()
+    } ?: key.defaultValue
 
-    override fun get(key: StorageKey<V>): Flow<V> {
-        return evoDataStore.data.map { prefs ->
+    override fun <V> observe(key: EvoStorageSpec<V>) = wrapResultNullable {
+        evoDataStore.data.map { prefs ->
             prefs[key.asPreferencesKey()] ?: key.defaultValue
         }
-    }
+    } ?: flowOf()
 
-    override suspend fun set(key: StorageKey<V>, value: V) {
+    override suspend fun <V> set(key: EvoStorageSpec<V>, value: V) = wrapAction {
         evoDataStore.edit { mutablePrefs ->
             mutablePrefs[key.asPreferencesKey()] = value
         }
     }
+}
 
-    override suspend fun set(key: StorageKey<V>, lazyValue: () -> V) {
-        evoDataStore.edit { mutablePrefs ->
-            mutablePrefs[key.asPreferencesKey()] = lazyValue()
-        }
+@Suppress("UNCHECKED_CAST")
+internal fun <KeyType> EvoStorageSpec<KeyType>.asPreferencesKey(): Preferences.Key<KeyType> {
+    return when (this) {
+        is EvoStorageSpec.IntSpec -> intPreferencesKey(name) as Preferences.Key<KeyType>
+        is EvoStorageSpec.StringSpec -> stringPreferencesKey(name) as Preferences.Key<KeyType>
+        is EvoStorageSpec.BooleanSpec -> booleanPreferencesKey(name) as Preferences.Key<KeyType>
+        is EvoStorageSpec.FloatSpec -> floatPreferencesKey(name) as Preferences.Key<KeyType>
+        is EvoStorageSpec.DoubleSpec -> doublePreferencesKey(name) as Preferences.Key<KeyType>
+        is EvoStorageSpec.LongSpec -> longPreferencesKey(name) as Preferences.Key<KeyType>
     }
 }
