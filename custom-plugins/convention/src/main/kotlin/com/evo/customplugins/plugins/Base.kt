@@ -54,6 +54,7 @@ open class AndroidModule : BaseModulePlugin() {
             configureAdditionalDependencies(libs)
             moduleImplementation(":di:api")
             moduleImplementation(":domain")
+            moduleImplementation(":logger:api")
         }
         super.apply(target)
     }

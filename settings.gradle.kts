@@ -31,6 +31,7 @@ enum class ProjectModule(val moduleName: String) {
     Domain("domain"),
     Feature("feature"),
     Presentation("presentation"),
+    Logger("logger"),
     Navigation("navigation"),
     Resources("resources"),
     Coroutine("coroutine"),

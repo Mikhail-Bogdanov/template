@@ -2,12 +2,13 @@ package com.evo.navigation
 
 import androidx.compose.runtime.Immutable
 import com.evo.domain.extensions.SuspendLambda
+import com.evo.logger.Loggable
 import kotlinx.coroutines.*
 import org.koin.core.component.KoinComponent
 import kotlin.coroutines.CoroutineContext
 
 @Immutable
-abstract class BaseScreenModel<STATE> : KoinComponent {
+abstract class BaseScreenModel<STATE> : Loggable(), KoinComponent {
     abstract val state: STATE
 
     protected fun updateState(action: STATE.() -> Unit) = state.apply(action)

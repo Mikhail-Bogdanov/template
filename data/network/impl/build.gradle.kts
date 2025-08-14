@@ -8,7 +8,7 @@ android.namespace = "com.evo.network.impl"
 
 dependencies {
     implementation(projects.data.network.api)
-    implementation(projects.data.internal)
+    implementation(projects.logger.api)
     implementation(libs.bundles.network)
 }
 
