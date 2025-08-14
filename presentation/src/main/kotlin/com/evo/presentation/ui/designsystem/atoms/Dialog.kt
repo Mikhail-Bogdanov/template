@@ -11,10 +11,13 @@ import com.evo.presentation.ui.designsystem.theme.background
 import androidx.compose.ui.window.Dialog as MaterialDialog
 
 @Composable
-fun DesignSystem.Dialog(state: DialogState) {
+fun DesignSystem.Dialog(
+    state: DialogState,
+    content: @Composable () -> Unit,
+) {
     if (state.isVisible) MaterialDialog(
         onDismissRequest = {
-            state.dismissDialog(true)
+            state.closeDialog(true)
         },
         properties = DialogProperties(
             dismissOnBackPress = state.hardDismiss,
@@ -28,8 +31,9 @@ fun DesignSystem.Dialog(state: DialogState) {
                     .padding(DesignSystem.Paddings.DSPx4),
                 verticalArrangement = Arrangement.spacedBy(DesignSystem.Paddings.DSPx5),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                content = state.content,
-            )
+            ) {
+                content()
+            }
         },
     )
 }
@@ -37,21 +41,16 @@ fun DesignSystem.Dialog(state: DialogState) {
 @Stable
 class DialogState(
     isVisible: Boolean = false,
-    onDismiss: (Boolean) -> Unit = {},
-    onOpen: Lambda = {},
+    private val onClose: (isHardDismiss: Boolean) -> Unit = {},
+    private val onOpen: Lambda = {},
     internal val hardDismiss: Boolean = true,
-    content: @Composable ColumnScope.() -> Unit,
 ) {
 
-    var onDismiss by mutableStateOf(onDismiss)
-    var onOpen by mutableStateOf(onOpen)
-    var content: @Composable ColumnScope.() -> Unit by mutableStateOf(content)
-    var isVisible by mutableStateOf(isVisible)
-        private set
+    internal var isVisible by mutableStateOf(isVisible)
 
-    fun dismissDialog(isHardDismiss: Boolean = false) {
+    fun closeDialog(isHardDismiss: Boolean = false) {
         isVisible = false
-        onDismiss(isHardDismiss)
+        onClose(isHardDismiss)
     }
 
     fun openDialog() {
@@ -66,5 +65,4 @@ fun rememberDialogState(
     onDismiss: (Boolean) -> Unit = {},
     onOpen: Lambda = {},
     hardDismiss: Boolean = true,
-    content: @Composable ColumnScope.() -> Unit = {},
-) = remember { DialogState(isVisible, onDismiss, onOpen, hardDismiss, content) }
+) = remember { DialogState(isVisible, onDismiss, onOpen, hardDismiss) }
