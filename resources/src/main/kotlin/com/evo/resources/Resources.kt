@@ -9,11 +9,14 @@ import com.evo.storage.EvoLocale
 val LocalLocale = staticCompositionLocalOf<EvoLocale> { error("No locale provided") }
 
 @Immutable
-enum class StringResources(private val ru: String, private val en: String) {
+enum class StringResources(
+    private val ru: String,
+    private val en: String,
+) {
 
     PressAgainToExit(
         ru = "Повторите для выхода",
-        en = "Press again to exit"
+        en = "Press again to exit",
     ),
     Yes(
         ru = "Да",
