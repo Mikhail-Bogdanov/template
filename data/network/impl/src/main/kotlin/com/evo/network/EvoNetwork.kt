@@ -5,34 +5,41 @@ import io.ktor.client.request.*
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
 
-class EvoNetworkImpl(val client: HttpClient) : EvoNetwork {
+class EvoNetwork(val client: HttpClient) {
 
     suspend inline fun <reified BODY> request(
-        evoRequestMethod: EvoRequestMethod,
+        evoMethod: EvoMethod,
         body: BODY,
-        urlBuilder: EvoUrlBuilder.() -> Url,
+        url: EvoUrl,
     ): HttpResponse {
-        val url = EvoUrlBuilderImpl().urlBuilder()
         val request = HttpRequestBuilder().apply {
-            url(url)
+            url(url.build())
             contentType(ContentType.Application.Json)
             setBody(body)
-            method = evoRequestMethod.method
+            method = evoMethod.method
         }
         val response = client.request(request)
         return response
     }
 
     suspend fun request(
-        evoRequestMethod: EvoRequestMethod,
-        urlBuilder: EvoUrlBuilder.() -> Url,
+        evoMethod: EvoMethod,
+        url: EvoUrl,
     ): HttpResponse {
-        val url = EvoUrlBuilderImpl().urlBuilder()
         val request = HttpRequestBuilder().apply {
-            url(url)
-            method = evoRequestMethod.method
+            url(url.build())
+            method = evoMethod.method
         }
         val response = client.request(request)
         return response
+    }
+
+    sealed class EvoMethod(val method: HttpMethod) {
+
+        data object Delete : EvoMethod(HttpMethod.Delete)
+        data object Get : EvoMethod(HttpMethod.Get)
+        data object Post : EvoMethod(HttpMethod.Post)
+        data object Put : EvoMethod(HttpMethod.Put)
+
     }
 }
