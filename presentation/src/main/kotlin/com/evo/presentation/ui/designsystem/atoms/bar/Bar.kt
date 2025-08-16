@@ -1,6 +1,7 @@
 package com.evo.presentation.ui.designsystem.atoms.bar
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -11,7 +12,6 @@ import androidx.compose.ui.graphics.Shape
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes.ExtraLarge.asTopBar
-import com.evo.presentation.ui.designsystem.theme.background
 import kotlinx.collections.immutable.ImmutableList
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,24 +46,3 @@ fun DesignSystem.TopBar(
     },
     colors = TopAppBarDefaults.centerAlignedTopAppBarColors(containerColor = containerColor),
 )
-
-@Composable
-fun DesignSystem.BottomBar(
-    modifier: Modifier = Modifier,
-    containerColor: Color,
-    shape: Shape,
-    contentPadding: PaddingValues = PaddingValues(DesignSystem.Paddings.DSPx1),
-    actions: ImmutableList<DSIcon>,
-) = Row(
-    modifier = modifier
-        .fillMaxWidth()
-        .clip(shape)
-        .background(containerColor)
-        .padding(contentPadding),
-    horizontalArrangement = Arrangement.SpaceEvenly,
-    verticalAlignment = Alignment.CenterVertically,
-) {
-    actions.forEach {
-        Icon(icon = it)
-    }
-}

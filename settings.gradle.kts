@@ -33,7 +33,6 @@ enum class ProjectModule(val moduleName: String) {
     Presentation("presentation"),
     Logger("logger"),
     Navigation("navigation"),
-    Resources("resources"),
     Coroutine("coroutine"),
     Di("di"),
     ;

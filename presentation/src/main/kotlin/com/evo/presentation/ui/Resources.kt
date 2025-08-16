@@ -1,12 +1,11 @@
-package com.evo.resources
+package com.evo.presentation.ui
 
 import androidx.annotation.DrawableRes
-import androidx.compose.runtime.*
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.res.vectorResource
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.Immutable
+import com.evo.presentation.R
+import com.evo.presentation.ui.designsystem.theme.LocalLocale
 import com.evo.storage.EvoLocale
-
-val LocalLocale = staticCompositionLocalOf<EvoLocale> { error("No locale provided") }
 
 @Immutable
 enum class StringResources(
@@ -105,7 +104,7 @@ enum class StringResources(
 }
 
 @Immutable
-enum class Icons(@DrawableRes private val res: Int) {
+enum class IconResource(@DrawableRes val res: Int) {
 
     Ruble(R.drawable.ruble),
     AddSquare(R.drawable.add_square),
@@ -125,6 +124,4 @@ enum class Icons(@DrawableRes private val res: Int) {
     Phone(R.drawable.phone),
     Repeat(R.drawable.repeat),
     ;
-
-    val value @Composable get() = ImageVector.vectorResource(res)
 }
