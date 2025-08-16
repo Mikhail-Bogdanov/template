@@ -2,22 +2,22 @@ package com.evo.navigation
 
 interface AppLifecycleOwner {
 
-    fun onCreate() {}
+    fun onCreate()
 
-    fun onResume() {}
+    fun onResume()
 
-    fun onPause() {}
+    fun onPause()
 
-    fun onDestroy() {}
+    fun onDestroy()
 
 }
 
-interface ScreenLifecycleOwner : AppLifecycleOwner {
+interface EvoLifecycleOwner {
 
-    fun onEnter() {}
+    fun onEnter()
 
-    fun onExit() {}
+    fun onExit()
 
-    fun onReturn() {}
+    fun onReturn()
 
 }
