@@ -9,7 +9,7 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 
-class StorageModule : EvoModule {
+class StorageModule : EvoModule() {
 
     override fun Module.initialize() {
         single {

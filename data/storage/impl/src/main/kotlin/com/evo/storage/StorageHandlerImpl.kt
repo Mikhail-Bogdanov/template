@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import com.evo.logger.SafeWrapper
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 
 class StorageHandlerImpl(
     private val evoDataStore: DataStore<Preferences>,
@@ -13,6 +14,15 @@ class StorageHandlerImpl(
         evoDataStore.data.map { prefs ->
             prefs[key.asPreferencesKey()] ?: key.defaultValue
         }.first()
+    } ?: key.defaultValue
+
+    // TODO think about it!
+    override fun <V> getSync(key: EvoStorageSpec<V>) = wrapResult {
+        runBlocking {
+            evoDataStore.data.map { prefs ->
+                prefs[key.asPreferencesKey()] ?: key.defaultValue
+            }.first()
+        }
     } ?: key.defaultValue
 
     override fun <V> observe(key: EvoStorageSpec<V>) = wrapResult {
