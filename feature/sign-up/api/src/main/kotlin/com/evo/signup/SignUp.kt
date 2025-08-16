@@ -1,10 +1,5 @@
 package com.evo.signup
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class SignUp <SM : BaseScreenModel<*>> : BaseScreen<SM>()
-
-data class SignUpArgs(
-    val sampleData: Int,
-)
+abstract class SignUp<SM : EvoScreenModel> : BaseScreen<SM>()

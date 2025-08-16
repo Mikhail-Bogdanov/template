@@ -1,33 +1,38 @@
 package com.evo.navigation
 
 import com.evo.coroutine.ScopeProvider
+import com.evo.login.Login
+import com.evo.navigation.InitialScreenHandler.InitialScreen
 import com.evo.storage.EvoStorage
 import com.evo.storage.EvoStorageSpec
-import kotlinx.coroutines.*
+import com.evo.update.Update
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-internal class InitialScreenHandler(
+internal class InitialScreenHandlerImpl(
     private val evoStorage: EvoStorage,
     scopeProvider: ScopeProvider,
-) {
+    private val loginScreen: Login<*>,
+    private val updateScreen: Update<*>,
+) : InitialScreenHandler {
 
-    private val scope = scopeProvider.provide()
+    private val scope = scopeProvider.provideIO()
 
     private val key = EvoStorageSpec.StringSpec("initialScreen", InitialScreen.Login.name)
 
-    // TODO think about it!
-    fun get() = runBlocking { evoStorage.getAsync(key).asInitialScreen() }
+    override fun get(): EvoContentOwner = evoStorage.getSync(key).asInitialScreen().let {
+        when (it) {
+            InitialScreen.Login -> loginScreen
+            InitialScreen.Update -> updateScreen
+            InitialScreen.Start -> TODO("Add start screen")
+        }
+    }
 
-    fun set(screen: InitialScreen) {
+    override fun set(screen: InitialScreen) {
         scope.launch(Dispatchers.IO) {
             evoStorage.set(key, screen.name)
         }
     }
-
-}
-
-internal enum class InitialScreen {
-
-    Login, Update, Start,
 
 }
 

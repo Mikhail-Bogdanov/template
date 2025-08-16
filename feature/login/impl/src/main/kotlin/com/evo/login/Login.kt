@@ -1,25 +1,23 @@
 package com.evo.login
 
 import androidx.compose.runtime.Composable
-import com.evo.presentation.ui.designsystem.atoms.*
-import com.evo.presentation.ui.designsystem.theme.*
+import com.evo.presentation.ui.designsystem.atoms.ScreenScaffold
+import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class LoginImpl(
-      args: LoginArgs,
-) : Login<ScreenModel>() {
+internal class LoginImpl : Login<ScreenModel>() {
 
     override val screenModel: ScreenModel by inject {
-        parametersOf(args)
+        parametersOf()
     }
 
     @Composable
     override fun Content() {
         DesignSystem.ScreenScaffold(
-            
+
         ) {
-            
+
         }
     }
 }

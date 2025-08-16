@@ -6,11 +6,9 @@ import org.gradle.accessors.dm.LibrariesForLibs
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.*
 
-class AndroidFeature : ComposeModule() {
+class AndroidFeature : ComposeModule(true) {
 
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {
-        moduleImplementation(":presentation")
-        moduleImplementation(":resources")
         moduleImplementation(":data:storage:api")
         moduleImplementation(":data:database:api")
         moduleImplementation(":data:network:api")

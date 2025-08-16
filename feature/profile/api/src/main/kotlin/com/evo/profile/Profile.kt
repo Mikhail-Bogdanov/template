@@ -1,10 +1,5 @@
 package com.evo.profile
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class Profile<SM : BaseScreenModel<*>> : BaseScreen<SM, ProfileArgs>()
-
-data class ProfileArgs(
-    val sampleData: Int,
-)
+abstract class Profile<SM : EvoScreenModel> : BaseScreen<SM>()

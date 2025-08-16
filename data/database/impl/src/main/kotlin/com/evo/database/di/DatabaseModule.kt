@@ -7,7 +7,7 @@ import com.evo.di.EvoModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.Module
 
-class DatabaseModule : EvoModule {
+class DatabaseModule : EvoModule() {
 
     override fun Module.initialize() {
         single {

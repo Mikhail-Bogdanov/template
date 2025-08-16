@@ -2,25 +2,21 @@ package com.evo.presentation.ui.designsystem.theme
 
 import android.content.Context
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.*
 import androidx.compose.ui.unit.*
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.evo.resources.LocalLocale
-import com.evo.resources.R
+import com.evo.presentation.R
 import com.evo.storage.*
 import org.koin.compose.koinInject
 import java.util.Locale
 
 @Composable
-fun MainAppTheme(content: @Composable BoxScope.() -> Unit) {
+fun MainAppTheme(content: @Composable () -> Unit) {
     val localeHandler = koinInject<LocaleHandler>()
     val themeHandler = koinInject<ThemeHandler>()
 
@@ -36,16 +32,8 @@ fun MainAppTheme(content: @Composable BoxScope.() -> Unit) {
         LocalLocale provides locale,
         LocalTheme provides theme,
         LocalContext provides newContext,
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(DesignSystem.Colors.background.level0)
-                .navigationBarsPadding(),
-            contentAlignment = Alignment.Center,
-            content = content,
-        )
-    }
+        content = content,
+    )
 }
 
 private fun Context.withLocale(locale: EvoLocale): Context {
@@ -54,7 +42,8 @@ private fun Context.withLocale(locale: EvoLocale): Context {
     return createConfigurationContext(config)
 }
 
-val LocalTheme = staticCompositionLocalOf { EvoTheme.DEFAULT }
+val LocalTheme = staticCompositionLocalOf<EvoTheme> { error("No theme provided!") }
+val LocalLocale = staticCompositionLocalOf<EvoLocale> { error("No locale provided!") }
 
 object DesignSystem {
 

@@ -6,6 +6,6 @@ android.namespace = "com.evo.storage.impl"
 
 dependencies {
     implementation(projects.data.storage.api)
-    implementation(projects.data.internal)
+    implementation(projects.logger.api)
     implementation(libs.data.store)
 }

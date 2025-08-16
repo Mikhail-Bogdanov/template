@@ -4,6 +4,10 @@ internal class EvoNavigatorImpl(
     private val backstack: Backstack,
 ) : EvoNavigator {
 
+    override fun setTab(tab: EvoTab) {
+        backstack.addUnique(tab)
+    }
+
     override fun navigate(screen: EvoScreen) {
         backstack.put(screen)
     }

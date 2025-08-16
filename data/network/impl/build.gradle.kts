@@ -4,15 +4,11 @@ plugins {
     id("evo-android")
 }
 
-android.namespace = "com.evo.network.impl"
-
-dependencies {
-    implementation(projects.data.network.api)
-    implementation(projects.data.internal)
-    implementation(libs.bundles.network)
-}
-
 android {
+    namespace = "com.evo.network.impl"
+    
+    buildFeatures.buildConfig = true
+
     defaultConfig {
         val properties = Properties()
         val configFile = rootProject.file("config.properties")
@@ -22,4 +18,10 @@ android {
             buildConfigField("String", "EVO_BASE_URL", properties["EVO_BASE_URL"].toString())
         }
     }
+}
+
+dependencies {
+    implementation(projects.data.network.api)
+    implementation(projects.logger.api)
+    implementation(libs.bundles.network)
 }

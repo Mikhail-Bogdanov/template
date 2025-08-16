@@ -11,12 +11,22 @@ println("2: Data Feature")
 val featureType = readln().toIntOrNull() ?: throw IllegalArgumentException("Invalid input")
 
 if (featureType == 1) {
-    println("Does screen have arguments?")
+    println("Is screen a tab?")
     println("1: Yes")
     println("2: No")
 }
 
-val hasArgs = readln().toIntOrNull() == 1
+val isTab = readln().toIntOrNull() == 1
+
+val hasArgs = if (featureType == 1 && isTab.not()) {
+    println("Does screen have arguments?")
+    println("1: Yes")
+    println("2: No")
+    readln().toIntOrNull() == 1
+} else {
+    false
+}
+
 
 if (featureType !in 1..2) throw IllegalArgumentException("Invalid option")
 
@@ -46,7 +56,7 @@ when (featureType) {
     }
 
     2 -> {
-        createApiModule()
+        createApiModule(isUi = false)
         createDiModule(addScreen = false)
     }
 }
@@ -57,49 +67,55 @@ println("Feature created!")
 
 ////////////////////////////// CREATORS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-fun createApiModule() {
+fun createApiModule(isUi: Boolean = true) {
     val moduleApiDir = KPath(modulePath, "api").mkdirs()
     val apiPath = createFullModulePath(moduleApiDir, namespace)
     makeFile(moduleApiDir, "build.gradle.kts") {
         """
             plugins {
-                id("evo-compose")
+                id("evo-${if (isUi) "compose" else "api"}")
             }
-            
-            android.namespace = "com.evo.$namespace"
+            ${if (isUi) "android.namespace = \"com.evo.$namespace\"" else "api"}
             
             dependencies {
-                implementation(projects.navigation.api)
+                ${if (isUi) "implementation(projects.navigation.api)" else ""}
             }
         """.trimIndent()
     }
-    val args = screenArgs?.let {
-        """
-            data class $it(
-                val sampleData: Int,
-            )
-        """.trimIndent()
-    } ?: ""
-
     makeFile(apiPath, "$screenName.kt") {
-        """
+        if (isUi) {
+            """
                 package com.evo.$namespace
                 
-                import com.evo.navigation.BaseScreen
-                import com.evo.navigation.BaseScreenModel
+                import com.evo.navigation.*
 
-                abstract class $screenName<SM : BaseScreenModel<*>> : BaseScreen<SM, ${screenArgs ?: "Any"}>()
+                abstract class $screenName<SM : EvoScreenModel> : ${
+                if (isTab) {
+                    "BaseTab"
+                } else {
+                    "BaseScreen"
+                }
+            }<SM>()${
+                screenArgs?.let {
+                    ", ArgsOwner<$it>"
+                }.orEmpty()
+            }
                 
                 ${
-                    screenArgs?.let {
-                        """
+                screenArgs?.let {
+                    """
                 data class $it(
                     val sampleData: Int,
                 )
                         """
-                    } ?: ""
-                }
+                }.orEmpty()
+            }
             """.trimIndent()
+        } else {
+            """
+                package com.evo.$namespace
+            """.trimIndent()
+        }
     }
     println("Api module created!")
 }
@@ -135,8 +151,13 @@ fun createDiModule(addScreen: Boolean) {
             }
         """.trimIndent()
     }
-    val screenText =
-        "factoryOf(::${screenName}Impl) bind $screenName::class".takeIf { addScreen } ?: ""
+    val screenText = "${
+        if (isTab) {
+            "singleOf"
+        } else {
+            "factoryOf"
+        }
+    }(::${screenName}Impl) bind $screenName::class".takeIf { addScreen }.orEmpty()
 
     makeFile(implPath, "$screenModule.kt") {
         """
@@ -144,10 +165,10 @@ fun createDiModule(addScreen: Boolean) {
     
             import com.evo.di.EvoModule
             import org.koin.core.module.Module
-            import org.koin.core.module.dsl.factoryOf
+            import org.koin.core.module.dsl.${if (isTab) "singleOf" else "factoryOf"}
             import org.koin.dsl.bind
 
-            class $screenModule : EvoModule {
+            class $screenModule : EvoModule() {
             
                 override fun Module.initialize() {
                     $screenText
@@ -159,7 +180,7 @@ fun createDiModule(addScreen: Boolean) {
 }
 
 private fun createImplScreen() {
-    makeFile(implPath, "$screenName.kt") {
+    makeFile(implPath, "${screenName}Impl.kt") {
         """
             package com.evo.$namespace
 
@@ -169,12 +190,12 @@ private fun createImplScreen() {
             import org.koin.core.component.inject
             import org.koin.core.parameter.parametersOf
 
-            internal class ${screenName}Impl(
-                  ${screenArgs?.let { "args: $it," } ?: ""}
-            ) : $screenName<ScreenModel>() {
+            internal class ${screenName}Impl : $screenName<ScreenModel>() {
+            
+                ${screenArgs?.let { "override val args: $it by inject()" }.orEmpty()}
             
                 override val screenModel: ScreenModel by inject {
-                    ${screenArgs?.let { "parametersOf(args)" } ?: ""}
+                    parametersOf(${screenArgs?.let { "args" }.orEmpty()})
                 }
 
                 @Composable
@@ -195,10 +216,10 @@ private fun createImplScreen() {
             import com.evo.navigation.BaseScreenModel
 
             class ScreenModel(
-                ${screenArgs?.let { "args: $it," } ?: ""}
+                ${screenArgs?.let { "args: $it," }.orEmpty()}
             ): BaseScreenModel<State>() {
             
-                override val state = State(${screenArgs?.let { "args" } ?: ""})
+                override val state = State(${screenArgs?.let { "args" }.orEmpty()})
             
             }
         """.trimIndent()
@@ -208,7 +229,7 @@ private fun createImplScreen() {
             package com.evo.$namespace
 
             class State(
-                ${screenArgs?.let { "args: $it," } ?: ""}
+                ${screenArgs?.let { "args: $it," }.orEmpty()}
             ) {
             
             }

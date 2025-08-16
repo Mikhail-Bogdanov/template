@@ -1,10 +1,5 @@
 package com.evo.login
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class Login <SM : BaseScreenModel<*>> : BaseScreen<SM>()
-
-data class LoginArgs(
-    val sampleData: Int,
-)
+abstract class Login<SM : EvoScreenModel> : BaseScreen<SM>()

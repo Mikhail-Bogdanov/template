@@ -10,8 +10,6 @@ internal fun LibraryExtension.configureAndroidFeatureModule() {
         minSdk = Config.MIN_SDK
     }
 
-    buildFeatures.buildConfig = true
-
     compileOptions {
         compileOptions {
             sourceCompatibility = Config.JAVA_VERSION

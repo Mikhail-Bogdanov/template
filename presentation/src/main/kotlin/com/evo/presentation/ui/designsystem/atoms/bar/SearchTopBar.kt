@@ -38,7 +38,7 @@ fun DesignSystem.SearchTopBar(
             InputField(
                 state = searchState,
                 trailingIcon = DSIcon(
-                    vector = TODO("Add search top bar"),
+                    resource = TODO("Add search top bar"),
                     colors = DesignSystem.onlyIconColors(),
                     clickInfo = if (isFocused) {
                         ClickInfo {

@@ -8,11 +8,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.evo.presentation.ui.designsystem.theme.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes
 import com.evo.presentation.ui.ifNotNull
+import com.evo.presentation.ui.IconResource
 import androidx.compose.material3.Icon as MaterialIcon
 
 enum class IconSize(val dp: Dp) {
@@ -25,7 +27,6 @@ fun DesignSystem.Icon(
     size: IconSize = IconSize.Big,
     icon: DSIcon,
 ) {
-    val colors = icon.colors ?: primaryIconColors()
     Column(
         modifier = modifier
             .defaultMinSize(minWidth = size.dp, minHeight = size.dp)
@@ -35,14 +36,14 @@ fun DesignSystem.Icon(
                 operation = {
                     background(
                         if (it.enabled) {
-                            colors.containerColor
+                            icon.colors.containerColor
                         } else {
-                            colors.disabledContainerColor
+                            icon.colors.disabledContainerColor
                         }
                     )
                 },
                 elseOperation = {
-                    background(colors.containerColor)
+                    background(icon.colors.containerColor)
                 },
             )
             .ifNotNull(icon.clickInfo) {
@@ -61,16 +62,16 @@ fun DesignSystem.Icon(
 
         MaterialIcon(
             modifier = Modifier.size(size.dp / 2),
-            imageVector = icon.vector,
+            imageVector = ImageVector.vectorResource(icon.resource.res),
             contentDescription = null,
-            tint = if (isEnabled) colors.contentColor else colors.disabledContentColor,
+            tint = if (isEnabled) icon.colors.contentColor else icon.colors.disabledContentColor,
         )
 
         icon.text?.let {
             Text(
                 text = it,
                 style = DesignSystem.TextStyles.description,
-                color = if (isEnabled) colors.contentColor else colors.disabledContentColor,
+                color = if (isEnabled) icon.colors.contentColor else icon.colors.disabledContentColor,
             )
         }
     }
@@ -78,11 +79,17 @@ fun DesignSystem.Icon(
 
 @Immutable
 data class DSIcon(
-    val vector: ImageVector,
+    val resource: IconResource,
     val text: String? = null,
     val shape: Shapes = Shapes.Medium,
-    val colors: IconColors? = null,
-    val clickInfo: ClickInfo? = null,
+    val colors: IconColors,
+    val clickInfo: ClickInfo?,
+)
+
+@Immutable
+data class TabDSIcon(
+    val resource: IconResource,
+    val text: String? = null,
 )
 
 @Immutable
@@ -108,7 +115,7 @@ fun DesignSystem.primaryIconColors(
 
 @Composable
 fun DesignSystem.secondaryIconColors(
-    contentColor: Color = Colors.content.primary,
+    contentColor: Color = Colors.content.secondary,
     containerColor: Color = Colors.container.secondary,
     disabledContentColor: Color = Colors.content.disabled,
     disabledContainerColor: Color = Colors.container.disabled,

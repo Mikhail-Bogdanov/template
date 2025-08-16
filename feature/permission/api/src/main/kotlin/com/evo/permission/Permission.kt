@@ -1,10 +1,8 @@
 package com.evo.permission
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class Permission<SM : BaseScreenModel<*>> : BaseScreen<SM, PermissionArgs>()
-
+abstract class Permission<SM : EvoScreenModel> : BaseScreen<SM>(), ArgsOwner<PermissionArgs>
 
 data class PermissionArgs(
     val sampleData: Int,

@@ -1,10 +1,5 @@
 package com.evo.theme
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class Theme <SM : BaseScreenModel<*>> : BaseScreen<SM>()
-
-data class ThemeArgs(
-    val sampleData: Int,
-)
+abstract class Theme<SM : EvoScreenModel> : BaseScreen<SM>()

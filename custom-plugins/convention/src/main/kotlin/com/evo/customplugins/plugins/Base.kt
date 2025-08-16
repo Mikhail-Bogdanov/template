@@ -54,6 +54,7 @@ open class AndroidModule : BaseModulePlugin() {
             configureAdditionalDependencies(libs)
             moduleImplementation(":di:api")
             moduleImplementation(":domain")
+            moduleImplementation(":logger:api")
         }
         super.apply(target)
     }
@@ -61,7 +62,9 @@ open class AndroidModule : BaseModulePlugin() {
     override fun DependencyHandlerScope.configureAdditionalDependencies(libs: LibrariesForLibs) {}
 }
 
-open class ComposeModule : AndroidModule() {
+open class ComposeModule(
+    private val includePresentation: Boolean,
+) : AndroidModule() {
 
     override fun apply(target: Project) = with(target) {
         super.apply(target)
@@ -73,6 +76,7 @@ open class ComposeModule : AndroidModule() {
         }
 
         dependencies {
+            if (includePresentation) moduleImplementation(":presentation")
             implementation(libs.bundles.ui)
             implementation(platform(libs.compose.bom))
         }
@@ -97,3 +101,6 @@ open class BaseModule : BaseModulePlugin() {
         super.apply(target)
     }
 }
+
+class ComposeModuleImpl : ComposeModule(true)
+class PresentationModule : ComposeModule(false)
