@@ -3,6 +3,7 @@ package com.evo.logger
 import android.util.Log
 import com.evo.logger.EvoLoggerImpl.Type.ERROR
 import com.evo.logger.EvoLoggerImpl.Type.INFO
+import com.evo.logger.impl.BuildConfig
 import kotlin.reflect.jvm.jvmName
 
 class EvoLoggerImpl : EvoLogger {
@@ -16,7 +17,9 @@ class EvoLoggerImpl : EvoLogger {
     }
 
     private fun log(type: Type, className: String, message: Any?) {
-        Log.d("[${type.name}] Class: $className", "Message: $message")
+        if (BuildConfig.DEBUG) {
+            Log.d("[${type.name}] Class: $className", "Message: $message")
+        }
     }
 
     private enum class Type { ERROR, INFO }

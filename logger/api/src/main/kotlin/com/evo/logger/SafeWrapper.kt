@@ -1,6 +1,11 @@
 package com.evo.logger
 
-abstract class SafeWrapper : Loggable() {
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
+
+abstract class SafeWrapper : Loggable, KoinComponent {
+
+    override val evoLogger: EvoLogger by inject()
 
     protected inline fun <Child : SafeWrapper, T> Child.wrapResult(block: () -> T): T? {
         return try {
