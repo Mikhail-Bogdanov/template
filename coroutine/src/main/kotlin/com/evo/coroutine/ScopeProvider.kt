@@ -4,6 +4,8 @@ import kotlinx.coroutines.CoroutineScope
 
 interface ScopeProvider {
 
-    fun provide(): CoroutineScope
+    fun provideIO(): CoroutineScope
+
+    fun cancel()
 
 }
