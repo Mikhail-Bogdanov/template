@@ -5,9 +5,10 @@ import org.koin.core.module.Module
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.bind
 
-class PermissionModule : EvoModule {
+class PermissionModule : EvoModule() {
 
     override fun Module.initialize() {
+        factoryOf(::ScreenModel)
         factoryOf(::PermissionImpl) bind Permission::class
     }
 }

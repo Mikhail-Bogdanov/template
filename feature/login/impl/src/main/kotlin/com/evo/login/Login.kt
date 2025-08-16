@@ -6,20 +6,18 @@ import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class LoginImpl(
-      args: LoginArgs,
-) : Login<ScreenModel>() {
+internal class LoginImpl : Login<ScreenModel>() {
 
     override val screenModel: ScreenModel by inject {
-        parametersOf(args)
+        parametersOf()
     }
 
     @Composable
     override fun Content() {
         DesignSystem.ScreenScaffold(
-            
+
         ) {
-            
+
         }
     }
 }

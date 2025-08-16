@@ -6,9 +6,9 @@ import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class PermissionImpl(
-      args: PermissionArgs,
-) : Permission<ScreenModel>() {
+internal class PermissionImpl : Permission<ScreenModel>() {
+
+    override val args: PermissionArgs by inject()
 
     override val screenModel: ScreenModel by inject {
         parametersOf(args)
@@ -17,9 +17,9 @@ internal class PermissionImpl(
     @Composable
     override fun Content() {
         DesignSystem.ScreenScaffold(
-            
+
         ) {
-            
+
         }
     }
 }

@@ -1,10 +1,5 @@
 package com.evo.easteregg
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class EasterEgg<SM : BaseScreenModel<*>> : BaseScreen<SM, EasterEggArgs>()
-
-data class EasterEggArgs(
-    val sampleData: Int,
-)
+abstract class EasterEgg<SM : EvoScreenModel> : BaseScreen<SM>()

@@ -1,14 +1,14 @@
 package com.evo.crash
 
 import androidx.compose.runtime.Composable
-import com.evo.presentation.ui.designsystem.atoms.*
-import com.evo.presentation.ui.designsystem.theme.*
+import com.evo.presentation.ui.designsystem.atoms.ScreenScaffold
+import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class CrashImpl(
-      args: CrashArgs,
-) : Crash<ScreenModel>() {
+internal class CrashImpl : Crash<ScreenModel>() {
+
+    override val args: CrashArgs by inject()
 
     override val screenModel: ScreenModel by inject {
         parametersOf(args)
@@ -17,9 +17,9 @@ internal class CrashImpl(
     @Composable
     override fun Content() {
         DesignSystem.ScreenScaffold(
-            
+
         ) {
-            
+
         }
     }
 }

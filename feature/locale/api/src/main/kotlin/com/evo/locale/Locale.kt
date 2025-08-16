@@ -1,10 +1,5 @@
 package com.evo.locale
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.navigation.*
 
-abstract class Locale <SM : BaseScreenModel<*>> : BaseScreen<SM>()
-
-data class LocaleArgs(
-    val sampleData: Int,
-)
+abstract class Locale<SM : EvoScreenModel> : BaseScreen<SM>()
