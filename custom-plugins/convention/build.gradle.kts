@@ -23,7 +23,11 @@ gradlePlugin {
         }
         register("evo-compose") {
             id = "evo-compose"
-            implementationClass = "com.evo.customplugins.plugins.ComposeModule"
+            implementationClass = "com.evo.customplugins.plugins.ComposeModuleImpl"
+        }
+        register("evo-presentation") {
+            id = "evo-presentation"
+            implementationClass = "com.evo.customplugins.plugins.PresentationModule"
         }
         register("evo-base") {
             id = "evo-base"
