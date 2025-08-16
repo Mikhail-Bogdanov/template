@@ -180,7 +180,7 @@ fun createDiModule(addScreen: Boolean) {
 }
 
 private fun createImplScreen() {
-    makeFile(implPath, "$screenName.kt") {
+    makeFile(implPath, "${screenName}Impl.kt") {
         """
             package com.evo.$namespace
 
