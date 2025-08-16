@@ -1,6 +1,5 @@
 package com.evo.bottombar
 
-import com.evo.navigation.BaseScreen
-import com.evo.navigation.BaseScreenModel
+import com.evo.presentation.ui.SharedComposable
 
-abstract class BottomBar<SM : BaseScreenModel<*>> : BaseScreen<SM, Any>()
+abstract class BottomBar : SharedComposable()
