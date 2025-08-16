@@ -5,7 +5,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import com.evo.firstscreen.FirstScreen
 import com.evo.logger.logi
 import com.evo.navigation.*
 import com.evo.presentation.ui.conditional
@@ -19,17 +18,17 @@ internal class BottomBarImpl : BottomBar() {
 
     private val navigator: EvoNavigator by inject()
 
-//    private val firstScreen: FirstScreen<*> by inject()
+//    private val screen: StartScreen<*> by inject()
 
     private val backstack by inject<Backstack>()
 
     @Composable
     override fun Content() {
-//        val firstScreenIcon = firstScreen.retrieveDSIcon()
+//        val screenIcon = screen.retrieveDSIcon()
 
         val tabs = remember {
-            persistentMapOf<FirstScreen<*>, DSIcon>(
-//                firstScreen to firstScreenIcon,
+            persistentMapOf<BaseTab<*>, DSIcon>(
+//                screen to screenIcon,
             )
         }
 

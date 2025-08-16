@@ -18,6 +18,7 @@ import com.evo.signup.SignUpModule
 import com.evo.storage.di.StorageModule
 import com.evo.theme.ThemeModule
 import com.evo.topbar.TopBarModule
+import com.evo.update.UpdateModule
 import org.koin.core.KoinApplication
 import org.koin.dsl.module
 
@@ -26,6 +27,7 @@ object ModulesInitializer {
     fun KoinApplication.start() {
         val appModules = listOf(
             /* [MODULES] */
+            UpdateModule(),
             LoggerModule(),
 			TopBarModule(),
 			BottomBarModule(),

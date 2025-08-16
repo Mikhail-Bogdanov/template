@@ -1,4 +1,4 @@
-package com.evo.topbar
+package com.evo.update
 
 import com.evo.navigation.BaseScreenModel
 

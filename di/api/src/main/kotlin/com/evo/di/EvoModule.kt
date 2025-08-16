@@ -2,8 +2,8 @@ package com.evo.di
 
 import org.koin.core.module.Module
 
-interface EvoModule {
+abstract class EvoModule {
 
-    fun Module.initialize()
+    abstract fun Module.initialize()
 
 }
