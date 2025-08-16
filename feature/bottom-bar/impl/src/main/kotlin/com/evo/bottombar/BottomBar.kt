@@ -1,12 +1,14 @@
 package com.evo.bottombar
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import com.evo.logger.logi
-import com.evo.navigation.*
+import com.evo.navigation.BaseTab
+import com.evo.navigation.EvoNavigator
 import com.evo.presentation.ui.conditional
 import com.evo.presentation.ui.designsystem.atoms.*
 import com.evo.presentation.ui.designsystem.theme.*
@@ -18,49 +20,44 @@ internal class BottomBarImpl : BottomBar() {
 
     private val navigator: EvoNavigator by inject()
 
-//    private val screen: StartScreen<*> by inject()
-
-    private val backstack by inject<Backstack>()
+//    private val firstScreen: StartScreen<*> by inject()
 
     @Composable
-    override fun Content() {
-//        val screenIcon = screen.retrieveDSIcon()
+    override fun Content(args: BottomBarArgs) {
+//        val screenIcon = firstScreen.retrieveDSIcon()
 
         val tabs = remember {
             persistentMapOf<BaseTab<*>, DSIcon>(
-//                screen to screenIcon,
+//                firstScreen to screenIcon,
             )
         }
 
-        val selectedTab by backstack.lastScreenFlow.collectAsState()
-
-        if (selectedTab is EvoTab) {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clip(DesignSystem.Shapes.None.asBottomBar(IS_FLOATING))
-                    .conditional(IS_FLOATING) {
-                        padding(DesignSystem.Paddings.DSPx4)
-                    }
-                    .background(DesignSystem.Colors.container.primary)
-                    .padding(DesignSystem.Paddings.DSPx2),
-                horizontalArrangement = Arrangement.spacedBy(DesignSystem.Paddings.DSPx2),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                tabs.keys.forEach { key ->
-                    val icon = tabs.getValue(key)
-                    logi("Selected tab: $selectedTab")
-                    val isSelected = selectedTab == key
-                    val finalIcon = if (isSelected) {
-                        icon.copy(colors = DesignSystem.highlightIconColors())
-                    } else {
-                        icon.copy(colors = DesignSystem.primaryIconColors())
-                    }
-                    DesignSystem.Icon(
-                        modifier = Modifier.weight(1f),
-                        icon = finalIcon,
-                    )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(DesignSystem.Shapes.None.asBottomBar(IS_FLOATING))
+                .conditional(IS_FLOATING) {
+                    padding(DesignSystem.Paddings.DSPx4)
                 }
+                .background(DesignSystem.Colors.container.primary)
+                .navigationBarsPadding()
+                .padding(DesignSystem.Paddings.DSPx1),
+            horizontalArrangement = Arrangement.spacedBy(DesignSystem.Paddings.DSPx2),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            tabs.keys.forEach { key ->
+                val icon = tabs.getValue(key)
+                logi("Selected tab: ${args.selectedTab}")
+                val isSelected = args.selectedTab == key
+                val finalIcon = if (isSelected) {
+                    icon.copy(colors = DesignSystem.highlightIconColors())
+                } else {
+                    icon.copy(colors = DesignSystem.primaryIconColors())
+                }
+                DesignSystem.Icon(
+                    modifier = Modifier.weight(1f),
+                    icon = finalIcon,
+                )
             }
         }
     }

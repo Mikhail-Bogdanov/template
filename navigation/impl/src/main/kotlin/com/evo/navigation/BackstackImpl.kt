@@ -8,6 +8,7 @@ import java.util.LinkedList
 internal class BackstackImpl(
     override val evoLogger: EvoLogger,
     initial: EvoContentOwner,
+    private val appExitHandler: AppExitHandler,
 ) : Backstack, Loggable {
 
     private val _lastScreenFlow = MutableStateFlow(initial)
@@ -49,6 +50,10 @@ internal class BackstackImpl(
     }
 
     override fun dropLast() {
+        if (screens.size == 1) {
+            appExitHandler.exit()
+            return
+        }
         val dropped = screens.removeLast()
         val last = screens.last()
         _lastScreenFlow.value = last

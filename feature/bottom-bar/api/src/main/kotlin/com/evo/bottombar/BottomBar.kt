@@ -1,5 +1,10 @@
 package com.evo.bottombar
 
-import com.evo.presentation.ui.SharedComposable
+import com.evo.navigation.BaseTab
+import com.evo.presentation.ui.SharedComposableArgs
 
-abstract class BottomBar : SharedComposable()
+abstract class BottomBar : SharedComposableArgs<BottomBarArgs>()
+
+data class BottomBarArgs(
+    val selectedTab: BaseTab<*>,
+)

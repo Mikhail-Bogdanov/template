@@ -20,7 +20,7 @@ internal class InitialScreenHandlerImpl(
 
     private val key = EvoStorageSpec.StringSpec("initialScreen", InitialScreen.Login.name)
 
-    override fun get() = evoStorage.getSync(key).asInitialScreen().let {
+    override fun get(): EvoContentOwner = evoStorage.getSync(key).asInitialScreen().let {
         when (it) {
             InitialScreen.Login -> loginScreen
             InitialScreen.Update -> updateScreen

@@ -9,4 +9,5 @@ dependencies {
     implementation(projects.coroutine)
     implementation(projects.navigation.api)
     implementation(projects.feature.bottomBar.api)
+    implementation(projects.feature.topBar.api)
 }

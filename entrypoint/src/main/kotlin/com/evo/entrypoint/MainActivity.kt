@@ -16,11 +16,13 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.evo.bottombar.BottomBar
+import com.evo.bottombar.BottomBarArgs
 import com.evo.coroutine.ScopeProvider
 import com.evo.navigation.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import com.evo.presentation.ui.designsystem.theme.MainAppTheme
 import com.evo.presentation.ui.share
+import com.evo.topbar.*
 import org.koin.compose.koinInject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -57,7 +59,7 @@ class MainActivity : ComponentActivity(), KoinComponent, AppExitHandler {
 
             val viewModel: EntryPointViewModel = viewModel()
             val backstack: Backstack = koinInject {
-                parametersOf(initialScreenHandler.get())
+                parametersOf(initialScreenHandler.get(), this@MainActivity)
             }
             val navigator: EvoNavigator = koinInject()
             val screen = backstack.lastScreenFlow.collectAsStateWithLifecycle().value
@@ -72,11 +74,20 @@ class MainActivity : ComponentActivity(), KoinComponent, AppExitHandler {
             ) {
                 MainAppTheme {
                     Scaffold(
-                        bottomBar = { share<BottomBar>() },
+                        bottomBar = {
+                            if (screen is BaseTab<*>) {
+                                share<BottomBar, BottomBarArgs>(BottomBarArgs(screen))
+                            }
+                        },
                         containerColor = DesignSystem.Colors.background.level0,
                         modifier = Modifier
                             .fillMaxSize()
                             .background(DesignSystem.Colors.background.level0),
+                        topBar = {
+                            if (screen is TopBarOwner) {
+                                share<TopBar, TopBarArgs>(screen.topBarArgs)
+                            }
+                        },
                     ) { paddingValues ->
                         Box(
                             modifier = Modifier
