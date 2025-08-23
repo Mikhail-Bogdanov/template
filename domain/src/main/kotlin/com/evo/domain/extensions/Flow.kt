@@ -2,8 +2,7 @@
 
 package com.evo.domain.extensions
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.*
 
 fun <T1, T2, T3, T4, T5, T6, R> combine6(
     flow: Flow<T1>,
@@ -66,4 +65,25 @@ fun <T1, T2, T3, T4, T5, T6, T7, T8, R> combine8(
         args[6] as T7,
         args[7] as T8,
     )
+}
+
+infix fun <T> Flow<T>.suspendUntilTrue(flow: Flow<Boolean>): Flow<T> = flow {
+    collect { t ->
+        flow.first { it }
+        emit(t)
+    }
+}
+
+infix fun <T, T2> Flow<T>.suspendUntilNotNull(flow: Flow<T2?>): Flow<T> = flow {
+    collect { t ->
+        flow.first { it != null }
+        emit(t)
+    }
+}
+
+infix fun <T, T2> Flow<T>.suspendUntilNull(flow: Flow<T2?>): Flow<T> = flow {
+    collect { t ->
+        flow.first { it == null }
+        emit(t)
+    }
 }

@@ -16,13 +16,13 @@ import androidx.compose.ui.text.rememberTextMeasurer
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.evo.bottombar.BottomBar
-import com.evo.bottombar.BottomBarArgs
 import com.evo.coroutine.ScopeProvider
 import com.evo.navigation.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import com.evo.presentation.ui.designsystem.theme.MainAppTheme
 import com.evo.presentation.ui.share
 import com.evo.topbar.*
+import com.evo.window.EvoWindow
 import org.koin.compose.koinInject
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity(), KoinComponent, AppExitHandler {
 
     private val scopeProvider: ScopeProvider by inject()
     private val initialScreenHandler: InitialScreenHandler by inject()
+    private val evoWindow: EvoWindow by inject()
 
     override fun exit() {
         finish()
@@ -73,10 +74,11 @@ class MainActivity : ComponentActivity(), KoinComponent, AppExitHandler {
                 LocalExitHandler provides this,
             ) {
                 MainAppTheme {
+                    evoWindow.DialogContent()
                     Scaffold(
                         bottomBar = {
                             if (screen is BaseTab<*>) {
-                                share<BottomBar, BottomBarArgs>(BottomBarArgs(screen))
+                                share<BottomBar, BaseTab<*>>(screen)
                             }
                         },
                         containerColor = DesignSystem.Colors.background.level0,
@@ -86,6 +88,16 @@ class MainActivity : ComponentActivity(), KoinComponent, AppExitHandler {
                         topBar = {
                             if (screen is TopBarOwner) {
                                 share<TopBar, TopBarArgs>(screen.topBarArgs)
+                            }
+                        },
+                        snackbarHost = {
+                            Box(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(DesignSystem.Paddings.DSPx3),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                evoWindow.SnackContent()
                             }
                         },
                     ) { paddingValues ->
