@@ -1,21 +1,19 @@
 package com.evo.presentation.ui.designsystem.atoms
 
-import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
-import com.evo.presentation.ui.designsystem.theme.ClickInfo
-import com.evo.presentation.ui.designsystem.theme.DesignSystem
+import com.evo.presentation.ui.conditional
+import com.evo.presentation.ui.designsystem.theme.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes
-import androidx.compose.material3.Button as MaterialButton
 
 @Composable
 fun DesignSystem.Button(
@@ -23,33 +21,38 @@ fun DesignSystem.Button(
     text: CharSequence,
     shape: Shapes = Shapes.Medium,
     colors: ButtonColors = primaryButtonColors(),
-    border: BorderStroke? = null,
     softWrap: Boolean = false,
     clickInfo: ClickInfo,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
-    textStyle: TextStyle = DesignSystem.TextStyles.buttonMedium,
-) = MaterialButton(
-    modifier = modifier,
-    onClick = clickInfo.onClick,
-    content = {
-        val finalContentColor = if (clickInfo.enabled) {
-            colors.contentColor
-        } else {
-            colors.disabledContentColor
-        }
-        Text(
-            text = text,
-            color = finalContentColor,
-            style = textStyle,
-            softWrap = softWrap,
-            textAlign = TextAlign.Center,
+    style: TextStyle = DesignSystem.TextStyles.buttonMedium,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+) = Text(
+    text = text,
+    modifier = modifier
+        .clip(shape)
+        .clickable(
+            enabled = clickInfo.enabled,
+            onClick = clickInfo.onClick,
+            indication = ripple(
+                bounded = false,
+                color = colors.contentColor,
+            ),
+            interactionSource = interactionSource,
         )
-    },
-    enabled = clickInfo.enabled,
-    shape = shape.shape,
-    colors = colors,
-    border = border,
-    contentPadding = contentPadding,
+        .conditional(
+            condition = clickInfo.enabled,
+            operation = {
+                background(colors.containerColor, shape)
+            },
+            elseOperation = {
+                background(colors.disabledContainerColor, shape)
+            },
+        )
+        .padding(contentPadding),
+    softWrap = softWrap,
+    style = style,
+    textAlign = TextAlign.Center,
+    color = if (clickInfo.enabled) colors.contentColor else colors.disabledContentColor,
 )
 
 @Composable
@@ -57,42 +60,97 @@ fun DesignSystem.Button(
     modifier: Modifier = Modifier,
     shape: Shapes = Shapes.Small,
     colors: ButtonColors = primaryButtonColors(),
-    border: BorderStroke? = null,
     clickInfo: ClickInfo,
     contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     content: @Composable () -> Unit,
-) = MaterialButton(
-    modifier = modifier,
-    onClick = clickInfo.onClick,
-    content = { content() },
-    enabled = clickInfo.enabled,
-    shape = shape.shape,
-    colors = colors,
-    border = border,
-    contentPadding = contentPadding,
+) = Box(
+    modifier = modifier
+        .clip(shape)
+        .clickable(
+            enabled = clickInfo.enabled,
+            onClick = clickInfo.onClick,
+            indication = ripple(
+                bounded = false,
+                color = colors.contentColor,
+            ),
+            interactionSource = interactionSource,
+        )
+        .conditional(
+            condition = clickInfo.enabled,
+            operation = {
+                background(colors.containerColor, shape)
+            },
+            elseOperation = {
+                background(colors.disabledContainerColor, shape)
+            },
+        )
+        .padding(contentPadding)
+) { content() }
+
+@Composable
+fun DesignSystem.ButtonOutline(
+    modifier: Modifier = Modifier,
+    text: String,
+    style: TextStyle = DesignSystem.TextStyles.buttonMedium,
+    colors: ButtonColors = primaryButtonColors(),
+    clickInfo: ClickInfo,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    softWrap: Boolean = false,
+    shape: Shapes = Shapes.Medium,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+) = Text(
+    modifier = modifier
+        .clip(shape)
+        .clickable(
+            enabled = clickInfo.enabled,
+            onClick = clickInfo.onClick,
+            indication = ripple(
+                bounded = false,
+                color = colors.contentColor,
+            ),
+            interactionSource = interactionSource,
+        )
+        .border(
+            color = if (clickInfo.enabled) colors.containerColor else colors.disabledContainerColor,
+            width = DesignSystem.Paddings.DSPx0_5,
+            shape = shape.shape,
+        )
+        .padding(contentPadding),
+    text = text,
+    style = style,
+    color = if (clickInfo.enabled) colors.contentColor else colors.disabledContentColor,
+    softWrap = softWrap,
 )
 
 @Composable
 fun DesignSystem.ButtonInline(
     modifier: Modifier = Modifier,
     text: String,
-    style: TextStyle = DesignSystem.TextStyles.title,
+    style: TextStyle = DesignSystem.TextStyles.buttonMedium,
     colors: ButtonColors = primaryButtonColors(),
     clickInfo: ClickInfo,
+    softWrap: Boolean = false,
+    shape: Shapes = Shapes.Medium,
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
 ) = Text(
-    modifier = modifier.clickable(
-        onClick = clickInfo.onClick,
-        enabled = clickInfo.enabled,
-        indication = null,
-        interactionSource = remember { MutableInteractionSource() },
-    ),
+    modifier = modifier
+        .clip(shape)
+        .clickable(
+            enabled = clickInfo.enabled,
+            onClick = clickInfo.onClick,
+            indication = ripple(
+                bounded = false,
+                color = colors.contentColor,
+            ),
+            interactionSource = interactionSource,
+        )
+        .padding(contentPadding),
     text = text,
     style = style,
-    color = if (clickInfo.enabled) {
-        colors.contentColor
-    } else {
-        colors.disabledContentColor
-    },
+    color = if (clickInfo.enabled) colors.contentColor else colors.disabledContentColor,
+    softWrap = softWrap,
 )
 
 @Composable

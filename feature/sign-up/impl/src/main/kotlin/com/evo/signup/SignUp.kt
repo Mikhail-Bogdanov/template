@@ -14,7 +14,7 @@ internal class SignUpImpl : SignUp<ScreenModel>() {
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

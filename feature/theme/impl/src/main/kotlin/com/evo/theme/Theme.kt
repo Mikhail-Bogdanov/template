@@ -14,7 +14,7 @@ internal class ThemeImpl : Theme<ScreenModel>() {
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

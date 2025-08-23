@@ -14,7 +14,7 @@ internal class ProfileImpl : Profile<ScreenModel>() {
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

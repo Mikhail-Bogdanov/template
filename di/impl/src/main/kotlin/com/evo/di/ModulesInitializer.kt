@@ -1,6 +1,7 @@
 package com.evo.di
 
 /* [IMPORT] */
+import com.evo.window.WindowModule
 import com.evo.bottombar.BottomBarModule
 import com.evo.crash.CrashModule
 import com.evo.database.di.DatabaseModule
@@ -27,6 +28,7 @@ object ModulesInitializer {
     fun KoinApplication.start() {
         val appModules = listOf(
             /* [MODULES] */
+			WindowModule(),
             UpdateModule(),
             LoggerModule(),
 			TopBarModule(),
