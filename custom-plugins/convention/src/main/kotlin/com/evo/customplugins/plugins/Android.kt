@@ -13,6 +13,7 @@ class AndroidFeature : ComposeModule(true) {
         moduleImplementation(":data:database:api")
         moduleImplementation(":data:network:api")
         moduleImplementation(":navigation:api")
+        moduleImplementation(":coroutine")
         implementation(libs.ktor.client.core)
     }
 }

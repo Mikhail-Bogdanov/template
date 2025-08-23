@@ -1,7 +1,7 @@
 package com.evo.crash
 
 import androidx.compose.runtime.Composable
-import com.evo.presentation.ui.designsystem.atoms.ScreenScaffold
+import com.evo.presentation.ui.designsystem.atoms.ScreenContent
 import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
@@ -16,7 +16,7 @@ internal class CrashImpl : Crash<ScreenModel>() {
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

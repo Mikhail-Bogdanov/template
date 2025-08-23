@@ -29,11 +29,23 @@ enum class StringResources(
         ru = "Удалить",
         en = "Delete",
     ),
+    Exit(
+        ru = "Выйти",
+        en = "Exit",
+    ),
     Confirm(
         ru = "Подтвердить",
         en = "Confirm",
     ),
+    Continue(
+        ru = "Продолжить",
+        en = "Continue",
+    ),
     Cancel(
+        ru = "Отменить",
+        en = "Cancel",
+    ),
+    Cancellation(
         ru = "Отмена",
         en = "Cancel",
     ),
@@ -84,6 +96,14 @@ enum class StringResources(
     AreYouSureWantToDelete(
         ru = "Вы действительно хотите удалить?",
         en = "Are you sure want to delete?",
+    ),
+    AreYouSureWantToExit(
+        ru = "Вы действительно хотите выйти?",
+        en = "Are you sure want to exit?",
+    ),
+    Undo(
+        ru = "Отменить",
+        en = "Undo",
     ),
     Space(
         ru = " ",

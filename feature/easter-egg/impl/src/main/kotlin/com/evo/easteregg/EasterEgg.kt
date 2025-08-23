@@ -14,7 +14,7 @@ internal class EasterEggImpl : EasterEgg<ScreenModel>() {
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

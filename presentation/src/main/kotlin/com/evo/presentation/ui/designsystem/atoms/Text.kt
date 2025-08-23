@@ -16,8 +16,8 @@ import androidx.compose.material3.Text as MaterialText
 
 @Composable
 fun DesignSystem.Text(
-    modifier: Modifier = Modifier,
     text: AnnotatedString,
+    modifier: Modifier = Modifier,
     color: Color = Colors.content.primary,
     style: TextStyle = DesignSystem.TextStyles.body,
     textAlign: TextAlign = TextAlign.Start,
@@ -41,8 +41,8 @@ fun DesignSystem.Text(
 
 @Composable
 fun DesignSystem.Text(
-    modifier: Modifier = Modifier,
     text: CharSequence,
+    modifier: Modifier = Modifier,
     color: Color = Colors.content.primary,
     style: TextStyle = DesignSystem.TextStyles.body,
     textAlign: TextAlign = TextAlign.Start,

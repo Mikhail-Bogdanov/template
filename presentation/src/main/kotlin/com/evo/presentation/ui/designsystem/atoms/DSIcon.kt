@@ -11,10 +11,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.evo.presentation.ui.IconResource
 import com.evo.presentation.ui.designsystem.theme.*
 import com.evo.presentation.ui.designsystem.theme.DesignSystem.Shapes
 import com.evo.presentation.ui.ifNotNull
-import com.evo.presentation.ui.IconResource
 import androidx.compose.material3.Icon as MaterialIcon
 
 enum class IconSize(val dp: Dp) {
@@ -60,12 +60,14 @@ fun DesignSystem.Icon(
             derivedStateOf { icon.clickInfo == null || icon.clickInfo.enabled }
         }
 
-        MaterialIcon(
-            modifier = Modifier.size(size.dp / 2),
-            imageVector = ImageVector.vectorResource(icon.resource.res),
-            contentDescription = null,
-            tint = if (isEnabled) icon.colors.contentColor else icon.colors.disabledContentColor,
-        )
+        icon.resource?.res?.let {
+            MaterialIcon(
+                modifier = Modifier.size(size.dp / 2),
+                imageVector = ImageVector.vectorResource(it),
+                contentDescription = null,
+                tint = if (isEnabled) icon.colors.contentColor else icon.colors.disabledContentColor,
+            )
+        }
 
         icon.text?.let {
             Text(
@@ -79,7 +81,7 @@ fun DesignSystem.Icon(
 
 @Immutable
 data class DSIcon(
-    val resource: IconResource,
+    val resource: IconResource?,
     val text: String? = null,
     val shape: Shapes = Shapes.Medium,
     val colors: IconColors,
