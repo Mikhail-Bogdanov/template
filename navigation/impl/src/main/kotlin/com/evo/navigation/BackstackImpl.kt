@@ -24,7 +24,7 @@ internal class BackstackImpl(
 
         _lastScreenFlow.value = tab
 
-        screens.remove(tab) // won't remove if not contains
+        screens.remove(tab) // won't do anything if not contains
         screens.addLast(tab)
         tab.onReturn()
 

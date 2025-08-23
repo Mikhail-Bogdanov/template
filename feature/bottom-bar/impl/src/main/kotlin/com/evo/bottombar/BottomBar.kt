@@ -23,7 +23,7 @@ internal class BottomBarImpl : BottomBar() {
 //    private val firstScreen: StartScreen<*> by inject()
 
     @Composable
-    override fun Content(args: BottomBarArgs) {
+    override fun Content(selectedTab: BaseTab<*>) {
 //        val screenIcon = firstScreen.retrieveDSIcon()
 
         val tabs = remember {
@@ -47,8 +47,8 @@ internal class BottomBarImpl : BottomBar() {
         ) {
             tabs.keys.forEach { key ->
                 val icon = tabs.getValue(key)
-                logi("Selected tab: ${args.selectedTab}")
-                val isSelected = args.selectedTab == key
+                logi("Selected tab: $selectedTab")
+                val isSelected = selectedTab == key
                 val finalIcon = if (isSelected) {
                     icon.copy(colors = DesignSystem.highlightIconColors())
                 } else {

@@ -10,13 +10,15 @@ println("2: Data Feature")
 
 val featureType = readln().toIntOrNull() ?: throw IllegalArgumentException("Invalid input")
 
-if (featureType == 1) {
+val isTab = if (featureType == 1) {
     println("Is screen a tab?")
     println("1: Yes")
     println("2: No")
+    readln().toIntOrNull() == 1
+} else {
+    false
 }
 
-val isTab = readln().toIntOrNull() == 1
 
 val hasArgs = if (featureType == 1 && isTab.not()) {
     println("Does screen have arguments?")
@@ -75,7 +77,7 @@ fun createApiModule(isUi: Boolean = true) {
             plugins {
                 id("evo-${if (isUi) "compose" else "api"}")
             }
-            ${if (isUi) "android.namespace = \"com.evo.$namespace\"" else "api"}
+            ${if (isUi) "android.namespace = \"com.evo.$namespace\"" else ""}
             
             dependencies {
                 ${if (isUi) "implementation(projects.navigation.api)" else ""}
@@ -172,6 +174,7 @@ fun createDiModule(addScreen: Boolean) {
             
                 override fun Module.initialize() {
                     $screenText
+                    ${if (addScreen) "factoryOf(::ScreenModel)" else ""}
                 }
             }
 
@@ -190,9 +193,9 @@ private fun createImplScreen() {
             import org.koin.core.component.inject
             import org.koin.core.parameter.parametersOf
 
-            internal class ${screenName}Impl : $screenName<ScreenModel>() {
-            
-                ${screenArgs?.let { "override val args: $it by inject()" }.orEmpty()}
+            internal class ${screenName}Impl(
+                ${screenArgs?.let { "override val args: $it" }.orEmpty()}
+             ) : $screenName<ScreenModel>() {
             
                 override val screenModel: ScreenModel by inject {
                     parametersOf(${screenArgs?.let { "args" }.orEmpty()})
