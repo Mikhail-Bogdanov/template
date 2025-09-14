@@ -11,5 +11,6 @@ class NavigationModule : EvoModule() {
         singleOf(::BackstackImpl) bind Backstack::class
         singleOf(::InitialScreenHandlerImpl) bind InitialScreenHandler::class
         singleOf(::EvoNavigatorImpl) bind EvoNavigator::class
+        singleOf(::AppExitHandlerImpl) bind AppExitHandler::class
     }
 }

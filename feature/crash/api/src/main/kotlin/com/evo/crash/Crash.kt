@@ -1,8 +1,9 @@
 package com.evo.crash
 
-import com.evo.navigation.*
+import com.evo.navigation.ArgsOwner
+import com.evo.navigation.BaseScreen
 
-abstract class Crash<SM : EvoScreenModel> : BaseScreen<SM>(), ArgsOwner<CrashArgs>
+abstract class Crash : BaseScreen(), ArgsOwner<CrashArgs>
 
 data class CrashArgs(
     val sampleData: Int,

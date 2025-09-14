@@ -1,11 +1,11 @@
 package com.evo.navigation
 
-import androidx.compose.runtime.staticCompositionLocalOf
+import kotlinx.coroutines.flow.Flow
 
 interface AppExitHandler {
+
+    val exitCommandFlow: Flow<Unit>
 
     fun exit()
 
 }
-
-val LocalExitHandler = staticCompositionLocalOf<AppExitHandler> { error("No AppExitHandler provided") }

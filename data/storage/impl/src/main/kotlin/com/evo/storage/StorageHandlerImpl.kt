@@ -10,30 +10,23 @@ class StorageHandlerImpl(
     private val evoDataStore: DataStore<Preferences>,
 ) : EvoStorage, SafeWrapper() {
 
-    override suspend fun <V> getAsync(key: EvoStorageSpec<V>) = wrapResult {
+    override suspend fun <V> getAsync(key: EvoStorageSpec<V>) = wrap {
         evoDataStore.data.map { prefs ->
             prefs[key.asPreferencesKey()] ?: key.defaultValue
         }.first()
-    } ?: key.defaultValue
+    }.getOrNull() ?: key.defaultValue
 
-    // TODO think about it!
-    override fun <V> getSync(key: EvoStorageSpec<V>) = wrapResult {
-        runBlocking {
-            evoDataStore.data.map { prefs ->
-                prefs[key.asPreferencesKey()] ?: key.defaultValue
-            }.first()
-        }
-    } ?: key.defaultValue
-
-    override fun <V> observe(key: EvoStorageSpec<V>) = wrapResult {
+    override fun <V> observe(key: EvoStorageSpec<V>) = wrap {
         evoDataStore.data.map { prefs ->
             prefs[key.asPreferencesKey()] ?: key.defaultValue
         }
-    } ?: flowOf()
+    }.getOrNull() ?: flowOf()
 
-    override suspend fun <V> set(key: EvoStorageSpec<V>, value: V) = wrapAction {
-        evoDataStore.edit { mutablePrefs ->
-            mutablePrefs[key.asPreferencesKey()] = value
+    override suspend fun <V> set(key: EvoStorageSpec<V>, value: V) {
+        wrap {
+            evoDataStore.edit { mutablePrefs ->
+                mutablePrefs[key.asPreferencesKey()] = value
+            }
         }
     }
 }

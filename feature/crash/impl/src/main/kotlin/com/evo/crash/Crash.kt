@@ -6,7 +6,7 @@ import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class CrashImpl : Crash<ScreenModel>() {
+internal class CrashImpl : Crash() {
 
     override val args: CrashArgs by inject()
 

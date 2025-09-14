@@ -1,50 +1,60 @@
 package com.evo.navigation
 
+import com.evo.coroutine.ScopeProvider
 import com.evo.logger.*
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
 import java.util.LinkedList
 
 internal class BackstackImpl(
     override val evoLogger: EvoLogger,
-    initial: EvoContentOwner,
     private val appExitHandler: AppExitHandler,
+    initial: BaseScreen,
+    scopeProvider: ScopeProvider,
 ) : Backstack, Loggable {
 
     private val _lastScreenFlow = MutableStateFlow(initial)
-    override val lastScreenFlow = _lastScreenFlow.asStateFlow()
+    override val lastScreenFlow = _lastScreenFlow.onEach {
+        screens.forEachIndexed { index, screen ->
+            screen.screenModel.isActive = screens.lastIndex == index
+        }
+    }.stateIn(scopeProvider.provideIO(), SharingStarted.Eagerly, initial)
 
     private val screens = LinkedList(mutableListOf(initial))
 
-    override fun addUnique(tab: EvoTab) {
-        if (screens.last() === tab) {
+    override fun addUnique(tab: BaseTab) {
+        if (screens.lastOrNull() == tab) {
+            tab.onReenter()
+            logi("Reentered $tab Tab")
+        } else {
             tab.onReturn()
-            return
+
+            screens.remove(tab) // won't do anything if not contains
+            screens.addLast(tab)
+
+            _lastScreenFlow.value = tab
+
+            logi("screens quantity: ${screens.size}")
         }
-
-        _lastScreenFlow.value = tab
-
-        screens.remove(tab) // won't do anything if not contains
-        screens.addLast(tab)
-        tab.onReturn()
-
-        logi("screens quantity: ${screens.size}")
     }
 
-    override fun put(screen: EvoContentOwner) {
-        _lastScreenFlow.value = screen
-        screens.addLast(screen)
+    override fun put(screen: BaseScreen) {
         screen.onEnter()
+        screens.addLast(screen)
+
+        _lastScreenFlow.value = screen
 
         logi("screens quantity: ${screens.size}")
     }
 
-    override fun replace(screen: EvoContentOwner) {
-        _lastScreenFlow.value = screen
+    override fun replace(screen: BaseScreen) {
         val dropped = screens.removeLast()
+        dropped.screenModel.clear()
         dropped.onExit()
-        screens.addLast(screen)
         screen.onEnter()
+
+        screens.addLast(screen)
+
+        _lastScreenFlow.value = screen
 
         logi("screens quantity: ${screens.size}")
     }
@@ -52,14 +62,17 @@ internal class BackstackImpl(
     override fun dropLast() {
         if (screens.size == 1) {
             appExitHandler.exit()
-            return
-        }
-        val dropped = screens.removeLast()
-        val last = screens.last()
-        _lastScreenFlow.value = last
-        dropped.onExit()
-        last.onReturn()
+        } else {
+            val dropped = screens.removeLast()
+            dropped.screenModel.clear()
+            dropped.onExit()
 
-        logi("screens quantity: ${screens.size}")
+            val last = screens.last()
+            last.onReturn()
+
+            _lastScreenFlow.value = last
+
+            logi("screens quantity: ${screens.size}")
+        }
     }
 }

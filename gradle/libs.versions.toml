@@ -16,6 +16,7 @@ compose-plugin = "1.6.11"
 
 # kotlin
 kotlin = "2.1.21"
+kotlinx-datetime = "0.7.1"
 immutable-collections = "0.3.8"
 
 # coroutines
@@ -58,8 +59,11 @@ jts = "1.20.0"
 
 [libraries]
 
-# kotlin
+# kotlinx
 immutable-collections = { module = "org.jetbrains.kotlinx:kotlinx-collections-immutable", version.ref = "immutable-collections" }
+kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
+datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 
 # network
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
@@ -107,12 +111,6 @@ android-gradle = { group = "com.android.tools.build", name = "gradle", version.r
 
 # browser
 browser = { module = "androidx.browser:browser", version.ref = "browser" }
-
-# coroutines
-kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
-
-# serialization
-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization-json" }
 
 # maps
 osmdroid = { module = "org.osmdroid:osmdroid-android", version.ref = "osmdroid" }
@@ -168,6 +166,14 @@ network = [
     "ktor-client-okhttp",
     "ktor-client-negotiation",
     "ktor-serialization",
+]
+
+# kotlin
+kotlin = [
+    "immutable-collections",
+    "kotlin-coroutines",
+    "serialization",
+    "datetime",
 ]
 
 #PACKS

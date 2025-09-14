@@ -2,22 +2,31 @@ package com.evo.navigation
 
 interface AppLifecycleOwner {
 
-    fun onCreate()
+    fun onCreate() {}
 
-    fun onResume()
+    fun onResume() {}
 
-    fun onPause()
+    fun onPause() {}
 
-    fun onDestroy()
+    fun onDestroy() {}
 
 }
 
 interface EvoLifecycleOwner {
 
-    fun onEnter()
+    fun onEnter() {}
 
-    fun onExit()
+    fun onExit() {}
 
-    fun onReturn()
+    fun onReturn() {}
+
+}
+
+interface EvoTabLifecycleOwner {
+
+    /**
+     * Tab click, while it's already open
+     */
+    fun onReenter() {}
 
 }

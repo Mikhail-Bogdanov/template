@@ -20,14 +20,14 @@ internal class BottomBarImpl : BottomBar() {
 
     private val navigator: EvoNavigator by inject()
 
-//    private val firstScreen: StartScreen<*> by inject()
+//    private val firstScreen: StartScreen by inject()
 
     @Composable
-    override fun Content(selectedTab: BaseTab<*>) {
+    override fun Content(selectedTab: BaseTab) {
 //        val screenIcon = firstScreen.retrieveDSIcon()
 
         val tabs = remember {
-            persistentMapOf<BaseTab<*>, DSIcon>(
+            persistentMapOf<BaseTab, DSIcon>(
 //                firstScreen to screenIcon,
             )
         }
@@ -63,7 +63,7 @@ internal class BottomBarImpl : BottomBar() {
     }
 
     @Composable
-    private fun BaseTab<*>.retrieveDSIcon() = DSIcon(
+    private fun BaseTab.retrieveDSIcon() = DSIcon(
         resource = tabIcon.resource,
         text = tabIcon.text,
         colors = DesignSystem.primaryIconColors(),

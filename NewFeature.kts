@@ -91,13 +91,13 @@ fun createApiModule(isUi: Boolean = true) {
                 
                 import com.evo.navigation.*
 
-                abstract class $screenName<SM : EvoScreenModel> : ${
+                abstract class $screenName : ${
                 if (isTab) {
                     "BaseTab"
                 } else {
                     "BaseScreen"
                 }
-            }<SM>()${
+            }()${
                 screenArgs?.let {
                     ", ArgsOwner<$it>"
                 }.orEmpty()
@@ -195,7 +195,7 @@ private fun createImplScreen() {
 
             internal class ${screenName}Impl(
                 ${screenArgs?.let { "override val args: $it" }.orEmpty()}
-             ) : $screenName<ScreenModel>() {
+             ) : $screenName() {
             
                 override val screenModel: ScreenModel by inject {
                     parametersOf(${screenArgs?.let { "args" }.orEmpty()})
@@ -203,7 +203,7 @@ private fun createImplScreen() {
 
                 @Composable
                 override fun Content() {
-                    DesignSystem.ScreenScaffold(
+                    DesignSystem.ScreenContent(
                         
                     ) {
                         

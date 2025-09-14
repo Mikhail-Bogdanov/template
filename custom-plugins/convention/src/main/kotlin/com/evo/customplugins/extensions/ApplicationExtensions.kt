@@ -1,6 +1,7 @@
 package com.evo.customplugins.extensions
 
 import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.VariantDimension
 import com.evo.customplugins.Config
 import java.io.File
 import kotlin.io.path.Path
@@ -10,18 +11,23 @@ internal fun ApplicationExtension.configureApplicationExtension() {
     namespace = Config.NAMESPACE_WITH_POINT + "app"
     compileSdk = Config.COMPILE_SDK
 
-    defaultConfig {
-        val major = Code.MAJOR.current
-        val minor = Code.MINOR.current
-        val patch = Code.PATCH.current
+    val major = Code.MAJOR.current
+    val minor = Code.MINOR.current
+    val patch = Code.PATCH.current
 
+    defaultConfig {
+        val name = "$major.$minor.$patch"
         versionCode = major * 10000 + minor * 100 + patch
-        versionName = "$major.$minor.$patch"
+        versionName = name
 
         minSdk = Config.MIN_SDK
         targetSdk = Config.TARGET_SDK
 
         applicationId = Config.NAMESPACE + ".template"
+
+        signingConfig = signingConfigs.getByName("debug")
+
+        stringField("appVersion", name)
     }
     buildFeatures.buildConfig = true
     compileOptions {
@@ -31,29 +37,31 @@ internal fun ApplicationExtension.configureApplicationExtension() {
         }
     }
     buildTypes {
+        debug {
+
+        }
         release {
 //            isMinifyEnabled = true
 //            isShrinkResources = true
 
-            signingConfig = signingConfigs.getByName("debug")
-
-            proguardFiles("proguard-rules.pro")
         }
     }
 }
 
-internal enum class Code(val filePath: String) {
-    MAJOR(Path("project", "version", "major.txt").pathString) {
-        override val file = File(filePath)
-    },
-    MINOR(Path("project", "version", "minor.txt").pathString) {
-        override val file = File(filePath)
-    },
-    PATCH(Path("project", "version", "patch.txt").pathString) {
-        override val file = File(filePath)
-    },
+fun VariantDimension.stringField(name: String, value: String) {
+    buildConfigField("String", name, value)
+}
+
+fun VariantDimension.booleanField(name: String, value: Boolean) {
+    buildConfigField("boolean", name, value.toString())
+}
+
+internal enum class Code(filePath: String) {
+    MAJOR(Path("project", "version", "major.txt").pathString),
+    MINOR(Path("project", "version", "minor.txt").pathString),
+    PATCH(Path("project", "version", "patch.txt").pathString),
     ;
 
-    abstract val file: File
-    val current get() = file.readText().trim().toInt()
+    private val file = File(filePath)
+    val current = file.readText().trim().toInt()
 }

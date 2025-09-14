@@ -17,7 +17,7 @@ class EvoLoggerImpl : EvoLogger {
     }
 
     private fun log(type: Type, className: String, message: Any?) {
-        if (BuildConfig.DEBUG) {
+        if (BuildConfig.isLoggingEnabled) {
             Log.d("[${type.name}] Class: $className", "Message: $message")
         }
     }

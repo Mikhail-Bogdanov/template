@@ -4,4 +4,5 @@ plugins {
 
 dependencies {
     implementation(libs.ktor.client.core)
+    implementation(projects.logger.api)
 }

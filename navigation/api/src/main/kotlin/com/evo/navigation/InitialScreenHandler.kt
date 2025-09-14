@@ -2,13 +2,15 @@ package com.evo.navigation
 
 interface InitialScreenHandler {
 
-    fun get(): EvoContentOwner
+    suspend fun retrieve(): BaseScreen
 
-    fun set(screen: InitialScreen)
+    suspend fun set(screen: InitialScreen)
 
     enum class InitialScreen {
 
-        Login, Update, Start,
-
+        Login,
+        Update,
+        Start,
+        WhatsNew,
     }
 }
