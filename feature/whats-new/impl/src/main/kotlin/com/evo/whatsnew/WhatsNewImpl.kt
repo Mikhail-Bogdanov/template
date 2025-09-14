@@ -16,7 +16,7 @@ internal class WhatsNewImpl(
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

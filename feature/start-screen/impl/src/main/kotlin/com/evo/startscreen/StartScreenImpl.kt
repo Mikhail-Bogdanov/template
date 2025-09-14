@@ -16,7 +16,7 @@ internal class StartScreenImpl(
 
     @Composable
     override fun Content() {
-        DesignSystem.ScreenScaffold(
+        DesignSystem.ScreenContent(
 
         ) {
 

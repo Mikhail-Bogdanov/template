@@ -203,7 +203,7 @@ private fun createImplScreen() {
 
                 @Composable
                 override fun Content() {
-                    DesignSystem.ScreenScaffold(
+                    DesignSystem.ScreenContent(
                         
                     ) {
                         
