@@ -6,7 +6,7 @@ import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class ProfileImpl : Profile<ScreenModel>() {
+internal class ProfileImpl : Profile() {
 
     override val screenModel: ScreenModel by inject {
         parametersOf()

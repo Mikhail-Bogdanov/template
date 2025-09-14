@@ -6,7 +6,9 @@ import kotlin.math.roundToInt
 
 typealias Lambda = () -> Unit
 
-typealias SuspendLambda = suspend CoroutineScope.() -> Unit
+typealias SuspendLambda = suspend () -> Unit
+
+typealias CoroutineLambda = suspend CoroutineScope.() -> Unit
 
 private infix fun Double.percentOf(other: Double) = (other / 100.0 * this)
 infix fun Int.percentOf(other: Double) = toDouble() percentOf other

@@ -6,7 +6,7 @@ import com.evo.presentation.ui.designsystem.theme.*
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class PermissionImpl : Permission<ScreenModel>() {
+internal class PermissionImpl : Permission() {
 
     override val args: PermissionArgs by inject()
 

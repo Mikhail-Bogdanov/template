@@ -6,7 +6,7 @@ import com.evo.presentation.ui.designsystem.theme.DesignSystem
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-internal class UpdateImpl : Update<ScreenModel>() {
+internal class UpdateImpl : Update() {
 
     override val screenModel: ScreenModel by inject {
         parametersOf()

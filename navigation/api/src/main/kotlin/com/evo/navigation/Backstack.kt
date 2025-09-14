@@ -4,13 +4,13 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface Backstack {
 
-    val lastScreenFlow: StateFlow<EvoContentOwner>
+    val lastScreenFlow: StateFlow<BaseScreen>
 
-    fun addUnique(tab: EvoTab)
+    fun addUnique(tab: BaseTab)
 
-    fun put(screen: EvoContentOwner)
+    fun put(screen: BaseScreen)
 
-    fun replace(screen: EvoContentOwner)
+    fun replace(screen: BaseScreen)
 
     fun dropLast()
 }

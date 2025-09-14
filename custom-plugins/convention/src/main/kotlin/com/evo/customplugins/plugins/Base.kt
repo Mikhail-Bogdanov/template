@@ -26,9 +26,7 @@ abstract class BaseModulePlugin : Plugin<Project> {
         }
         dependencies {
             implementation(libs.koin.core)
-            implementation(libs.kotlin.coroutines)
-            implementation(libs.immutable.collections)
-            implementation(libs.serialization)
+            implementation(libs.bundles.kotlin)
             implementation(kotlin("reflect"))
             configureAdditionalDependencies(libs)
         }
